@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ */
+
+:root {
+	--ck-image-style-spacing: 1.5em;
+	--ck-inline-image-style-spacing: calc(var(--ck-image-style-spacing) / 2);
+}
+
+.ck.ck-splitbutton {
+	&.ck-splitbutton_flatten {
+		&:hover,
+		&.ck-splitbutton_open {
+			& > .ck-splitbutton__action:not(.ck-disabled),
+			& > .ck-splitbutton__arrow:not(.ck-disabled),
+			& > .ck-splitbutton__arrow:not(.ck-disabled):not(:hover) {
+				background-color: var(--ck-color-button-on-background);
+
+				&::after {
+					display: none;
+				}
+			}
+		}
+
+		&.ck-splitbutton_open:hover {
+			& > .ck-splitbutton__action:not(.ck-disabled),
+			& > .ck-splitbutton__arrow:not(.ck-disabled),
+			& > .ck-splitbutton__arrow:not(.ck-disabled):not(:hover) {
+				background-color: var(--ck-color-button-on-hover-background);
+			}
+		}
+	}
+}
