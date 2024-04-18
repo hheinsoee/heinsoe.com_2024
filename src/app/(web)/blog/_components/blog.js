@@ -9,7 +9,6 @@ import dayjs from "dayjs";
 import Link from "next/link";
 
 export const BlogCard = ({
-  isDark,
   id,
   title,
   img_url,
@@ -48,9 +47,8 @@ export const BlogCard = ({
           </p>
         )}
         <Space>
-          <Button ghost={isDark} icon={<ShareAltOutlined />}></Button>
+          <Button  icon={<ShareAltOutlined />}></Button>
           <Button
-            ghost={isDark}
             href={`/blog/${id}`}
             alt={title}
             icon={<ArrowRightOutlined />}
@@ -63,18 +61,3 @@ export const BlogCard = ({
   );
 };
 
-export const BlogGrid = ({ content, isDark }) => {
-  return (
-    <main className="p-4 ">
-      <div className="max-w-5xl mx-auto py-20">
-        <h2 className=" text-3xl mb-5">Blogs</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {content &&
-            content.map((s) => {
-              return <BlogCard key={s.id} {...s} isDark={isDark} />;
-            })}
-        </div>
-      </div>
-    </main>
-  );
-};

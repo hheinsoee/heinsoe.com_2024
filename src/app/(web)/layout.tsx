@@ -2,15 +2,16 @@ import "./../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Loading } from "@components/loading";
-import { APP } from "@constant/index";
+import info from "./../../../siteInfo.json";
 const inter = Inter({ subsets: ["latin"] });
 import { Suspense } from "react";
 import StyledComponentsRegistry from "@/components/AntdRegistry";
-import { ConfigProvider } from "antd";
+import { ThemeProvider } from "@/context/theme";
+import { AppProgressBar } from "next-nprogress-bar";
 
 export const metadata: Metadata = {
-  title: APP.NAME,
-  description: APP.TITLE,
+  title: info.name,
+  description: info.title,
 };
 
 export default function RootLayout({
@@ -20,22 +21,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`bg-white text-gray-800 ${inter.className} animationBg`}>
-        {/* <Animatedbg/> */}
-        <Suspense fallback={<Loading />}>
-          <StyledComponentsRegistry>
-            <ConfigProvider
-              theme={{
-                token: {
-                  colorPrimary: "#F97316",
-                  colorBgContainer: "#ffffff",
-                },
-              }}
-            >
-              {children}
-            </ConfigProvider>
-          </StyledComponentsRegistry>
-        </Suspense>
+      <body className={`${inter.className}`}>
+        {/* <AppProgressBar
+          height="2px"
+          color="cyan"
+          options={{ showSpinner: true }}
+          shallowRouting
+        /> */}
+        <StyledComponentsRegistry>
+          <ThemeProvider>
+            <Suspense fallback={<Loading />}>{children}</Suspense>
+          </ThemeProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

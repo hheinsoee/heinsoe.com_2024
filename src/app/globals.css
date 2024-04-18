@@ -11,7 +11,10 @@
 	--ck-image-style-spacing: 1.5em;
 	--ck-inline-image-style-spacing: calc(var(--ck-image-style-spacing) / 2);
 }
-
+body {
+	margin: 0;
+	padding: 0;
+}
 .ck.ck-splitbutton {
 	&.ck-splitbutton_flatten {
 		&:hover,
