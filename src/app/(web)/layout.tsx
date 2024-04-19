@@ -1,4 +1,5 @@
 import "./../globals.css";
+import "./../bg.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Loading } from "@components/loading";
@@ -9,6 +10,8 @@ import StyledComponentsRegistry from "@/components/AntdRegistry";
 import { ThemeProvider } from "@/context/theme";
 import { LayoutProvider } from "@/context/layout";
 import { AppProgressBar } from "next-nprogress-bar";
+import Head from "next/head";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: info.name,
@@ -22,6 +25,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.ga = window.ga || function(){" "}
+          {(ga.q = ga.q || []).push(arguments)};
+              `,
+          }}
+        />
+      </head>
       <body className={`${inter.className}`}>
         {/* <AppProgressBar
           height="2px"
@@ -29,6 +42,9 @@ export default function RootLayout({
           options={{ showSpinner: true }}
           shallowRouting
         /> */}
+
+     
+
         <StyledComponentsRegistry>
           <Suspense fallback={<Loading />}>
             <ThemeProvider>
@@ -36,6 +52,19 @@ export default function RootLayout({
             </ThemeProvider>
           </Suspense>
         </StyledComponentsRegistry>
+        
+       
+        {/* <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              document.addEventListener('mousemove', function(event) {
+                var targetElement = document.getElementById('mouseMoveee');
+                color_hover(event);
+                //console.log(targetElement); // You can do whatever you want with the element here
+            });
+              `,
+          }}
+        /> */}
       </body>
     </html>
   );

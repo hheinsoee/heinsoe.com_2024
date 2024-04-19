@@ -52,8 +52,8 @@ export default function ScrollBlogs() {
       {/* <JSONTree data={article}/> */}
       {article.map((article) => (
         <Link key={article.id} style={{ marginBottom: 16 }} href={myLink.blog(article.id)}>
-          <h2>{article.id} - {article.name}</h2>
-          <p>{article.description}</p>
+          <h2>{article.id} - {article.name || article.title}</h2>
+          <p>{article.description || article.body}</p>
         </Link> // your component here
       ))}
     </InfiniteScrollable>

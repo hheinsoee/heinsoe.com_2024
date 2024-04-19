@@ -10,6 +10,7 @@ import React, {
 import { App, ConfigProvider, theme } from "antd";
 import { useCookies } from "react-cookie";
 import { Loading } from "@/components/loading";
+import Script from "next/script";
 const ThemeContext = createContext(); // Rename the context variable
 export const ThemeProvider = ({ children }) => {
   const [cookie, setCookie] = useCookies(["themeMode"]);
@@ -29,7 +30,7 @@ export const ThemeProvider = ({ children }) => {
   const setDarkMode = (value) => {
     setCookie("themeMode", value ? "dark" : "light", { path: "/" });
   };
-  const [hue, setHue] = useState(300);
+  const [hue, setHue] = useState(210);
   // const hue = 180;
   // const hue = 210;
   // const hue = 235;
@@ -85,9 +86,14 @@ export const ThemeProvider = ({ children }) => {
         {/* <Slider defaultValue={hue} onChange={(v)=>setHue(v)} max={360}/> */}
         <ConfigProvider theme={antTheme}>
           <div data-mode={isDark ? "dark" : "light"} data-color-mode="dark">
+            <canvas
+              className="banner_canvas"
+              id="canvas_banner"
+            ></canvas>
             <App
               style={{
-                background: antTheme.token.bodyBgColor,
+                // background: antTheme.token.bodyBgColor,
+                background: `rgba(0,0,0,0.8)`,
                 minHeight: "100vh",
                 padding: 0,
                 margin: 0,
@@ -97,6 +103,8 @@ export const ThemeProvider = ({ children }) => {
             </App>
           </div>
         </ConfigProvider>
+
+        <Script src="/bg.js" />
       </ThemeContext.Provider>
     );
   }

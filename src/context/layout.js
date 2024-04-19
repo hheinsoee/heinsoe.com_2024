@@ -8,24 +8,13 @@ import { Button } from "antd";
 
 const LayoutContext = createContext(); // Rename the context variable
 export const LayoutProvider = ({ children }) => {
-  const [menuSize, setMenuSize] = useState("m"); //l,m,s, null
+  const [menuSize, setMenuSize] = useState("l"); //l,m,s,null
   const { setDarkMode, isDark } = useTheme();
 
   return (
     <LayoutContext.Provider value={{ menuSize, setMenuSize }}>
-      <div
-        className={`layout ${menuSize}`}
-        style={{
-          display: "flex",
-          margin: "auto",
-        }}
-      >
-        <div
-          className="menu"
-          style={{
-            flex: 1,
-          }}
-        >
+      <div className={`layout ${menuSize} flex mx-auto`}>
+        <div className="menu flex-1">
           <nav className="sticky h-screen" style={{ top: 0 }}>
             <Button type="primary" onClick={() => setDarkMode(!isDark)}>
               Primary Button
