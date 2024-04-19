@@ -15,6 +15,28 @@ body {
 	margin: 0;
 	padding: 0;
 }
+.layout {
+	transition: 250ms;
+	max-width: 1600px;
+}
+.layout .menu {
+	transition: 250ms;
+	max-width: 0px;
+	overflow: hidden;
+}
+.layout.l {
+	max-width: 1100px;
+}
+.layout.l .menu {
+	max-width: 550px;
+}
+/* .layout.m {
+	max-width: 1600px;
+} */
+.layout.m .menu {
+	max-width: 200px;
+}
+
 .ck.ck-splitbutton {
 	&.ck-splitbutton_flatten {
 		&:hover,
