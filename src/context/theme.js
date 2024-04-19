@@ -9,16 +9,20 @@ import React, {
 } from "react";
 import { App, ConfigProvider, theme } from "antd";
 import { useCookies } from "react-cookie";
+import { Loading } from "@/components/loading";
 const ThemeContext = createContext(); // Rename the context variable
 export const ThemeProvider = ({ children }) => {
   const [cookie, setCookie] = useCookies(["themeMode"]);
-  const [isDark, setIsDark] = useState(
-    cookie.themeMode !== undefined ? cookie?.themeMode == "dark" : true
-  );
+  const isDefaultDark = true;
+  // cookie?.themeMode !== undefined ? cookie?.themeMode == "dark" : true;
+
+  const [isDark, setIsDark] = useState(null);
 
   useEffect(() => {
     if (cookie?.themeMode) {
       setIsDark(cookie?.themeMode == "dark");
+    } else {
+      setIsDark(isDefaultDark);
     }
   }, [cookie.themeMode]);
 
@@ -73,27 +77,29 @@ export const ThemeProvider = ({ children }) => {
       // theme.compactAlgorithm,
     ],
   };
-
-  return (
-    <ThemeContext.Provider value={{ isDark, setDarkMode, setHue, hue }}>
-      {/* <Slider defaultValue={hue} onChange={(v)=>setHue(v)} max={360}/> */}
-      <ConfigProvider theme={antTheme}>
-        <div data-mode={isDark ? "dark" : "light"} data-color-mode="dark">
-          <App
-            style={{
-              background: antTheme.token.bodyBgColor,
-              minHeight: "100vh",
-              padding: 0,
-              margin: 0,
-            }}
-          >
-            {" "}
-            {children}
-          </App>
-        </div>
-      </ConfigProvider>
-    </ThemeContext.Provider>
-  );
+  if (isDark == null) {
+    return <Loading className="h-screen" />;
+  } else {
+    return (
+      <ThemeContext.Provider value={{ isDark, setDarkMode, setHue, hue }}>
+        {/* <Slider defaultValue={hue} onChange={(v)=>setHue(v)} max={360}/> */}
+        <ConfigProvider theme={antTheme}>
+          <div data-mode={isDark ? "dark" : "light"} data-color-mode="dark">
+            <App
+              style={{
+                background: antTheme.token.bodyBgColor,
+                minHeight: "100vh",
+                padding: 0,
+                margin: 0,
+              }}
+            >
+              {children}
+            </App>
+          </div>
+        </ConfigProvider>
+      </ThemeContext.Provider>
+    );
+  }
 };
 
 export const useTheme = () => useContext(ThemeContext);

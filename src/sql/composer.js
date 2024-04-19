@@ -16,8 +16,6 @@ export function SELECT({ table, where = {}, offset = 0, limit = 0 }) {
   var filter__ = filter_.length > 0 ? `WHERE ${filter_.join(" AND ")}` : "";
   const limit_ = `LIMIT ${limit} OFFSET ${offset}`;
   var sql = `SELECT * FROM ${table} ${filter__} ${limit > 0 ? limit_ : ""}`;
-
-  console.log({ sql });
   return { query: sql, data: {} };
 }
 /**

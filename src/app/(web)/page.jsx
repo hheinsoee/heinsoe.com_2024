@@ -1,19 +1,14 @@
 
 'use client'
 import React, { useState } from 'react';
-import { Button } from "antd";
-import { useTheme } from "@/context/theme";
-export default async function Home() {
-  // const blogs = await getBlog({ limit: 4 });
-  const { setDarkMode, isDark } = useTheme()
-  //  console.log(blogs)
-  return (
-    <div className="flex justify-center items-center h-screen ">
-      <Button type="primary" onClick={() => setDarkMode(!isDark)}>Primary Button</Button>
-    </div>
-  );
-}
 
+export default function Home() {
+  // const blogs = await getBlog({ limit: 4 });
+  //  console.log(blogs)
+  return <div className="flex justify-center items-center h-screen ">
+    Hello Home
+  </div>
+}
 
 
 

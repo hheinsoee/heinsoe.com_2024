@@ -7,6 +7,7 @@ import InfiniteScrollable from "react-infinite-scrollable";
 import { getBlog } from "./action";
 import { JSONTree } from "react-json-tree";
 import Link from "next/link";
+import myLink from "@/link";
 
 
 export default function ScrollBlogs() {
@@ -50,7 +51,7 @@ export default function ScrollBlogs() {
     >
       {/* <JSONTree data={article}/> */}
       {article.map((article) => (
-        <Link key={article.id} style={{ marginBottom: 16 }} href={`/blog/${article.id}`}>
+        <Link key={article.id} style={{ marginBottom: 16 }} href={myLink.blog(article.id)}>
           <h2>{article.id} - {article.name}</h2>
           <p>{article.description}</p>
         </Link> // your component here

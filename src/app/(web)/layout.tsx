@@ -2,11 +2,12 @@ import "./../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Loading } from "@components/loading";
-import info from "./../../../siteInfo.json";
+import info from "../../../siteInfo.json";
 const inter = Inter({ subsets: ["latin"] });
 import { Suspense } from "react";
 import StyledComponentsRegistry from "@/components/AntdRegistry";
 import { ThemeProvider } from "@/context/theme";
+import { LayoutProvider } from "@/context/layout";
 import { AppProgressBar } from "next-nprogress-bar";
 
 export const metadata: Metadata = {
@@ -29,9 +30,11 @@ export default function RootLayout({
           shallowRouting
         /> */}
         <StyledComponentsRegistry>
-          <ThemeProvider>
-            <Suspense fallback={<Loading />}>{children}</Suspense>
-          </ThemeProvider>
+          <Suspense fallback={<Loading />}>
+            <ThemeProvider>
+              <LayoutProvider>{children}</LayoutProvider>
+            </ThemeProvider>
+          </Suspense>
         </StyledComponentsRegistry>
       </body>
     </html>
