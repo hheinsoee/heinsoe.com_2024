@@ -7,22 +7,22 @@ canvas.height = canvas.clientHeight;
 let config = {
   SIM_RESOLUTION: 128,
   DYE_RESOLUTION: 512,
-  DENSITY_DISSIPATION: 0.97,
-  VELOCITY_DISSIPATION: 0.98,
-  PRESSURE_DISSIPATION: 0.8,
+  DENSITY_DISSIPATION: 0.96,
+  VELOCITY_DISSIPATION: 0.99,
+  PRESSURE_DISSIPATION: 0.2,
   PRESSURE_ITERATIONS: 20,
-  CURL: 30,
-  SPLAT_RADIUS: 0.5,
+  CURL: 20,
+  SPLAT_RADIUS: 0.3,
   SHADING: false,
   COLORFUL: false,
   PAUSED: false,
   BACK_COLOR: {
-    r: 2,
-    g: 3,
-    b: 15
+    r: 255,
+    g: 255,
+    b: 255
   },
   TRANSPARENT: false,
-  BLOOM: true,
+  BLOOM: false,
   BLOOM_ITERATIONS: 8,
   BLOOM_RESOLUTION: 256,
   BLOOM_INTENSITY: 0.8,
@@ -34,10 +34,11 @@ function color_hover(e) {
   pointers[0].down = true;
   pointers[0].color = generateColor();
   pointers[0].moved = pointers[0].down;
-  pointers[0].dx = (e.clientX - pointers[0].x) * 5.0;
-  pointers[0].dy = (e.clientY - pointers[0].y) * 5.0;
+  pointers[0].dx = (e.clientX - pointers[0].x) * 3.0;
+  pointers[0].dy = (e.clientY - pointers[0].y) * 3.0;
   pointers[0].x = e.clientX;
   pointers[0].y = e.clientY;
+  
 }
 
 function color_hover_with_XY(e, X, Y, speed) {
@@ -1389,14 +1390,14 @@ function render(target) {
 
   if (!config.TRANSPARENT) {
     colorProgram.bind();
-    let bc = config.BACK_COLOR;
-    gl.uniform4f(
-      colorProgram.uniforms.color,
-      bc.r / 255,
-      bc.g / 255,
-      bc.b / 255,
-      1
-    );
+    // let bc = config.BACK_COLOR;
+    // gl.uniform4f(
+    //   colorProgram.uniforms.color,
+    //   bc.r / 255,
+    //   bc.g / 255,
+    //   bc.b / 255,
+    //   0
+    // );
     blit(target);
   }
 

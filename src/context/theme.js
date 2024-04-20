@@ -86,19 +86,28 @@ export const ThemeProvider = ({ children }) => {
         {/* <Slider defaultValue={hue} onChange={(v)=>setHue(v)} max={360}/> */}
         <ConfigProvider theme={antTheme}>
           <div data-mode={isDark ? "dark" : "light"} data-color-mode="dark">
-            <canvas
-              className="banner_canvas"
-              id="canvas_banner"
-            ></canvas>
+            <div
+              style={{
+                background: isDark ? "#000" : "#FFF",
+                position: "fixed",
+                zIndex: -2,
+                top: 0,
+                left: 0,
+                right: 0,
+                left: 0,
+                height: "100vh",
+                width: "100%",
+              }}
+            />
             <App
               style={{
-                // background: antTheme.token.bodyBgColor,
-                background: `rgba(0,0,0,0.8)`,
+                // background: `rgba(0,0,0,0.5)`,
                 minHeight: "100vh",
                 padding: 0,
                 margin: 0,
               }}
             >
+              <canvas className="banner_canvas" id="canvas_banner"></canvas>
               {children}
             </App>
           </div>
