@@ -1,4 +1,5 @@
 "use client";
+import myLink from "@/link";
 import {
   ArrowRightOutlined,
   CalendarOutlined,
@@ -6,15 +7,35 @@ import {
 } from "@ant-design/icons";
 import { Button, Space } from "antd";
 import dayjs from "dayjs";
+import Image from "next/image";
 import Link from "next/link";
 
-export const BlogCard = ({
+export const BlogThumbnail = ({
   id,
   title,
   img_url,
   description,
   created_time,
 }) => {
+  return (
+    <div className="flex justify-between flex-1">
+      <div className="flex-1">
+        <div className="opacity-70 dark:opacity-50 text-xs">
+          <CalendarOutlined /> {dayjs(created_time).format("DD MMM YYYY")}
+        </div>
+        <Link className="text-lg" href={myLink.blog(id)}>
+          {title}
+        </Link>
+        <p className="dark:opacity-50 opacity-80">{description}</p>
+        <Space>
+          <Button type="text" icon={<ShareAltOutlined />}></Button>
+        </Space>
+      </div>
+      {img_url && <Image src={img_url} width={100} height={100} />}
+    </div>
+  );
+};
+export const BlogCard = ({ id, title, img_url, description, created_time }) => {
   return (
     <div className="blog_card mb-8">
       {img_url && (
@@ -25,14 +46,14 @@ export const BlogCard = ({
         />
       )}
       <div className="py-4">
-        <Link href={`/blog/${id}`} alt={title}>
-          <h5
-            className={`hover:underline font-bold tracking-tight ${
-              img_url ? "text-2xl mb-2 " : "text-3xl mb-4 "
-            }`}
-          >
-            {title}
-          </h5>
+        <Link
+          href={myLink.blog(id)}
+          alt={title}
+          className={`hover:underline font-bold tracking-tight ${
+            img_url ? "text-2xl mb-2 " : "text-3xl mb-4 "
+          }`}
+        >
+          {title}
         </Link>
         <div className="text-sm flex gap-2 opacity-70 mb-4">
           <CalendarOutlined /> {dayjs(created_time).format("DD MMM YYYY")}
@@ -47,17 +68,9 @@ export const BlogCard = ({
           </p>
         )}
         <Space>
-          <Button  icon={<ShareAltOutlined />}></Button>
-          <Button
-            href={`/blog/${id}`}
-            alt={title}
-            icon={<ArrowRightOutlined />}
-          >
-            Read more
-          </Button>
+          <Button type="text" icon={<ShareAltOutlined />}></Button>
         </Space>
       </div>
     </div>
   );
 };
-

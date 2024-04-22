@@ -4,12 +4,12 @@ export default function middleware(request) {
 
   const authCookie = request.cookies.get("auth");
 
-  if (authCookie) {
-    // return NextResponse.redirect(new URL("/admin",request.url));
+  // if (authCookie) {
+  //   // return NextResponse.redirect(new URL("/admin",request.url));
     return NextResponse.next();
-  } else {
-    return NextResponse.rewrite(new URL("/not-found", request.url));
-  }
+  // } else {
+  //   return NextResponse.rewrite(new URL("/not-found", request.url));
+  // }
 }
 
 // specify the path regex to apply the middleware to

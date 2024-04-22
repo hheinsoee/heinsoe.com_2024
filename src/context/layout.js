@@ -4,32 +4,41 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 import { useTheme } from "@/context/theme";
 import Link from "next/link";
 import myLink from "@/link";
-import { Button } from "antd";
+import { Button, Switch } from "antd";
+import MyMenu from "@components/MyMenu";
+import { usePathname } from "next/navigation";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const LayoutContext = createContext(); // Rename the context variable
 export const LayoutProvider = ({ children }) => {
-  const [menuSize, setMenuSize] = useState("l"); //l,m,s,null
+  // const [menuSize, setMenuSize] = useState("l"); //l,m,s,null
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const menuSize = isHome ? "l" : "m";
   const { setDarkMode, isDark } = useTheme();
-
   return (
-    <LayoutContext.Provider value={{ menuSize, setMenuSize }}>
-      <div className={`layout ${menuSize} flex mx-auto`}>
+    <LayoutContext.Provider value={{ menuSize }}>
+      <div className="light_effect" />
+      <div className={`layout ${menuSize} mx-auto`}>
         <div className="menu flex-1">
-          <nav className="sticky h-screen" style={{ top: 0 }}>
-            <Button type="primary" onClick={() => setDarkMode(!isDark)}>
-              Primary Button
-            </Button>
-            <Link href={myLink.blog()}>Blog</Link>
-          </nav>
+          <div className="sticky " style={{ top: 0 }}>
+            <MyMenu />
+          </div>
         </div>
         <div className="flex-1">
-          {["l", "m", "s", "no"].map((s) => (
-            <Button onClick={() => setMenuSize(s)} key={s}>
-              {s}
-            </Button>
-          ))}
-          {children}
+          <div className="py-24">{children}</div>
         </div>
+      </div>
+      <div style={{ position: "fixed", bottom: 8, right: 8 }}>
+        <Switch
+          style={isDark ? { background: "#000" } : {}}
+          size="small"
+          type="primary"
+          onChange={(value) => setDarkMode(value)}
+          checked={isDark}
+          // checkedChildren={<MoonOutline />}
+          // unCheckedChildren={<SunOutlined />}
+        ></Switch>
       </div>
     </LayoutContext.Provider>
   );

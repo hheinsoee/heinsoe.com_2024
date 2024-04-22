@@ -24,6 +24,6 @@
       
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(web)/blog/page.jsx"],src/app/(web)/layout.tsx
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(web)/blog/page.jsx"],
   "exclude": ["node_modules"]
 }

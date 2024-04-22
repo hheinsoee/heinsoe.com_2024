@@ -50,6 +50,11 @@ export const ThemeProvider = ({ children }) => {
       })`,
       glassBg: `hsla(${hue}, ${isDark ? "12%,16%,40%" : "10%,100%, 70%"} )`,
       bodyBgColor: `hsl(${hue}, ${isDark ? "12%,10%" : "20%,95%"})`,
+
+      colorPrimary_: (l, op) =>
+        `hsla(${hue}, ${isDark ? `70%,${l || 40}%` : `100%,${l || 50}%`}, ${
+          op ? op : 100
+        }%)`,
       successColor: (l, op) =>
         `hsla(130, ${isDark ? `70%,${l || 40}%` : `100%,${l || 50}%`}, ${
           op ? op : 100
@@ -82,13 +87,15 @@ export const ThemeProvider = ({ children }) => {
     return <Loading className="h-screen" />;
   } else {
     return (
-      <ThemeContext.Provider value={{ isDark, setDarkMode, setHue, hue }}>
+      <ThemeContext.Provider
+        value={{ isDark, setDarkMode, setHue, hue, theme: antTheme }}
+      >
         {/* <Slider defaultValue={hue} onChange={(v)=>setHue(v)} max={360}/> */}
         <ConfigProvider theme={antTheme}>
           <div data-mode={isDark ? "dark" : "light"} data-color-mode="dark">
             <div
               style={{
-                background: isDark ? "#000" : "#FFF",
+                background: isDark ? `hsl(${hue}, 40%, 10%)` : "#FFF",
                 position: "fixed",
                 zIndex: -2,
                 top: 0,
@@ -101,7 +108,7 @@ export const ThemeProvider = ({ children }) => {
             />
             <App
               style={{
-                // background: `rgba(0,0,0,0.5)`,
+                background: isDark ? `rgba(0,0,0,0.5)` : "transparent",
                 minHeight: "100vh",
                 padding: 0,
                 margin: 0,

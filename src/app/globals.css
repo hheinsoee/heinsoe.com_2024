@@ -15,28 +15,71 @@ body {
 	margin: 0;
 	padding: 0;
 }
+a,
+a:hover {
+	color: inherit;
+}
+p a {
+	font-weight: 600;
+}
+.light_effect {
+	position: fixed;
+	top: 0px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
+	background-image: linear-gradient(75deg, transparent 20%, rgba(0, 166, 255, 0.171) 37%, transparent 60%);
+}
+.dotBg {
+	background: radial-gradient(circle, #5252526b 10%, transparent 10.01%); /* dot color */
+	background-size: 20px 20px; /* size of each dot */
+}
+::-webkit-scrollbar {
+	width: 0px; /* width of the scrollbar */
+}
+
 .layout {
-	transition: 250ms;
-	max-width: 1600px;
+	transition: max-width 300ms;
+	display: flex;
+	max-width: 1160px;
 }
 .layout .menu {
-	transition: 250ms;
-	max-width: 0px;
-	overflow: hidden;
+	transition: max-width 300ms;
+	max-width: 1160px;
+	/* background-color: rgba(199, 199, 199, 0.1); */
+	/* backdrop-filter: blur(20px); */
 }
-.layout.l {
-	max-width: 1100px;
+.layout .menu .title {
+	font-size: 8vmin;
+	font-weight: 600;
 }
-.layout.l .menu {
-	max-width: 550px;
-}
-/* .layout.m {
+.layout.m {
 	max-width: 1600px;
-} */
+}
 .layout.m .menu {
 	max-width: 200px;
 }
-
+.layout.m .menu .title {
+	font-size: 4vmin;
+}
+@media (max-width: 1040px) {
+	.layout {
+		display: block;
+	}
+	.layout.m {
+		display: flex;
+	}
+	.layout.m .menu {
+		max-width: 0px;
+		transform: translateX(-200px);
+		/* position: fixed;
+		bottom: 0;
+		height: 100px;
+		right: auto;
+		left: auto; */
+	}
+}
 .ck.ck-splitbutton {
 	&.ck-splitbutton_flatten {
 		&:hover,

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { BlogGrid } from "./_components/blog";
-import { Button, Spin } from "antd";
+import { BlogCard, BlogGrid, BlogThumbnail } from "./_components/blog";
+import { Button, List, Spin } from "antd";
 
 import InfiniteScrollable from "react-infinite-scrollable";
 import { getBlog } from "./action";
@@ -39,8 +39,8 @@ export default function ScrollBlogs() {
     setPage((pre) => pre + 1);
   };
 
-  return <div className="py-16">
-    {/* <JSONTree data={{ loading, hasMore }} /> */}
+  return <div className="px-8 max-w-2xl mx-auto" id="blog">
+    {/* <JSONTree data={article} /> */}
     <InfiniteScrollable
       onEnd={loadMore}
       loading={loading}
@@ -49,13 +49,16 @@ export default function ScrollBlogs() {
       noMoreComponent={<center>No more Post</center>}
       offset={10}
     >
-      {/* <JSONTree data={article}/> */}
-      {article.map((article) => (
-        <Link key={article.id} style={{ marginBottom: 16 }} href={myLink.blog(article.id)}>
-          <h2>{article.id} - {article.name || article.title}</h2>
-          <p>{article.description || article.body}</p>
-        </Link> // your component here
-      ))}
+      <List>
+        {/* <JSONTree data={article}/> */}
+        {article.map((article) => (
+          <List.Item key={article.id} className="mt-16">
+            {/* <Link style={{ marginBottom: 16 }} href={myLink.blog(article.id)}> */}
+            <BlogThumbnail {...article} description={article.body} />
+            {/* </Link> */}
+          </List.Item> // your component here
+        ))}
+      </List>
     </InfiniteScrollable>
   </div>;
 }

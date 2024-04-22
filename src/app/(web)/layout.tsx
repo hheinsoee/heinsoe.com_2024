@@ -9,7 +9,6 @@ import { Suspense } from "react";
 import StyledComponentsRegistry from "@/components/AntdRegistry";
 import { ThemeProvider } from "@/context/theme";
 import { LayoutProvider } from "@/context/layout";
-import { AppProgressBar } from "next-nprogress-bar";
 import Head from "next/head";
 import Script from "next/script";
 

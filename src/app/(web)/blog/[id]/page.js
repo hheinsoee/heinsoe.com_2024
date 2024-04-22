@@ -9,7 +9,7 @@ export default async function BlogDetails({ params }) {
   //for product detail
   return await getBlogDetail(params.id).then((blog) => {
     return (
-      <main className="max-w-5xl mx-auto pt-20">
+      <main className="px-8 max-w-5xl mx-auto ">
         <ContentMenus>
           {blog.img_url && <Image src={blog.img_url} />}
           <h2>{blog.title}</h2>
