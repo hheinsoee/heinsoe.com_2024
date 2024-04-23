@@ -8,6 +8,7 @@ import { Button, Switch } from "antd";
 import MyMenu from "@components/MyMenu";
 import { usePathname } from "next/navigation";
 import { FaMoon, FaSun } from "react-icons/fa";
+import Script from "next/script";
 
 const LayoutContext = createContext(); // Rename the context variable
 export const LayoutProvider = ({ children }) => {
@@ -18,7 +19,7 @@ export const LayoutProvider = ({ children }) => {
   const { setDarkMode, isDark } = useTheme();
   return (
     <LayoutContext.Provider value={{ menuSize }}>
-      <div className="light_effect" />
+      <canvas className="banner_canvas" id="canvas_banner"></canvas>
       <div className={`layout ${menuSize} mx-auto`}>
         <div className="menu flex-1">
           <div className="sticky " style={{ top: 0 }}>
@@ -29,17 +30,9 @@ export const LayoutProvider = ({ children }) => {
           <div className="py-24">{children}</div>
         </div>
       </div>
-      <div style={{ position: "fixed", bottom: 8, right: 8 }}>
-        <Switch
-          style={isDark ? { background: "#000" } : {}}
-          size="small"
-          type="primary"
-          onChange={(value) => setDarkMode(value)}
-          checked={isDark}
-          // checkedChildren={<MoonOutline />}
-          // unCheckedChildren={<SunOutlined />}
-        ></Switch>
-      </div>
+      
+
+      <Script src="/bg.js" />
     </LayoutContext.Provider>
   );
 };

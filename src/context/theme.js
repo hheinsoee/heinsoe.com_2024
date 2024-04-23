@@ -7,7 +7,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { App, ConfigProvider, theme } from "antd";
+import { App, ConfigProvider, Switch, theme } from "antd";
 import { useCookies } from "react-cookie";
 import { Loading } from "@/components/loading";
 import Script from "next/script";
@@ -72,12 +72,12 @@ export const ThemeProvider = ({ children }) => {
           op ? op : 100
         }%)`,
     },
-    // components: {
-    //   Layout: {
-    //     colorBgHeader: "black",
-    //     colorBgBody: "skyblue",
-    //   },
-    // },
+    components: {
+      Layout: {
+        // colorBgHeader: isDark ? "black" : "white",
+        colorBgBody: isDark ? `hsl(${hue}, 40%, 10%)` : "#FFF",
+      },
+    },
     algorithm: [
       isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
       // theme.compactAlgorithm,
@@ -114,13 +114,21 @@ export const ThemeProvider = ({ children }) => {
                 margin: 0,
               }}
             >
-              <canvas className="banner_canvas" id="canvas_banner"></canvas>
               {children}
             </App>
           </div>
+          <div style={{ position: "fixed", bottom: 8, right: 8 }}>
+            <Switch
+              style={isDark ? { background: "#000" } : {}}
+              size="small"
+              type="primary"
+              onChange={(value) => setDarkMode(value)}
+              checked={isDark}
+              // checkedChildren={<MoonOutline />}
+              // unCheckedChildren={<SunOutlined />}
+            ></Switch>
+          </div>
         </ConfigProvider>
-
-        <Script src="/bg.js" />
       </ThemeContext.Provider>
     );
   }
