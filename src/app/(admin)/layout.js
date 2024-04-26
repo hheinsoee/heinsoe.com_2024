@@ -3,10 +3,7 @@ import { Loading } from "@/components/loading";
 import { Suspense } from "react";
 
 import StyledComponentsRegistry from "@/components/AntdRegistry";
-import AdminLayout from "./_component/AdminLayout";
 import { ThemeProvider } from "@/context/theme";
-import { Layout } from "antd";
-const { Header, Content, Footer, Sider } = Layout;
 
 export default async function RootLayout({
   children,
@@ -17,7 +14,7 @@ export default async function RootLayout({
     <StyledComponentsRegistry>
       <Suspense fallback={<Loading />}>
         <ThemeProvider>
-          <AdminLayout>{children}</AdminLayout>
+          {children}
         </ThemeProvider>
       </Suspense>
     </StyledComponentsRegistry>

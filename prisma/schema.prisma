@@ -29,7 +29,7 @@ model rec_content {
   type_id                 Int?
   create_time             DateTime?                 @default(now()) @db.DateTime(0)
   map_content_rectaxonomy map_content_rectaxonomy[]
-  type                    type?                     @relation(fields: [type_id], references: [id], onUpdate: NoAction, map: "rec_content_ibfk_1")
+  type                    ls_type?                  @relation(fields: [type_id], references: [id], onUpdate: NoAction, map: "rec_content_ibfk_1")
   rec_field               rec_field[]
 
   @@index([type_id], map: "type_id")
@@ -42,57 +42,19 @@ model rec_taxonomy {
   name                    String                    @db.VarChar(200)
   create_time             DateTime?                 @default(now()) @db.DateTime(0)
   map_content_rectaxonomy map_content_rectaxonomy[]
-  taxonomy                taxonomy                  @relation(fields: [taxonomy_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "rec_taxonomy_ibfk_1")
+  taxonomy                ls_taxonomy               @relation(fields: [taxonomy_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "rec_taxonomy_ibfk_1")
 
   @@index([taxonomy_id], map: "taxonomy_id")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model field {
-  id          Int       @id @default(autoincrement())
-  name        String    @db.VarChar(200)
-  type_id     Int?
-  data_type   String?   @db.VarChar(20)
-  create_time DateTime? @default(now()) @db.DateTime(0)
-  type        type?     @relation(fields: [type_id], references: [id], onUpdate: NoAction, map: "_field_ibfk_1")
-
-  @@index([type_id], map: "type_id")
-  @@map("_field")
-}
-
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model taxonomy {
-  id                Int                 @id @default(autoincrement())
-  name              String              @db.VarChar(200)
-  description       String?             @db.Text
-  create_time       DateTime?           @default(now()) @db.DateTime(0)
-  map_taxonomy_type map_taxonomy_type[]
-  rec_taxonomy      rec_taxonomy[]
-
-  @@map("_taxonomy")
-}
-
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model type {
-  id                Int                 @id @default(autoincrement())
-  name              String              @db.VarChar(200)
-  description       String?             @db.Text
-  create_time       DateTime?           @default(now()) @db.DateTime(0)
-  field             field[]
-  map_taxonomy_type map_taxonomy_type[]
-  rec_content       rec_content[]
-
-  @@map("_type")
-}
-
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model map_taxonomy_type {
-  id          Int       @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   taxonomy_id Int
   type_id     Int
-  create_time DateTime? @default(now()) @db.DateTime(0)
-  taxonomy    taxonomy  @relation(fields: [taxonomy_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "map_taxonomy_type_ibfk_1")
-  type        type      @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "map_taxonomy_type_ibfk_2")
+  create_time DateTime?   @default(now()) @db.DateTime(0)
+  taxonomy    ls_taxonomy @relation(fields: [taxonomy_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "map_taxonomy_type_ibfk_1")
+  type        ls_type     @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "map_taxonomy_type_ibfk_2")
 
   @@index([taxonomy_id], map: "taxonomy_id")
   @@index([type_id], map: "type_id")
@@ -108,4 +70,34 @@ model rec_field {
   rec_content rec_content? @relation(fields: [content_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "rec_field_ibfk_1")
 
   @@index([content_id], map: "content_id")
+}
+
+model ls_field {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(200)
+  type_id     Int?
+  data_type   String?   @db.VarChar(20)
+  create_time DateTime? @default(now()) @db.DateTime(0)
+  ls_type     ls_type?  @relation(fields: [type_id], references: [id], onUpdate: NoAction, map: "ls_field_ibfk_1")
+
+  @@index([type_id], map: "type_id")
+}
+
+model ls_taxonomy {
+  id                Int                 @id @default(autoincrement())
+  name              String              @db.VarChar(200)
+  description       String?             @db.Text
+  create_time       DateTime?           @default(now()) @db.DateTime(0)
+  map_taxonomy_type map_taxonomy_type[]
+  rec_taxonomy      rec_taxonomy[]
+}
+
+model ls_type {
+  id                Int                 @id @default(autoincrement())
+  name              String              @db.VarChar(200)
+  description       String?             @db.Text
+  create_time       DateTime?           @default(now()) @db.DateTime(0)
+  ls_field          ls_field[]
+  map_taxonomy_type map_taxonomy_type[]
+  rec_content       rec_content[]
 }
