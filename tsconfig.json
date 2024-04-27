@@ -20,8 +20,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
-      "@constant/*": ["./src/constant/*"]
-      
+      "@constant/*": ["./src/constant/*"],
+      "@adminService/*": ["./src/app/(admin)/admin/_private/service/*"]    
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(web)/blog/page.jsx"],

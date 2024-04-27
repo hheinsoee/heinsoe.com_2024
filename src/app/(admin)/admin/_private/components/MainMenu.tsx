@@ -10,6 +10,7 @@ import { Menu } from "antd";
 import { useRepo } from "../context/repo";
 import Link from "next/link";
 import { adminLink } from "./../route";
+import { FaDotCircle } from "react-icons/fa";
 
 const AdminMenu: React.FC = () => {
   const onClick: MenuProps["onClick"] = (e) => {
@@ -29,6 +30,7 @@ const AdminMenu: React.FC = () => {
           key: "content",
           children: type.map((t: any) => ({
             key: t.id,
+            icon: <FaDotCircle />,
             label: <Link href={adminLink.type(t.name)}>{t.name}</Link>,
           })),
           label: "content",

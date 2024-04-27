@@ -7,7 +7,7 @@ import AdminMenu from "./MainMenu";
 const { Header, Content, Footer, Sider } = Layout;
 
 
-const AdminLayout = async ({ children }) => {
+const AdminLayout = ({ children }) => {
     const [collapsed, setCollapsed] = useState(false);
 
 
