@@ -1,9 +1,17 @@
 "use client";
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
+import { JSONTree } from "react-json-tree";
 
 const RepoContext = createContext();
 const RepoProvider = ({ repo, children }) => {
-  return <RepoContext.Provider value={repo}>{children}</RepoContext.Provider>;
+  const [data, setData] = useState(repo);
+  return (
+    <RepoContext.Provider value={[data, setData]}>
+      <div className="flex">
+        {children}
+      </div>
+    </RepoContext.Provider>
+  );
 };
 
 export const useRepo = () => useContext(RepoContext);

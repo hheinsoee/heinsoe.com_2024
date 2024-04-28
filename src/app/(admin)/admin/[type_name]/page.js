@@ -1,30 +1,15 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import { useRepo } from "../_private/context/repo";
-import { JSONTree } from "react-json-tree";
-import { getContent } from "@adminService/content";
-import { message } from "antd";
+import Archive from "./_component.js/Archive";
 
 function Page({ params }) {
   const { type_name } = params;
-  const { type } = useRepo();
-  const theType = type.find((t) => t.name == type_name);
-  const [content, setContent] = useState([]);
-  const loadData = async (type_id) => {
-    try {
-      setContent(await getContent({type_id}));
-    } catch (error) {
-      message.error(error?.message||'sth wrong')
-    }
-  };
-  useEffect(() => {
-    loadData(theType.id);
-  }, [theType]);
+  const [{ ls_type }] = useRepo();
+  const theType = ls_type.find((t) => t.name == type_name);
   return (
     <div>
-      <h2>{theType.name}</h2>
-      <p>{theType.description}</p>
-      <JSONTree data={content} />
+      <Archive type={theType} />
     </div>
   );
 }

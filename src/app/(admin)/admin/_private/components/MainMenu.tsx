@@ -16,7 +16,7 @@ const AdminMenu: React.FC = () => {
   const onClick: MenuProps["onClick"] = (e) => {
     console.log("click ", e);
   };
-  const { type } = useRepo();
+  const [{ ls_type }] = useRepo();
   return (
     <Menu
       onClick={onClick}
@@ -28,7 +28,7 @@ const AdminMenu: React.FC = () => {
       items={[
         {
           key: "content",
-          children: type.map((t: any) => ({
+          children: ls_type.map((t: any) => ({
             key: t.id,
             icon: <FaDotCircle />,
             label: <Link href={adminLink.type(t.name)}>{t.name}</Link>,

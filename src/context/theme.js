@@ -75,7 +75,7 @@ export const ThemeProvider = ({ children }) => {
     components: {
       Layout: {
         // colorBgHeader: isDark ? "black" : "white",
-        colorBgBody: isDark ? `hsl(${hue}, 40%, 10%)` : "#FFF",
+        bodyBg: isDark ? `hsl(${hue}, 40%, 10%)` : "#FFF",
       },
     },
     algorithm: [

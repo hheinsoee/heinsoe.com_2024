@@ -25,7 +25,7 @@ import dayjs from "dayjs";
 import { MdImage, MdImageAspectRatio } from "react-icons/md";
 import dynamic from "next/dynamic";
 
-const MyCkEditor = dynamic(() => import('./MyCkEditor'), { ssr: false })
+const MyCkEditor = dynamic(() => import("./MyCkEditor"), { ssr: false });
 
 export function InputElement({ onChange, value, field, generalData }) {
   const placeholder = field.label || field.name;
@@ -107,6 +107,7 @@ export function InputElement({ onChange, value, field, generalData }) {
           optionRender={(option) => (
             <Space>
               <img
+                alt={option.data.title}
                 src={option.data.img_url}
                 className="w-16 h-8 object-contain object-left"
               />
@@ -150,7 +151,7 @@ export function InputElement({ onChange, value, field, generalData }) {
 
     case "body":
       return <MyCkEditor value={value} onChange={onChange} />;
-      // <textarea onChange={(e)=>onChange(e.target.value)}>{value}</textarea>
+    // <textarea onChange={(e)=>onChange(e.target.value)}>{value}</textarea>
 
     // return <QuillEditor value={value} setValue={onChange} />;
     // return <TheEditor defaultHtml={value} setTheHtml={onChange} />;
@@ -173,12 +174,12 @@ export function InputElement({ onChange, value, field, generalData }) {
                 {value ? (
                   <img
                     src={value}
-                    title="change image"
+                    alt="change image"
                     className="w-full h-full object-cover object-center"
                   />
                 ) : (
                   <div
-                    title="upload image"
+                    alt="upload image"
                     className="w-full h-full object-cover object-center flex justify-center items-center bg-gray-500/10"
                   >
                     <MdImage />

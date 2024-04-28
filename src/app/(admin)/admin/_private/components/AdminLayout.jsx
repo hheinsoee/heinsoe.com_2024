@@ -26,8 +26,8 @@ const AdminLayout = ({ children }) => {
                         <AdminMenu />
                     </div>
                 </Sider>
-                <Layout >
-                    <Content className="min-h-screen m-8">
+                <Layout className="min-h-screen flex justify-between flex-col">
+                    <Content className=" m-8">
                         {children}
                     </Content>
                     <Footer style={{ textAlign: "center" }}>

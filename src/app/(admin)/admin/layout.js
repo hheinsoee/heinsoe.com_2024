@@ -1,11 +1,8 @@
 import { Loading } from "@/components/loading";
 import { Suspense } from "react";
 import RepoProvider from "./_private/context/repo";
-const { PrismaClient } = require("@prisma/client");
-
+import prisma from "@/db";
 import AdminLayout from "./_private/components/AdminLayout";
-
-const prisma = new PrismaClient();
 
 export default async function Layout({
   children,
@@ -13,12 +10,18 @@ export default async function Layout({
 }) {
   // Rename the context variable
 
-  const type = await prisma.ls_type.findMany();
-  const taxonomy = await prisma.ls_taxonomy.findMany();
+  const ls_type = await prisma.ls_type.findMany({
+    include: {
+      ls_field: true,
+      map_taxonomy_type: true,
+    },
+  }).finally(()=>{
+    prisma.$disconnect()
+  });
   return (
     <Suspense fallback={<Loading />}>
-      <RepoProvider repo={{ type, taxonomy }}>
-        <AdminLayout>{children}</AdminLayout>;
+      <RepoProvider repo={{ ls_type }}>
+        <AdminLayout>{children}</AdminLayout>
       </RepoProvider>
     </Suspense>
   );
