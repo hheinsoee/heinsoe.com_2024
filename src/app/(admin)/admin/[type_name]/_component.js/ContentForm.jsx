@@ -32,8 +32,8 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
         form.setFieldsValue(selected)
     }
     const handleSubmit = async (value) => {
-        console.log(value)
-        return;
+        // console.log(value)
+        // return;
         try {
             if (selected?.id) {
                 const result = await updateContent({
@@ -122,27 +122,21 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
                     </Col>
                     <Col span={8}>
                         {type?.ls_field?.length > 0 && (
-                            <div>
-                                <div className='opacity-50 text-sm'>fields</div>
-                                <Form.List name={['fields']} label="Fields">
+                            <>
+                                <div className='opacity-50 text-sm'>Fields</div>
+                                <Form.List name={['fields']}>
                                     {() => (
                                         <>
-                                            {type.ls_field.map((f, i) => {
-                                                return (
-                                                    <React.Fragment key={f.id}>
-                                                        <Form.Item hidden name={[[i], 'name']}>
-                                                            <Input placeholder={'name'} />
-                                                        </Form.Item>
-                                                        <Form.Item name={[[i], 'value']} label={f.name}>
-                                                            <Input placeholder={f.name} onChange={() => form.setFieldValue(['fields', i, 'name'], f.name)} />
-                                                        </Form.Item>
-                                                    </React.Fragment>
-                                                )
-                                            })}
+                                            {type.ls_field.map(f => (
+                                                <Form.Item key={f.id} name={[f.name]} label={f.name}>
+                                                    <Input placeholder={f.name} />
+                                                    {/* <Fields ls_field={type?.ls_field} /> */}
+                                                </Form.Item>
+                                            ))}
                                         </>
                                     )}
                                 </Form.List>
-                            </div>
+                            </>
                         )}
                         {taxonomy?.length > 0 && <><Divider />
                             <div className='opacity-50 text-sm'>taxonomy</div>
