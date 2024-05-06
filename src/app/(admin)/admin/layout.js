@@ -10,14 +10,16 @@ export default async function Layout({
 }) {
   // Rename the context variable
 
-  const ls_type = await prisma.ls_type.findMany({
-    include: {
-      ls_field: true,
-      map_taxonomy_type: true,
-    },
-  }).finally(()=>{
-    prisma.$disconnect()
-  });
+  const ls_type = await prisma.t_content
+    .findMany({
+      include: {
+        t_field: true,
+        map_t_content_t_taxonomy: true,
+      },
+    })
+    .finally(() => {
+      prisma.$disconnect();
+    });
   return (
     <Suspense fallback={<Loading />}>
       <RepoProvider repo={{ ls_type }}>

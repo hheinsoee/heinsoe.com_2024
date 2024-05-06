@@ -31,7 +31,7 @@ const AdminMenu: React.FC = () => {
           children: ls_type.map((t: any) => ({
             key: t.id,
             icon: <FaDotCircle />,
-            label: <Link href={adminLink.type(t.name)}>{t.name}</Link>,
+            label: <Link href={adminLink.content(t.name)}>{t.name}</Link>,
           })),
           label: "content",
           type: "group",

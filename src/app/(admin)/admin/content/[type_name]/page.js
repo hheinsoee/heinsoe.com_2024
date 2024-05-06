@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { useRepo } from "../_private/context/repo";
-import Archive from "./_component.js/Archive";
+import { useRepo } from "./../../_private/context/repo";
+import Archive from "./_component/Archive";
 import { notFound } from "next/navigation";
 
 function Page({ params }) {

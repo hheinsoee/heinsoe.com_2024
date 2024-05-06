@@ -1,16 +1,16 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import { JSONTree } from 'react-json-tree';
-import { useRepo } from '../../_private/context/repo';
-import { createContent, getTaxonomy, updateContent } from '../../_private/service/content';
+import { createContent, getTaxonomy, updateContent } from '../../../_private/service/content';
 import { Button, Col, Divider, Flex, Form, Input, Row, Select, message } from 'antd';
 
 function ContentForm({ type, selected, setSelected, setFreshData }) {
     const [taxonomy, setTaxonomy] = useState();
+    const [loading, setLoading] = useState();
 
 
     const [form] = Form.useForm();
-    const loadTaconomy = async (type_id) => {
+    const loadTaxonomy = async (type_id) => {
         try {
             setTaxonomy(await getTaxonomy({ type_id }));
         } catch (error) {
@@ -19,9 +19,10 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
     };
 
     useEffect(() => {
-        loadTaconomy(type.id);
+        loadTaxonomy(type.id);
     }, [type]);
     useEffect(() => {
+        form.resetFields()
         form.setFieldsValue(selected)
     }, [selected])
     const handleClear = () => {
@@ -31,35 +32,43 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
     const handleReset = () => {
         form.setFieldsValue(selected)
     }
-    const handleSubmit = async (value) => {
-        // console.log(value)
+    const handleSubmit = (value) => {
         // return;
-        try {
-            if (selected?.id) {
-                const result = await updateContent({
-                    where: {
-                        id: selected.id
-                    },
-                    data: {
-                        ...value,
-                        type_id: type.id
-                    }
-                });
-                setFreshData(result)
-            } else {
 
-                const result = await createContent({
-                    data: {
-                        ...value,
-                        type_id: type.id
-                    }
-                });
+        if (selected?.id) {
+            setLoading(true)
+            updateContent({
+                where: {
+                    id: selected.id
+                },
+                data: {
+                    ...value,
+                }
+            }).then((result) => {
+                message.success('updated');
                 setFreshData(result)
-            }
-            handleClear()
-        } catch (error) {
-            message.error(error?.message || "sth wrong");
+            }).catch((error) => {
+                message.error(error?.message || "sth wrong");
+            }).finally(() => {
+                setLoading(false)
+            });
+        } else {
+            setLoading(true)
+            createContent({
+                data: {
+                    ...value,
+                    t_content_id: type.id
+                }
+            }).then((result) => {
+                message.success('created');
+                setFreshData(result)
+            }).catch((error) => {
+                message.error(error?.message || "sth wrong");
+            }).finally(() => {
+                setLoading(false)
+            });
         }
+
     }
 
     return (
@@ -70,7 +79,7 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
                 <Button onClick={handleReset}>Reset</Button>
                 <Button type='primary' onClick={form.submit}>{selected?.id ? "Update" : "Create"}</Button>
             </div>
-            <JSONTree data={selected} />
+            <JSONTree data={{ selected, type }} />
             <Form
                 onFinish={handleSubmit}
                 form={form}
@@ -121,13 +130,33 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
                         </Form.Item>
                     </Col>
                     <Col span={8}>
-                        {type?.ls_field?.length > 0 && (
-                            <>
+
+                        {taxonomy?.length > 0 && <>
+                            <div className='opacity-50 text-sm'>taxonomy</div>
+                            {taxonomy?.map(t => (
+                                <Form.Item
+                                    key={t.id}
+                                    name={['taxonomy']}
+                                    label={t.name}
+                                >
+                                    <Select
+                                        mode="multiple"
+                                        style={{ width: '100%' }}
+                                        options={
+                                            t.r_taxonomy.map((taxo => ({ ...taxo, value: taxo.id, label: taxo.name })))
+                                        }
+                                        placeholder={t.name} />
+                                </Form.Item>
+                            ))}
+                        </>
+                        }
+                        {type?.t_field?.length > 0 && (
+                            <><Divider />
                                 <div className='opacity-50 text-sm'>Fields</div>
                                 <Form.List name={['fields']}>
                                     {() => (
                                         <>
-                                            {type.ls_field.map(f => (
+                                            {type.t_field.map(f => (
                                                 <Form.Item key={f.id} name={[f.name]} label={f.name}>
                                                     <Input placeholder={f.name} />
                                                     {/* <Fields ls_field={type?.ls_field} /> */}
@@ -138,25 +167,6 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
                                 </Form.List>
                             </>
                         )}
-                        {taxonomy?.length > 0 && <><Divider />
-                            <div className='opacity-50 text-sm'>taxonomy</div>
-                            {taxonomy?.map(t => (
-                                <Form.Item
-                                    key={t.id}
-                                    name={t.name}
-                                    label={t.name}
-                                >
-                                    <Select
-                                        mode="multiple"
-                                        style={{ width: '100%' }}
-                                        options={
-                                            t.rec_taxonomy.map((taxo => ({ ...taxo, value: taxo.id, label: taxo.name })))
-                                        }
-                                        placeholder={t.name} />
-                                </Form.Item>
-                            ))}
-                        </>
-                        }
                     </Col>
                 </Row>
             </Form>

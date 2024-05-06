@@ -9,7 +9,10 @@
     "dev_": "next dev",
     "build_": "next build",
     "start_": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db-update": "npx prisma migrate dev --name init",
+    "prisma-update": "npx prisma db pull && npx prisma generate",
+    "prisma-client-update": "npx prisma generate"
   },
   "dependencies": {
     "@hheinsoee/utility": "file:../npm/utility/hheinsoee-utility-1.0.2.tgz",

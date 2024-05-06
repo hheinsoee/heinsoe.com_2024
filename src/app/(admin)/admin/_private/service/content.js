@@ -1,7 +1,6 @@
 "use server";
 import prisma from "@/db";
 import { Prisma } from "@prisma/client";
-import { error } from "console";
 
 const safeData = (table, data) => {
   const contentKeys = Prisma.dmmf.datamodel.models
@@ -12,19 +11,20 @@ const safeData = (table, data) => {
   );
 };
 
-export const getContent = async ({ type_id }) =>
-  await prisma.rec_content
+export const getContent = async ({ where }) =>
+  await prisma.r_content
     .findMany({
-      where: {
-        type_id,
+      where,
+      orderBy: {
+        id: "desc",
       },
       include: {
-        map_content_rectaxonomy: {
+        map_r_content_r_taxonomy: {
           include: {
-            rec_taxonomy: true,
+            r_taxonomy: true,
           },
         },
-        rec_field: true,
+        r_field: true,
       },
     })
     .then((d) => {
@@ -32,10 +32,10 @@ export const getContent = async ({ type_id }) =>
         ...d,
         fields: Object.assign(
           {},
-          ...d.rec_field?.map((f) => ({ [f.name]: f.value }))
+          ...d.r_field?.map((f) => ({ [f.name]: f.value }))
         ),
-        rec_field: undefined,
-        taxonomy: d.map_content_rectaxonomy?.map((t) => t.taxonomy_id),
+        taxonomy: d.map_r_content_r_taxonomy.map((m) => m.r_taxonomy_id),
+        r_field: undefined,
       }));
     })
     .catch((e) => {
@@ -46,17 +46,33 @@ export const getContent = async ({ type_id }) =>
     });
 
 export const createContent = async ({ data }) => {
-  return await prisma.rec_content
+  return await prisma.r_content
     .create({
       data: {
-        ...safeData("rec_content", data),
-        // rec_field: {
-        //   createMany: fields,
-        // },
+        ...safeData("r_content", data),
+        r_field: {
+          createMany: {
+            data: Object.entries(data.fields).map(([key, value]) => ({
+              name: key,
+              value: value,
+            })),
+          },
+        },
+        map_r_content_r_taxonomy: {
+          createMany: {
+            data: data.taxonomy.map((t_id) => ({
+              r_taxonomy_id: t_id,
+            })),
+          },
+        },
       },
     })
     .then((d) => {
-      return d;
+      return getContent({
+        where: {
+          id: d.id,
+        },
+      });
     })
     .catch((e) => {
       throw new Error(e);
@@ -66,20 +82,38 @@ export const createContent = async ({ data }) => {
     });
 };
 export const updateContent = async ({ where, data }) =>
-  await prisma.rec_content
+  await prisma.r_content
     .update({
       where: {
         ...where,
       },
       data: {
-        ...safeData("rec_content", data),
-        rec_field: {
-          createMany: data.fields,
+        ...safeData("r_content", data),
+        r_field: {
+          deleteMany: {},
+          createMany: {
+            data: Object.entries(data.fields).map(([key, value]) => ({
+              name: key,
+              value: value,
+            })),
+          },
+        },
+        map_r_content_r_taxonomy: {
+          deleteMany: {},
+          createMany: {
+            data: data.taxonomy.map((t_id) => ({
+              r_taxonomy_id: t_id,
+            })),
+          },
         },
       },
     })
     .then((d) => {
-      return d;
+      return getContent({
+        where: {
+          id: d.id,
+        },
+      });
     })
     .catch((e) => {
       throw new Error(e);
@@ -89,17 +123,17 @@ export const updateContent = async ({ where, data }) =>
     });
 
 export const getTaxonomy = async ({ type_id }) =>
-  await prisma.ls_taxonomy
+  await prisma.t_taxonomy
     .findMany({
       where: {
-        map_taxonomy_type: {
+        map_t_content_t_taxonomy: {
           some: {
-            type_id: type_id,
+            t_content_id: type_id,
           },
         },
       },
       include: {
-        rec_taxonomy: true,
+        r_taxonomy: true,
       },
     })
     .then((d) => {
