@@ -104,3 +104,10 @@ p a {
 		}
 	}
 }
+
+.thumbnail .action{
+	@apply  opacity-50
+}
+.thumbnail:hover .action{
+	@apply  opacity-100
+}
