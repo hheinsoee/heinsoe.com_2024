@@ -1,15 +1,6 @@
 "use server";
 import prisma from "@/db";
-import { Prisma } from "@prisma/client";
-
-const safeData = (table, data) => {
-  const contentKeys = Prisma.dmmf.datamodel.models
-    .find((model) => model.name === table)
-    .fields.map((f) => f.name);
-  return Object.fromEntries(
-    Object.entries(data).filter(([key]) => contentKeys.includes(key))
-  );
-};
+import { safeData } from "./index";
 
 export const getContent = async ({ where }) =>
   await prisma.r_content
@@ -19,6 +10,15 @@ export const getContent = async ({ where }) =>
         id: "desc",
       },
       include: {
+        t_content: {
+          select: {
+            map_t_content_t_taxonomy: {
+              select: {
+                t_taxonomy: true,
+              },
+            },
+          },
+        },
         map_r_content_r_taxonomy: {
           include: {
             r_taxonomy: true,
@@ -34,8 +34,22 @@ export const getContent = async ({ where }) =>
           {},
           ...d.r_field?.map((f) => ({ [f.name]: f.value }))
         ),
-        taxonomy: d.map_r_content_r_taxonomy.map((m) => m.r_taxonomy_id),
+        // taxonomy: d.map_r_content_r_taxonomy.map((a) => a.r_taxonomy),
+        // t_taxonomy: d.t_content.map_t_content_t_taxonomy.map((a) => ({
+        //   ...a.t_taxonomy,
+        //   r_taxonomy_ids: d.map_r_content_r_taxonomy
+        //     .filter((map) => map.r_taxonomy.t_taxonomy_id == a.t_taxonomy.id)
+        //     .map((o) => o.r_taxonomy.id),
+        // })),
+        t_taxonomy: d.t_content.map_t_content_t_taxonomy.reduce((acc, obj) => {
+          acc[obj.t_taxonomy.id] = d.map_r_content_r_taxonomy
+            .filter((map) => map.r_taxonomy.t_taxonomy_id == obj.t_taxonomy.id)
+            .map((o) => o.r_taxonomy.id);
+          return acc;
+        }, {}),
         r_field: undefined,
+        map_r_content_r_taxonomy: undefined,
+        t_content: undefined,
       }));
     })
     .catch((e) => {
@@ -46,10 +60,11 @@ export const getContent = async ({ where }) =>
     });
 
 export const createContent = async ({ data }) => {
+  console.dir("create");
   return await prisma.r_content
     .create({
       data: {
-        ...safeData("r_content", data),
+        ...(await safeData("r_content", data)),
         r_field: {
           createMany: {
             data: Object.entries(data.fields).map(([key, value]) => ({
@@ -60,9 +75,9 @@ export const createContent = async ({ data }) => {
         },
         map_r_content_r_taxonomy: {
           createMany: {
-            data: data.taxonomy.map((t_id) => ({
-              r_taxonomy_id: t_id,
-            })),
+            data: Object.entries(data.t_taxonomy).flatMap(([key, value]) =>
+              value.map((num) => ({ r_taxonomy_id: parseInt(num) }))
+            ),
           },
         },
       },
@@ -81,14 +96,14 @@ export const createContent = async ({ data }) => {
       await prisma.$disconnect();
     });
 };
-export const updateContent = async ({ where, data }) =>
-  await prisma.r_content
+export const updateContent = async ({ where, data }) => {
+  return await prisma.r_content
     .update({
       where: {
         ...where,
       },
       data: {
-        ...safeData("r_content", data),
+        ...(await safeData("r_content", data)),
         r_field: {
           deleteMany: {},
           createMany: {
@@ -101,9 +116,9 @@ export const updateContent = async ({ where, data }) =>
         map_r_content_r_taxonomy: {
           deleteMany: {},
           createMany: {
-            data: data.taxonomy.map((t_id) => ({
-              r_taxonomy_id: t_id,
-            })),
+            data: Object.entries(data.t_taxonomy).flatMap(([key, value]) =>
+              value.map((num) => ({ r_taxonomy_id: parseInt(num) }))
+            ),
           },
         },
       },
@@ -121,20 +136,12 @@ export const updateContent = async ({ where, data }) =>
     .finally(async () => {
       await prisma.$disconnect();
     });
+};
 
-export const getTaxonomy = async ({ type_id }) =>
-  await prisma.t_taxonomy
-    .findMany({
-      where: {
-        map_t_content_t_taxonomy: {
-          some: {
-            t_content_id: type_id,
-          },
-        },
-      },
-      include: {
-        r_taxonomy: true,
-      },
+export const deleteContent = async ({ where }) => {
+  return await prisma.r_content
+    .delete({
+      where,
     })
     .then((d) => {
       return d;
@@ -144,5 +151,5 @@ export const getTaxonomy = async ({ type_id }) =>
     })
     .finally(async () => {
       await prisma.$disconnect();
-      // process.exit(1);
     });
+};
