@@ -16,7 +16,6 @@ export const LayoutProvider = ({ children }) => {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const menuSize = isHome ? "l" : "m";
-  const { setDarkMode, isDark } = useTheme();
   return (
     <LayoutContext.Provider value={{ menuSize }}>
       <canvas className="banner_canvas" id="canvas_banner"></canvas>
@@ -30,8 +29,6 @@ export const LayoutProvider = ({ children }) => {
           <div className="py-24">{children}</div>
         </div>
       </div>
-      
-
       <Script src="/bg.js" />
     </LayoutContext.Provider>
   );

@@ -9,7 +9,7 @@ import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import { useRepo } from "../context/repo";
 import Link from "next/link";
-import { adminLink } from "./../route";
+import { adminLink } from "../adminRoute";
 import { FaDotCircle } from "react-icons/fa";
 
 const AdminMenu: React.FC = () => {

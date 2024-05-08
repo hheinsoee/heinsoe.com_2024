@@ -20,7 +20,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
-      "@constant/*": ["./src/constant/*"],
+      "@constant": ["./src/constant.js"],
       "@adminService/*": ["./src/app/(admin)/admin/_private/service/*"]    
     }
   },

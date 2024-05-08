@@ -7,9 +7,7 @@ const RepoProvider = ({ repo, children }) => {
   const [data, setData] = useState(repo);
   return (
     <RepoContext.Provider value={[data, setData]}>
-      <div className="flex">
-        {children}
-      </div>
+      {children}
     </RepoContext.Provider>
   );
 };

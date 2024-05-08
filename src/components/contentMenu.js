@@ -4,11 +4,10 @@ import React, { useEffect, useState } from "react";
 const ContentMenus = ({ children }) => {
   const [headers, setHeaders] = useState([]);
 
-  useEffect(() => {
+  const findH = () => {
     const headings = document.querySelectorAll(
       "#theContent h1, #theContent h2, #theContent h3"
     );
-
     const contentArray = Array.from(headings).map((heading, index) => {
       const id = `section-${index + 1}`;
       heading.id = id; // Assign a generated ID to each heading
@@ -20,18 +19,13 @@ const ContentMenus = ({ children }) => {
     });
 
     setHeaders(contentArray);
-  }, []);
+  };
+  useEffect(() => {
+    findH();
+  }, [children]);
 
   const scrollToHeading = (id) => {
-    // const element = document.getElementById(id);
-    // if (element) {
-    //   element.scrollIntoView({
-    //     behavior: "smooth",
-    //     block: "start", // Align to the top of the scroll container
-    //     inline: "start", // Align to the left of the scroll container
-    //     offset: { top: 200 },
-    //   });
-    // }
+    findH();
     const element = document.getElementById(id);
     if (element) {
       const offset = 100; // Set your desired offset
@@ -57,7 +51,7 @@ const ContentMenus = ({ children }) => {
               <li
                 key={h.id}
                 onClick={() => scrollToHeading(h.id)}
-                className=" cursor-pointer hover:text-orange-700"
+                className=" cursor-pointer hover:text-blue-700"
               >
                 {h.content}
               </li>

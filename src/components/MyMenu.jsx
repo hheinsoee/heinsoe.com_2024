@@ -48,6 +48,11 @@ function MyMenu() {
                             href: myLink.blog(),
                             title: 'Blog',
                         },
+                        {
+                            key: 'gitHubrepo',
+                            href: myLink.repo(),
+                            title: 'Public Repo',
+                        },
                     ]}
                 />
             </div>

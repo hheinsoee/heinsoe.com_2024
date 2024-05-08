@@ -10,6 +10,8 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 
+import { MarkDownView } from "./../../../(admin)/admin/_private/components/Inputs";
+
 export const BlogThumbnail = ({
   id,
   title,
@@ -26,7 +28,7 @@ export const BlogThumbnail = ({
         <Link className="text-lg" href={myLink.blog(id)}>
           {title}
         </Link>
-        <p className="dark:opacity-50 opacity-80">{description}</p>
+        <MarkDownView text={description} />
         <Space>
           <Button type="text" icon={<ShareAltOutlined />}></Button>
         </Space>

@@ -24,7 +24,7 @@ export const technology = {
     label: "ReactJs",
     Icon: (props) => <FaReact className={props?.className} />,
   },
-  reactNative: {
+  reactnative: {
     label: "ReactNative",
     Icon: (props) => <FaReact className={props?.className} />,
   },
@@ -44,8 +44,12 @@ export const technology = {
     label: "CSS",
     Icon: (props) => <FaCss3 className={props?.className} />,
   },
-  js: {
-    label: "JS",
+  javascript: {
+    label: "Javascript",
     Icon: (props) => <FaJs className={props?.className} />,
   },
+};
+
+export const me = {
+  githubUsername: "hheinsoee",
 };
