@@ -1,25 +1,24 @@
 
-import React from "react";
-import { List } from "antd";
-import { getBlog } from "./action";
+import { notFound } from "next/navigation";
+import { getContent } from "@adminService/r_content";
+import ProjectTable from './_components/ProjectTable';
+import { getContentStructure } from "@/app/(admin)/admin/_private/service/t_content";
+export default async function Page() {
+    const ls_content_type = await getContentStructure();
+    const content_type = ls_content_type.find(t => t.name == 'project')
 
-
-export default async function ScrollBlogs() {
-    return await getBlog({ page: 1 }).then((project) => {
-        return (
-            <main className="px-8 max-w-5xl mx-auto " id="project">
-                <ul>
-                    {project.map((d) => (
-                        <li key={d.id} className="mt-16">
-                            {d.body}
-                        </li>
-                    ))}
-                </ul>
-            </main>
-        );
-    }).catch((error) => {
-        console.log(error)
+    return await getContent({
+        where: {
+            t_content_id: content_type.id,
+        }
     })
+        .then((data) => {
+            return (
+                <ProjectTable data={data} />
+            );
+        })
+        .catch((error) => {
+            console.log(error);
+            notFound();
+        });
 }
-
-

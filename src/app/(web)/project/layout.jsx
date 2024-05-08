@@ -3,12 +3,11 @@ import { Suspense } from "react";
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
+  params
 }) {
   return (
     <Suspense fallback={<Loading />}>
-      <div>{children}</div>
+      {children}
     </Suspense>
   );
 }

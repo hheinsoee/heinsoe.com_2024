@@ -16,7 +16,7 @@ export default function ScrollBlogs() {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoadig] = useState(false);
   const [article, setArticle] = useState([]);
-  const [{ ls_content_type }] = useRepo()
+  const { ls_content_type } = useRepo()
   const limit = 10;
   const content_type_id = ls_content_type.find(t => t.name == 'blog')
   const fetchPost = () => {

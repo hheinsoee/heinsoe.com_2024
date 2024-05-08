@@ -39,10 +39,10 @@ const ContentMenus = ({ children }) => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex mx-auto">
       {/* <JSONTree data={headers} /> */}
       <div id="theContent" className="flex-1">
-        <div className="mx-auto max-w-3xl">{children}</div>
+        <div className="mx-auto md:max-w-3xl">{children}</div>
       </div>
       <div className="hidden md:block p-4">
         <div className="sticky top-0 w-60 noBase max-h-screen hideScroll overflow-y-auto ">

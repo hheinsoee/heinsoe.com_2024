@@ -1,12 +1,10 @@
-"use client";
-import React, { createContext, useContext, useState } from "react";
-import { JSONTree } from "react-json-tree";
+'use client'
+import React, { createContext, useContext } from "react";
 
 const RepoContext = createContext();
 const RepoProvider = ({ repo, children }) => {
-  const [data, setData] = useState(repo);
   return (
-    <RepoContext.Provider value={[data, setData]}>
+    <RepoContext.Provider value={repo}>
       {children}
     </RepoContext.Provider>
   );

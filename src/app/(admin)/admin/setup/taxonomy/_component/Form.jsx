@@ -4,7 +4,6 @@ import { JSONTree } from 'react-json-tree';
 
 import { updateTaxonomy, createTaxonomy } from '@adminService/t_taxonomy';
 import { Button, Col, Divider, Flex, Form, Input, Row, Select, Space, Tag, message } from 'antd';
-import { useRepo } from '../../../_private/context/repo';
 
 function TaxonomyForm({ selected, setSelected, setFreshData }) {
     const [loading, setLoading] = useState();

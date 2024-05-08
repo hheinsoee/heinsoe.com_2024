@@ -10,7 +10,7 @@ function ContentTypeForm({ selected, setSelected, setFreshData }) {
     const [loading, setLoading] = useState();
     const [formData, setFormData] = useState();
     const [form] = Form.useForm();
-    const [{ ls_taxonomy_type }] = useRepo();
+    const { ls_taxonomy_type } = useRepo();
 
 
     useEffect(() => {

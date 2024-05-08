@@ -8,23 +8,20 @@ export const getContentStructure = async ({ where } = {}) =>
       where,
       include: {
         t_field: true,
-        map_t_content_t_taxonomy: true,
-        // map_t_content_t_taxonomy: {
-        //   include: {
-        //     t_taxonomy: {
-        //       include: {
-        //         r_taxonomy: true,
-        //       },
-        //     },
-        //   },
-        // },
+        // map_t_content_t_taxonomy: true,
+        map_t_content_t_taxonomy: {
+          include: {
+            t_taxonomy: true,
+          },
+        },
       },
     })
     .then((data) => {
       return data.map((d) => ({
         ...d,
+        // t_taxonomy: d.map_t_content_t_taxonomy,
+        t_taxonomy: d.map_t_content_t_taxonomy.map((t) => t.t_taxonomy),
         t_taxonomy_ids: d.map_t_content_t_taxonomy.map((t) => t.t_taxonomy_id),
-        // t_taxonomy: d.map_t_content_t_taxonomy.map(t=>t.t_taxonomy),
         map_t_content_t_taxonomy: undefined,
       }));
     })

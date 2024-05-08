@@ -5,7 +5,6 @@ import { Button, Col, Flex, List, Popconfirm, Row, Space, Tag, message } from 'a
 import { JSONTree } from 'react-json-tree';
 import { Loading } from '@/components/loading';
 import { makeFresh } from "@hheinsoee/utility";
-import { useRepo } from '../../../_private/context/repo';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
 function ContentTypeArchive({ selected, setSelected, freshData }) {
@@ -36,7 +35,6 @@ function ContentTypeArchive({ selected, setSelected, freshData }) {
             setT_content(makeFresh({ old: t_content, fresh: freshData }))
         }
     }, [freshData])
-    const [{ ls_taxonomy_type }] = useRepo()
     const handleDelete = (id) => {
         setDeletingId(id);
         deleteContentType({
@@ -60,7 +58,7 @@ function ContentTypeArchive({ selected, setSelected, freshData }) {
             : <List>{t_content.map((tc) => (
                 <List.Item key={tc.id} >
                     <div className='flex-1 thumbnail'>
-                        {/* <JSONTree data={ls_taxonomy_type} /> */}
+                        {/* <JSONTree data={tc} /> */}
                         <Flex justify='space-between'>
                             <b className='text-lg'>{tc.name}</b>
                             <Space.Compact className='action'>
@@ -83,7 +81,7 @@ function ContentTypeArchive({ selected, setSelected, freshData }) {
                                     <td>taxonomy</td>
                                     <td>
                                         {
-                                            ls_taxonomy_type?.filter((tt) => tc.t_taxonomy_ids.includes(tt.id)).map((t) => (
+                                            tc.t_taxonomy.map((t) => (
                                                 <Tag key={t.id} color="cyan" bordered={false}>{t.name}</Tag>
                                             ))
                                         }

@@ -16,7 +16,7 @@ const AdminMenu: React.FC = () => {
   const onClick: MenuProps["onClick"] = (e) => {
     console.log("click ", e);
   };
-  const [{ ls_content_type }] = useRepo();
+  const { ls_content_type } = useRepo();
   return (
     <Menu
       onClick={onClick}

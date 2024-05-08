@@ -10,7 +10,7 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
     const [loading, setLoading] = useState();
     const [formData, setFormData] = useState();
     const [form] = Form.useForm();
-    const [{ ls_taxonomy_type }] = useRepo();
+    const { ls_taxonomy_type } = useRepo();
 
     useEffect(() => {
         form.resetFields()
@@ -66,7 +66,7 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
 
     return (
         <div className='overflow-y-auto relative h-screen'>
-            {/* <JSONTree data={{ selected, formData }} /> */}
+            {/* <JSONTree data={{ ls_taxonomy_type, selected, formData }} /> */}
             <Form
                 onFinish={handleSubmit}
                 form={form}
@@ -134,13 +134,13 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
                             <Form.Item
                                 name={['t_taxonomy']}
                             >
-                                {ls_taxonomy_type.filter(t => type.t_taxonomy_ids.includes(t.id))?.length > 0 && <>
+                                {type.t_taxonomy.length > 0 && <>
                                     <div className='opacity-50 text-sm'>taxonomy</div>
 
-                                    {ls_taxonomy_type.filter(t => type.t_taxonomy_ids.includes(t.id))?.map(t => (
+                                    {type.t_taxonomy.map(t => (
                                         <Form.Item
                                             key={t.id}
-                                            name={['t_taxonomy', t.id
+                                            name={['t_taxonomy', t.name
                                             ]}
                                             label={t.name}
                                         >
@@ -148,7 +148,7 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
                                                 mode="multiple"
                                                 style={{ width: '100%' }}
                                                 options={
-                                                    t.r_taxonomy.map((taxo => ({ ...taxo, value: taxo.id, label: taxo.name })))
+                                                    ls_taxonomy_type.find(tax => tax.id == t.id).r_taxonomy.map((taxo => ({ ...taxo, value: taxo.id, label: taxo.name })))
                                                 }
                                                 placeholder={t.name} />
                                         </Form.Item>

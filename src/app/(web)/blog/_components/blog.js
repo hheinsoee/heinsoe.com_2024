@@ -1,14 +1,11 @@
 "use client";
 import myLink from "@/link";
-import {
-  ArrowRightOutlined,
-  CalendarOutlined,
-  ShareAltOutlined,
-} from "@ant-design/icons";
-import { Button, Space } from "antd";
+import { CalendarOutlined, ShareAltOutlined } from "@ant-design/icons";
+import { Button, List, Space } from "antd";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
+import ActionBar from "@components/ActionBar";
 
 import { MarkDownView } from "./../../../(admin)/admin/_private/components/Inputs";
 
@@ -29,9 +26,7 @@ export const BlogThumbnail = ({
           {title}
         </Link>
         <MarkDownView text={description} />
-        <Space>
-          <Button type="text" icon={<ShareAltOutlined />}></Button>
-        </Space>
+        <ActionBar />
       </div>
       {img_url && <Image src={img_url} width={100} height={100} />}
     </div>
@@ -39,40 +34,34 @@ export const BlogThumbnail = ({
 };
 export const BlogCard = ({ id, title, img_url, description, created_time }) => {
   return (
-    <div className="blog_card mb-8">
-      {img_url && (
-        <img
-          className="w-full h-56 object-cover object-center rounded-xl"
-          src={img_url}
-          alt={title}
-        />
-      )}
-      <div className="py-4">
-        <Link
-          href={myLink.blog(id)}
-          alt={title}
-          className={`hover:underline font-bold tracking-tight ${
-            img_url ? "text-2xl mb-2 " : "text-3xl mb-4 "
-          }`}
-        >
-          {title}
-        </Link>
-        <div className="text-sm flex gap-2 opacity-70 mb-4">
-          <CalendarOutlined /> {dayjs(created_time).format("DD MMM YYYY")}
-        </div>
-        {!img_url && (
-          <p
-            className={`mb-5 font-normal ${
-              img_url ? "line-clamp-3" : "line-clamp-6"
-            }`}
-          >
-            {description}
-          </p>
-        )}
-        <Space>
-          <Button type="text" icon={<ShareAltOutlined />}></Button>
-        </Space>
+    <div className="my-10 flex gap-4">
+      <Image
+        src="https://media.wired.com/photos/598e35fb99d76447c4eb1f28/master/pass/phonepicutres-TA.jpg"
+        width={100}
+        height={100}
+      />
+      <div>
+        <h3 className="m-0">Project A</h3>
+        <h4 className="my-2 opacity-50">cms, Social</h4>
+        <div className="dark:opacity-70 ">This is about project.</div>
+        {/* <div className='flex gap-1 my-2'>
+              {['js', 'node', 'reactjs'].map((l) => (<div key={l} className='flex items-center gap-2 px-2 rounded-md ' style={{ background: theme.token.colorPrimary_(80, 10) }}>
+                {technology?.[l]?.Icon()} {l}
+              </div>))}
+            </div> */}
       </div>
     </div>
+  );
+};
+
+export const BlogList = ({ blogs }) => {
+  return (
+    <List>
+      {blogs.map((b) => (
+        <List.Item key={b.id}>
+          <BlogThumbnail {...b} />
+        </List.Item>
+      ))}
+    </List>
   );
 };

@@ -5,10 +5,10 @@ import { safeData } from "./index";
 export const getContent = async (props) =>
   await prisma.r_content
     .findMany({
-      ...props,
       orderBy: {
         id: "desc",
       },
+      ...props,
       include: {
         t_content: {
           select: {
@@ -35,7 +35,7 @@ export const getContent = async (props) =>
           ...d.r_field?.map((f) => ({ [f.name]: f.value }))
         ),
         t_taxonomy: d.t_content.map_t_content_t_taxonomy.reduce((acc, obj) => {
-          acc[obj.t_taxonomy.id] = d.map_r_content_r_taxonomy
+          acc[obj.t_taxonomy.name] = d.map_r_content_r_taxonomy
             .filter((map) => map.r_taxonomy.t_taxonomy_id == obj.t_taxonomy.id)
             .map((o) => o.r_taxonomy.id);
           return acc;

@@ -18,7 +18,7 @@ function MyMenu() {
     const pathname = usePathname();
     const isHome = pathname === "/";
     return (
-        <nav className={'h-screen p-8 py-24 box-border flex flex-col  max-w-xl mx-auto'}>
+        <nav className={'h-[100vmin] p-8 py-24 box-border flex flex-col  max-w-xl mx-auto'}>
             <div>
                 <Link href="/" className='title'>{info.name}</Link>
                 <div className='opacity-50'>{info.title}</div>

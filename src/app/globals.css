@@ -23,6 +23,10 @@ a:hover {
 p a {
 	font-weight: 600;
 }
+.ant-table,
+[class^="ant-table"] {
+	background-color: transparent !important;
+}
 .light_effect {
 	position: fixed;
 	top: 0px;
@@ -37,8 +41,11 @@ p a {
 	background-size: 20px 20px; /* size of each dot */
 }
 .hideScroll::-webkit-scrollbar {
-	width: 5px; 
+	width: 5px;
 	height: 5px;
+}
+.md-editor-preview {
+	max-width: 100%;
 }
 
 .layout {
@@ -80,6 +87,14 @@ p a {
 		height: 100px;
 		right: auto;
 		left: auto; */
+	}
+}
+
+@media (max-width: 767px) {
+	pre {
+		max-width: calc(100vw - 3rem) !important;
+		box-sizing: border-box;
+		margin: auto;
 	}
 }
 .ck.ck-splitbutton {
