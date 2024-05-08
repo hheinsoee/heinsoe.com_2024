@@ -54,7 +54,7 @@ function Page(props) {
 
     return (
         <div className='max-w-4xl mx-auto px-8'>
-            <Link href={`https://github.com/${me.githubUsername}`} className='flex items-baseline'><h2><FaGithub /> GitHub</h2>.com/<b>hheinsoee</b></Link>
+            <Link href={`https://github.com/${me.githubUsername}`} className='flex items-baseline'><h2><FaGithub /> GitHub</h2>.com/<b>{me.githubUsername}</b></Link>
             <GitHubCalendar
                 username={me.githubUsername}
                 blockSize={12}

@@ -65,7 +65,7 @@ function Archive({ type }) {
       <Col span={8} className="max-w-3xl mx-auto">
         <h2>{type.name}</h2>
         <p>{type.description}</p>
-        <JSONTree data={selected} />
+        {/* <JSONTree data={selected} /> */}
         {loading ? (
           <Loading />
         ) : (
