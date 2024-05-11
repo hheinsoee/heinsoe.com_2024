@@ -48,7 +48,7 @@ export default function ProjectTable({ data }) {
                         dataIndex: t_t.name,
                         title: t_t.name,
                         render: (_, a) => <div className="flex gap-2">{ls_taxonomy_type.find((t_l) => t_l.name == t_t.name).r_taxonomy.filter(taxo => a.t_taxonomy[t_t.name].includes(taxo.id))?.map(taxonomy => (
-                            <Cell type={t_t.name} value={taxonomy.name} />
+                            <Cell key={a.id} type={t_t.name} value={taxonomy.name} />
                         ))}</div>
                     }
                 )),

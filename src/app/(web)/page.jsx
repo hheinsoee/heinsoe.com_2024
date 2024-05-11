@@ -68,7 +68,7 @@ export default async function Page() {
       <Divider />
       <div className='dotBg h-16' />
       <div className='text-sm opacity-50 font-light'>
-        <p>Crafted with passion using <a href='https://nextjs.org' target='_blank'>Next.js</a>, <a href='https://tailwindcss.com/' target='_blank'>Tailwind CSS</a>, and <a href="https://ant.design" target='_blank'>Ant Design</a>. This site showcases my journey and projects. Taking cues from <a href="https://brittanychiang.com/" target='_blank'>Brittany Chiang's portfolio</a> website layout, I utilized similar concepts as a reference for this design.</p>
+        <p>Crafted with passion using <a href='https://nextjs.org' target='_blank'>Next.js</a>, <a href='https://tailwindcss.com/' target='_blank'>Tailwind CSS</a>, and <a href="https://ant.design" target='_blank'>Ant Design</a>. This site showcases my journey and projects. Taking cues from <a href="https://brittanychiang.com/" target='_blank'>Brittany Chiang&apos;s portfolio</a> website layout, I utilized similar concepts as a reference for this design.</p>
         &copy; {(new Date).getFullYear()}
       </div>
     </div>

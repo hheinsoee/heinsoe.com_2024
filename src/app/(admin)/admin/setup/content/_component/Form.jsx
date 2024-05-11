@@ -140,7 +140,7 @@ function ContentTypeForm({ selected, setSelected, setFreshData }) {
                         <Form.List name={['t_field']}>
                             {() => (
                                 new Array(current_t_field_length).fill('').map((f, i) => (
-                                    <Space.Compact block>
+                                    <Space.Compact block key={i}>
                                         <Form.Item
                                             name={[i, 'name']}
                                             rules={[

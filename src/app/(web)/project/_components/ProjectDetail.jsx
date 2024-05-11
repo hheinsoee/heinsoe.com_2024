@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import { notFound } from "next/navigation";
 import { getContent } from "@adminService/r_content";
 import { MarkDownView } from "@/app/(admin)/admin/_private/components/Inputs";
-import ActionBar from "@components/actionBar";
+import ActionBar from "@/components/ActionBar";
 import Cell from "@/components/Cell";
 import { useRepo } from "@/app/(admin)/admin/_private/context/repo";
 export default function ProjectDetails({ data }) {
@@ -44,7 +44,7 @@ export default function ProjectDetails({ data }) {
                                                     .find((t_l) => t_l.name == f.name).r_taxonomy
                                                     .filter(taxo => data.t_taxonomy[f.name].includes(taxo.id))
                                                     ?.map(taxonomy => (
-                                                        <Cell type={f.name} value={taxonomy.name} />
+                                                        <Cell key={taxonomy.id} type={f.name} value={taxonomy.name} />
                                                     )
                                                     )}</div>
                                         </td>

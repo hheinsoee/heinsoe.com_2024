@@ -39,7 +39,7 @@ function ExperienceTimeLine({ experience }) {
                       .find((t_l) => t_l.name == f.name).r_taxonomy
                       .filter(taxo => e.t_taxonomy[f.name].includes(taxo.id))
                       ?.map(taxonomy => (
-                        <Cell className="text-xs" type={f.name} value={taxonomy.name} />
+                        <Cell key={taxonomy.id} className="text-xs" type={f.name} value={taxonomy.name} />
                       )
                       )}</div>
                 ))}

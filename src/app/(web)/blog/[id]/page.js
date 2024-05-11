@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import { notFound } from "next/navigation";
 import { getContent } from "@adminService/r_content";
 import { MarkDownView } from "@/app/(admin)/admin/_private/components/Inputs";
-import ActionBar from "@components/actionBar";
+import ActionBar from "@/components/ActionBar";
 export default async function BlogDetails({ params }) {
   //for product detail
   return await getContent({

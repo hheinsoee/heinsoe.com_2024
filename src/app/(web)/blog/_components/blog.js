@@ -5,7 +5,7 @@ import { Button, List, Space } from "antd";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
-import ActionBar from "@components/ActionBar";
+import ActionBar from "@/components/ActionBar";
 
 import { MarkDownView } from "./../../../(admin)/admin/_private/components/Inputs";
 

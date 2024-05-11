@@ -28,7 +28,7 @@ function ProjectThumbnail(props) {
                                 .find((t_l) => t_l.name == f.name).r_taxonomy
                                 .filter(taxo => props.t_taxonomy[f.name].includes(taxo.id))
                                 ?.map(taxonomy => (
-                                    <Cell type={f.name} value={taxonomy.name} />
+                                    <Cell key={taxonomy.id} type={f.name} value={taxonomy.name} />
                                 )
                                 )}</div>
                     ))}
