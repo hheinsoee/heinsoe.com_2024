@@ -10,6 +10,7 @@ import myLink from "@/link";
 import { Button, Divider, List } from "antd";
 import { me, technology } from "@/constant";
 import { MarkDownView } from "../(admin)/admin/_private/components/Inputs";
+import { CgArrowRight } from "react-icons/cg";
 export default async function Page() {
   const ls_content_type = await getContentStructure();
   const _project = ls_content_type.find(t => t.name == 'project')
@@ -38,14 +39,16 @@ export default async function Page() {
       <section id='experience' className='py-16'>
         <h2>Exparence</h2>
         <ExperienceTimeLine experience={experience} />
-        <Button type='primary' ghost>My Resume</Button>
+        {/* <Button type='primary' ghost>My Resume</Button> */}
       </section>
+
+      <Divider />
       <section id='projects' className='py-16'>
         <h2>Projects</h2>
         {
           project.map((p) => <Link href={myLink.project(p.id)} key={p.id}><ProjectThumbnail {...p} /></Link>)
         }
-        <Link href={myLink.project()}>More</Link>
+        <div className="text-right"><Link href={myLink.project()}>More Projects<CgArrowRight /> </Link></div>
       </section>
 
       <Divider />
@@ -63,7 +66,7 @@ export default async function Page() {
       <section id="blog" className="py-16">
         <h2>Blog</h2>
         <BlogList blogs={blog} />
-        <Link href={myLink.project()}>More</Link>
+        <div className="text-right"><Link href={myLink.project()}>More Articles<CgArrowRight /> </Link></div>
       </section>
       <Divider />
       <div className='dotBg h-16' />

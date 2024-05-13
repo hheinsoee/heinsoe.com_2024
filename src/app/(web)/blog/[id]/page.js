@@ -6,6 +6,9 @@ import { notFound } from "next/navigation";
 import { getContent } from "@adminService/r_content";
 import { MarkDownView } from "@/app/(admin)/admin/_private/components/Inputs";
 import ActionBar from "@/components/ActionBar";
+import { noHtml, noMarkdown } from "@hheinsoee/utility";
+import myLink from "@/link";
+
 export default async function BlogDetails({ params }) {
   //for product detail
   return await getContent({
@@ -20,7 +23,11 @@ export default async function BlogDetails({ params }) {
             {blog.img_url && <Image src={blog.img_url} />}
             <Flex justify="space-between">
               <strong className="text-lg">{blog.title}</strong>
-              <ActionBar />
+              <ActionBar
+                title={blog.title}
+                text={noMarkdown(blog.description)}
+                url={myLink.blog(blog.id)}
+              />
             </Flex>
             <div className="text-sm flex gap-2 opacity-70 mb-4">
               <CalendarOutlined />{" "}

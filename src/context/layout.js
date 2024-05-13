@@ -9,6 +9,7 @@ import MyMenu from "@components/MyMenu";
 import { usePathname } from "next/navigation";
 import { FaMoon, FaSun } from "react-icons/fa";
 import Script from "next/script";
+import { BiArrowBack } from "react-icons/bi";
 
 const LayoutContext = createContext(); // Rename the context variable
 export const LayoutProvider = ({ children }) => {
@@ -26,7 +27,12 @@ export const LayoutProvider = ({ children }) => {
           </div>
         </div>
         <div className="flex-1">
-          <div className="py-24">{children}</div>
+          <div className="py-24">
+            {!isHome && <Link href={"/"} className="mx-4 md:hidden">
+              <BiArrowBack />
+            </Link>}
+            {children}
+          </div>
         </div>
       </div>
       <Script src="/bg.js" />

@@ -30,7 +30,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className}`}>
-        <Suspense fallback={<Loading />}>{children}</Suspense>
+        <Suspense fallback={<Loading className="h-screen" />}>
+          {children}
+        </Suspense>
       </body>
     </html>
   );

@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 import ActionBar from "@/components/ActionBar";
+import { noMarkdown } from "@hheinsoee/utility";
 
 import { MarkDownView } from "./../../../(admin)/admin/_private/components/Inputs";
 
@@ -26,7 +27,11 @@ export const BlogThumbnail = ({
           {title}
         </Link>
         <MarkDownView text={description} />
-        <ActionBar />
+        <ActionBar
+          title={title}
+          text={noMarkdown(description)}
+          url={myLink.blog(id)}
+        />
       </div>
       {img_url && <Image src={img_url} width={100} height={100} />}
     </div>

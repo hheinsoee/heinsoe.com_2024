@@ -24,6 +24,6 @@
       "@adminService/*": ["./src/app/(admin)/admin/_private/service/*"]    
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(web)/blog/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(web)/blog/page.jsx", "src/components/ActionBar.tsx"],
   "exclude": ["node_modules"]
 }

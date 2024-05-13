@@ -31,6 +31,8 @@ export default function ProjectTable({ data }) {
                     key: "description",
                     dataIndex: "description",
                     title: "Description",
+                    // ellipsis: true,
+                    width:"500px",
                     render: (_) => <MarkDownView text={_} />
                 },
                 ...content_type?.t_field?.map((f) => (
@@ -56,6 +58,7 @@ export default function ProjectTable({ data }) {
                     key: "view",
                     dataIndex: "view",
                     title: "",
+                    width:"30px",
                     render: (_, r) => <Link href={myLink.project(r.id)} title={r.title}><BsViewList /></Link>
                 },
             ]}

@@ -56,11 +56,11 @@ function MyMenu() {
                     ]}
                 />
             </div>
-            <div className='text-2xl flex gap-4 flex-wrap'>
-                <Link href={''} className='opacity-50 hover:opacity-100'><FaGithub /></Link>
-                {/* <Link href={''} className='opacity-50 hover:opacity-100'><SiNpm /></Link> */}
-                <Link href={''} className='opacity-50 hover:opacity-100'><FaLinkedin /></Link>
-                <Link href={''} className='opacity-50 hover:opacity-100'><FaWhatsapp /></Link>
+            <div className='text-2xl flex gap-3 flex-wrap'>
+                <Link href={myLink.github} target='_blank' className='opacity-50 hover:opacity-100'><FaGithub /></Link>
+                {/* <Link href={myLink.npm} target='_blank' className='opacity-50 hover:opacity-100'><SiNpm style={{ fontSize: '16pt' }} /></Link> */}
+                <Link href={myLink.linkedin} target='_blank' className='opacity-50 hover:opacity-100'><FaLinkedin /></Link>
+                <Link href={myLink.whatsapp} target='_blank' className='opacity-50 hover:opacity-100'><FaWhatsapp /></Link>
             </div>
         </nav>
     );

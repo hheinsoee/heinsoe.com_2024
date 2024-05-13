@@ -9,6 +9,8 @@ import { MarkDownView } from "@/app/(admin)/admin/_private/components/Inputs";
 import ActionBar from "@/components/ActionBar";
 import Cell from "@/components/Cell";
 import { useRepo } from "@/app/(admin)/admin/_private/context/repo";
+import { noMarkdown } from "@hheinsoee/utility";
+import myLink from "@/link";
 export default function ProjectDetails({ data }) {
 
     const { ls_content_type, ls_taxonomy_type } = useRepo()
@@ -20,8 +22,11 @@ export default function ProjectDetails({ data }) {
                 <div className="mx-4">
                     {<Image src={data?.img_url} />}
                     <Flex justify="space-between">
-                        <strong className="text-lg">{data?.title}</strong>
-                        <ActionBar />
+                        <strong className="text-lg">{data?.title}</strong> <ActionBar
+                            title={data.title}
+                            text={noMarkdown(data.description)}
+                            url={myLink.blog(data.id)}
+                        />
                     </Flex>
                     <MarkDownView text={data?.description} />
                     <Divider />
@@ -69,6 +74,8 @@ export default function ProjectDetails({ data }) {
                     )),
                 ]} */}
                     <MarkDownView text={data?.body} />
+
+                    <div className="dotBg h-40" />
                 </div>
             </ContentMenus>
         </main>

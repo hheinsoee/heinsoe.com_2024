@@ -24,7 +24,7 @@ export default async function RootLayout({
   const ls_taxonomy_type = await getTaxonomyTypes({ r_taxonomy: true });
   return (
     <StyledComponentsRegistry>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<Loading className="h-screen"/>}>
         <RepoProvider repo={{ ls_content_type, ls_taxonomy_type }}>
           <ThemeProvider>
             <LayoutProvider>{children}</LayoutProvider>

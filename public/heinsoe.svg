@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="166.1878435820048" height="166.1878435820046" viewBox="183.51381301562748 112.94991081483998 166.1878435820048 166.1878435820046" xml:space="preserve">
+<desc>Created with Fabric.js 5.3.0</desc>
+<defs>
+</defs>
+<g transform="matrix(1 0 0 1 266.6077348066 196.0438326058)" id="YWlax1VHA9op66WXo_Kxq"  >
+<radialGradient id="SVGID_294" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1 0 0 1 0 0)"  cx="83.0939217910024" cy="83.09392179100232" r="170.78452952580898" fx="83.0939217910024" fy="83.09392179100232">
+<stop offset="0%" style="stop-color:#80FFD8;stop-opacity: 1"/>
+<stop offset="46.16977248947234%" style="stop-color:#46A59E;stop-opacity: 1"/>
+<stop offset="100%" style="stop-color:#3B79FF;stop-opacity: 1"/>
+</radialGradient>
+<path style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: url(#SVGID_294); fill-rule: nonzero; opacity: 1;"  transform=" translate(-83.093921791, -83.093921791)" d="M 0 0 L 166.18785 0 L 166.18785 166.18785 L 0 166.18785 z" stroke-linecap="round" />
+</g>
+<g transform="matrix(0.4147426948 0 0 1.1208186312 228.6590789879 196.0438326058)" id="tpXWoaK4PvGjuciliLEwh"  >
+<path style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"  transform=" translate(0, 0)" d="M -53.74586 -53.74586 L 53.74585 -53.74586 L 53.74585 53.74585 L -53.74586 53.74585 z" stroke-linecap="round" />
+</g>
+<g transform="matrix(0.2805483273 0 0 0.6864922264 311.7687818176 219.3870771479)" id="W58UA8J_kygIn2LVQl5JU"  >
+<path style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"  transform=" translate(0, 0)" d="M -53.74586 -53.74586 L 53.74585 -53.74586 L 53.74585 53.74585 L -53.74586 53.74585 z" stroke-linecap="round" />
+</g>
+<g transform="matrix(0.741300448 0 0 0.2596912423 287.0052645443 196.4482927831)" id="7t4i44ahBka0Pf0CPuoJs"  >
+<path style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"  transform=" translate(0, 0)" d="M -53.74586 -53.74586 L 53.74585 -53.74586 L 53.74585 53.74585 L -53.74586 53.74585 z" stroke-linecap="round" />
+</g>
+<g transform="matrix(0.5432340793 0 0 0.2673070498 297.6505111381 150.1711217973)" id="fC4frf3NGste3A6JMEnaE"  >
+<path style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"  transform=" translate(0, 0)" d="M -53.74586 -53.74586 L 53.74585 -53.74586 L 53.74585 53.74585 L -53.74586 53.74585 z" stroke-linecap="round" />
+</g>
+<g transform="matrix(0.5432340793 0 0 0.2673070498 297.6505118478 241.9165437655)" id="AZDRoOxw-c2ZWtaSHZOfw"  >
+<path style="stroke: rgb(0,0,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"  transform=" translate(0, 0)" d="M -53.74586 -53.74586 L 53.74585 -53.74586 L 53.74585 53.74585 L -53.74586 53.74585 z" stroke-linecap="round" />
+</g>
+</svg>

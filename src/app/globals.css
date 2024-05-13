@@ -128,3 +128,10 @@ p a {
 .thumbnail:hover .action {
 	@apply opacity-100;
 }
+.ant-table-cell {
+	vertical-align: top;
+}
+
+.ant-table-cell .md-editor{
+	margin-top: -12px;
+}
