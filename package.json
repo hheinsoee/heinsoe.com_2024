@@ -6,7 +6,7 @@
     "dev_": "node server.js",
     "start_": "SET NODE_ENV=production & node server.js",
     "dev": "next dev",
-    "build": "next build",
+    "build": "node --heap-prof node_modules/next/dist/bin/next build",
     "start": "next start",
     "lint": "next lint",
     "db-update": "npx prisma migrate dev --name init",

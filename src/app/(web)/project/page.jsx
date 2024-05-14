@@ -6,19 +6,22 @@ import { getContentStructure } from "@/app/(admin)/admin/_private/service/t_cont
 export default async function Page() {
     const ls_content_type = await getContentStructure();
     const content_type = ls_content_type.find(t => t.name == 'project')
-
-    return await getContent({
-        where: {
-            t_content_id: content_type.id,
-        }
-    })
-        .then((data) => {
-            return (
-                <ProjectTable data={data} />
-            );
+    if (content_type) {
+        return await getContent({
+            where: {
+                t_content_id: content_type?.id,
+            }
         })
-        .catch((error) => {
-            console.log(error);
-            notFound();
-        });
+            .then((data) => {
+                return (
+                    <ProjectTable data={data} />
+                );
+            })
+            .catch((error) => {
+                console.log(error);
+                notFound();
+            })
+    } else {
+        notFound;
+    }
 }

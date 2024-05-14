@@ -46,7 +46,7 @@ export default async function Page() {
       <section id='projects' className='py-16'>
         <h2>Projects</h2>
         {
-          project.map((p) => <Link href={myLink.project(p.id)} key={p.id}><ProjectThumbnail {...p} /></Link>)
+          project?.map((p) => <Link href={myLink.project(p.id)} key={p.id}><ProjectThumbnail {...p} /></Link>)
         }
         <div className="text-right"><Link href={myLink.project()}>More Projects<CgArrowRight /> </Link></div>
       </section>
@@ -55,7 +55,7 @@ export default async function Page() {
       <section id='skills' className='p-8 -ml-8 -mr-8 py-16 dotBg'>
         <h2>Skills</h2>
         <div className='flex flex-wrap gap-4'>
-          {Object.entries(technology).map(([key, { label, Icon }]) => (
+          {Object.entries(technology)?.map(([key, { label, Icon }]) => (
             <div key={key} className='flex items-center gap-2 px-2 rounded-md '>
               <Icon className='text-2xl' />{label}
             </div>))}
