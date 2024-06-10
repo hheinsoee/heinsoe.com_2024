@@ -2,15 +2,16 @@
 import React, { useEffect, useState } from 'react';
 import { JSONTree } from 'react-json-tree';
 
-import { createContentType, updateContentType } from '@adminService/t_content';
+import { createContentType, updateContentType } from '@service';
 import { Button, Col, Divider, Flex, Form, Input, Row, Select, Space, message } from 'antd';
 import { useRepo } from '../../../_private/context/repo';
 
-function ContentTypeForm({ selected, setSelected, setFreshData }) {
+export function ContentTypeForm({ selected, setSelected, setFreshData }) {
     const [loading, setLoading] = useState();
     const [formData, setFormData] = useState();
     const [form] = Form.useForm();
-    const { ls_taxonomy_type } = useRepo();
+    const { repo } = useRepo();
+    const { taxonomyTypes } = repo
 
 
     useEffect(() => {
@@ -24,18 +25,18 @@ function ContentTypeForm({ selected, setSelected, setFreshData }) {
     const handleReset = () => {
         form.setFieldsValue(selected)
     }
-    const current_t_field = Form.useWatch('t_field', form);
+    const current_t_field = Form.useWatch('fieldTypes', form);
     const [current_t_field_length, set_current_t_field_length] = useState(1);
     useEffect(() => {
         set_current_t_field_length((current_t_field?.length || 0) + 1)
     }, [current_t_field])
     useEffect(() => {
-        selected?.t_field && set_current_t_field_length((selected?.t_field.length || 0) + 1)
+        selected?.fieldTypes && set_current_t_field_length((selected?.fieldTypes.length || 0) + 1)
     }, [selected])
     const handleSubmit = (value) => {
         const safeValue = {
             ...value,
-            t_field: value.t_field.filter(t => t.name)
+            fieldTypes: value.fieldTypes.filter(t => t.name)
         };
         setFormData(safeValue)
         // return;
@@ -53,19 +54,16 @@ function ContentTypeForm({ selected, setSelected, setFreshData }) {
                 message.success('updated');
                 setFreshData(result)
             }).catch((error) => {
-                message.error(error?.message || "sth wrong");
+                message.error("sth wrong");
             }).finally(() => {
                 setLoading(false)
             });
         } else {
             setLoading(true)
-            createContentType({
-                data: {
-                    ...safeValue,
-                }
-            }).then((result) => {
+            createContentType(safeValue).then((result) => {
                 message.success('created');
                 setFreshData(result)
+                handleClear()
             }).catch((error) => {
                 message.error(error?.message || "sth wrong");
             }).finally(() => {
@@ -88,7 +86,7 @@ function ContentTypeForm({ selected, setSelected, setFreshData }) {
                 <Button disabled={loading} onClick={handleReset}>Reset</Button>
                 <Button loading={loading} type='primary' onClick={form.submit}>{selected?.id ? "Update" : "Create"}</Button>
             </div>
-            {/* <JSONTree data={{ formData }} /> */}
+            {/* <JSONTree data={{selected, formData }} /> */}
             <Form
                 onFinish={handleSubmit}
                 form={form}
@@ -137,7 +135,7 @@ function ContentTypeForm({ selected, setSelected, setFreshData }) {
                     </Col>
                     <Col span={8}>
                         fields
-                        <Form.List name={['t_field']}>
+                        <Form.List name={['fieldTypes']}>
                             {() => (
                                 new Array(current_t_field_length).fill('').map((f, i) => (
                                     <Space.Compact block key={i}>
@@ -152,7 +150,7 @@ function ContentTypeForm({ selected, setSelected, setFreshData }) {
                                                 placeholder={'name'} />
                                         </Form.Item>
                                         <Form.Item
-                                            name={[i, 'data_type']}
+                                            name={[i, 'dataType']}
                                         >
                                             <Select
                                                 style={{ width: '100%' }}
@@ -170,16 +168,16 @@ function ContentTypeForm({ selected, setSelected, setFreshData }) {
                             }
                         </Form.List>
                         <Form.Item
-                            name={'t_taxonomy_ids'}
-                            label={'taxonomy type'}
+                            name={'taxonomieTypeIds'}
+                            label={'taxonomy types'}
                         >
                             <Select
                                 mode="multiple"
                                 style={{ width: '100%' }}
-                                options={ls_taxonomy_type.map((t) => ({
+                                options={taxonomyTypes?.map((t) => ({
                                     label: t.name,
                                     value: t.id
-                                }))}
+                                })) || []}
                                 placeholder={'taxonomy'} />
                         </Form.Item>
                     </Col>
@@ -188,5 +186,3 @@ function ContentTypeForm({ selected, setSelected, setFreshData }) {
         </div>
     );
 }
-
-export default ContentTypeForm;

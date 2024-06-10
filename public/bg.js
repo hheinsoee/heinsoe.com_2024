@@ -950,7 +950,7 @@ let curl;
 let pressure;
 let bloom;
 
-let ditheringTexture = createTextureAsync("LDR_RGB1_0.png");
+let ditheringTexture = createTextureAsync("/public/heinsoe.png");
 
 const clearProgram = new GLProgram(baseVertexShader, clearShader);
 const colorProgram = new GLProgram(baseVertexShader, colorShader);

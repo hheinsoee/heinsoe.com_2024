@@ -3,7 +3,7 @@ import { Flex, Image } from "antd";
 import { CalendarOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { notFound } from "next/navigation";
-import { getContent } from "@adminService/r_content";
+import { getContent } from "@service";
 import { MarkDownView } from "@/app/(admin)/admin/_private/components/Inputs";
 import ActionBar from "@/components/ActionBar";
 import { noHtml, noMarkdown } from "@hheinsoee/utility";

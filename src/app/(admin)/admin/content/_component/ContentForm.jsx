@@ -2,16 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import { JSONTree } from 'react-json-tree';
 import { MarkDownEditor } from '../../_private/components/Inputs'
-import { createContent, updateContent } from '@adminService/r_content';
+import { createContent, updateContent } from '@service';
 import { Button, Col, Divider, Flex, Form, Input, Row, Select, Space, message } from 'antd';
-import { useRepo } from '../../_private/context/repo';
+import { useRepo } from '@admin/_private/context/repo';
+import { prettyContent } from '@admin/_private/prittier';
 
 function ContentForm({ type, selected, setSelected, setFreshData }) {
     const [loading, setLoading] = useState();
     const [formData, setFormData] = useState();
     const [form] = Form.useForm();
-    const { ls_taxonomy_type } = useRepo();
-
+    const { repo } = useRepo();
+    const { taxonomyTypes } = repo
     useEffect(() => {
         form.resetFields()
         form.setFieldsValue(selected)
@@ -39,7 +40,7 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
                 }
             }).then((result) => {
                 message.success('updated');
-                setFreshData(result)
+                setFreshData(prettyContent(result))
             }).catch((error) => {
                 message.error(error?.message || "sth wrong");
             }).finally(() => {
@@ -50,11 +51,12 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
             createContent({
                 data: {
                     ...value,
-                    t_content_id: type.id
+                    contentTypeId: type.id
                 }
             }).then((result) => {
                 message.success('created');
-                setFreshData(result)
+                setFreshData(prettyContent(result))
+                handleClear()
             }).catch((error) => {
                 message.error(error?.message || "sth wrong");
             }).finally(() => {
@@ -65,8 +67,8 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
     }
 
     return (
-        <div className='overflow-y-auto relative h-screen'>
-            {/* <JSONTree data={{ ls_taxonomy_type, selected, formData }} /> */}
+        <div className="px-8 box-border mx-auto max-h-screen overflow-y-auto">
+            {/* <JSONTree data={{ type, selected, taxonomyTypes, formData }} /> */}
             <Form
                 onFinish={handleSubmit}
                 form={form}
@@ -77,7 +79,6 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
                 wrapperCol={{
                     span: 24,
                 }}
-                className='max-w-5xl mx-auto'
                 initialValues={{
                     remember: true,
                 }}
@@ -130,25 +131,24 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
                         </Form.Item>
                     </Col>
                     <Col span={8}>
-                        <div className='sticky top-20'>
+                        <div className='sticky top-0'>
                             <Form.Item
-                                name={['t_taxonomy']}
+                                name={['taxonomies']}
                             >
-                                {type.t_taxonomy.length > 0 && <>
+                                {type.taxonomyTypes?.length > 0 && <>
                                     <div className='opacity-50 text-sm'>taxonomy</div>
 
-                                    {type.t_taxonomy.map(t => (
+                                    {type.taxonomyTypes?.map((t, i) => (
                                         <Form.Item
                                             key={t.id}
-                                            name={['t_taxonomy', t.name
-                                            ]}
+                                            name={['taxonomies', i, 'recordIds']}
                                             label={t.name}
                                         >
                                             <Select
                                                 mode="multiple"
                                                 style={{ width: '100%' }}
                                                 options={
-                                                    ls_taxonomy_type.find(tax => tax.id == t.id).r_taxonomy.map((taxo => ({ ...taxo, value: taxo.id, label: taxo.name })))
+                                                    taxonomyTypes.find(tax => tax.id == t.id).taxonomies.map((taxo => ({ ...taxo, value: taxo.id, label: taxo.name })))
                                                 }
                                                 placeholder={t.name} />
                                         </Form.Item>
@@ -156,23 +156,26 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
                                 </>
                                 }
                             </Form.Item>
-                            {type?.t_field?.length > 0 && (
-                                <><Divider />
-                                    <div className='opacity-50 text-sm'>Fields</div>
-                                    <Form.List name={['fields']}>
-                                        {() => (
-                                            <>
-                                                {type.t_field.map(f => (
-                                                    <Form.Item key={f.id} name={[f.name]} label={f.name}>
-                                                        <Input placeholder={f.name} />
-                                                        {/* <Fields ls_field={type?.ls_field} /> */}
-                                                    </Form.Item>
-                                                ))}
-                                            </>
-                                        )}
-                                    </Form.List>
+
+                            <Form.Item
+                                name={['taxonomies']}
+                            >
+                                {type.fieldTypes?.length > 0 && <>
+                                    <div className='opacity-50 text-sm'>field</div>
+
+                                    {type.fieldTypes?.map((t, i) => (
+                                        <Form.Item
+                                            key={t.id}
+                                            name={['fields', i]}
+                                            label={t.name}
+                                        >
+                                            <FieldInput name={t.name} />
+                                        </Form.Item>
+                                    ))}
                                 </>
-                            )}
+                                }
+                            </Form.Item>
+
                         </div>
                     </Col>
                 </Row>
@@ -182,3 +185,13 @@ function ContentForm({ type, selected, setSelected, setFreshData }) {
 }
 
 export default ContentForm;
+
+const FieldInput = ({ onChange, value, name }) => {
+    const handleChange = (v) => {
+        onChange({
+            name: name,
+            value: v
+        })
+    }
+    return <Input placeholder={name} value={value?.value} onChange={(e) => handleChange(e.target.value)} />
+}

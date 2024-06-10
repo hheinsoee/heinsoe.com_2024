@@ -12,7 +12,7 @@ import { List, Spin, Tag, Tooltip, message } from 'antd';
 import { MdInstallDesktop } from 'react-icons/md';
 
 function Page(props) {
-    const { isDark, theme } = useTheme()
+    const isDark = useTheme()?.isDark
 
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);

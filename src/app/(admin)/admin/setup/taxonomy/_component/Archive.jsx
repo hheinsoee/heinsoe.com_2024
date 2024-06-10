@@ -1,23 +1,29 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { getTaxonomyTypes, deleteTaxonomyType } from '@adminService/t_taxonomy'
+import { getTaxonomyTypes, deleteTaxonomyType } from '@service'
 import { Button, Col, List, Popconfirm, Row, Space, message } from 'antd';
 import { JSONTree } from 'react-json-tree';
-import { Loading } from '@/components/loading';
+import { Loading } from '@components/loading';
 import { makeFresh } from "@hheinsoee/utility";
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { prettyTaxonomy } from '@admin/_private/prittier'
+import { useRepo } from '../../../_private/context/repo';
 
 function TaxonomyArchive({ selected, setSelected, freshData }) {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false);
     const [deletingId, setDeletingId] = useState(null);
+    const { setRepo } = useRepo()
 
+    useEffect(() => {
+        if (data.length > 0) { setRepo(r => ({ ...r, taxonomyTypes: data })) }
+    }, [data])
 
     const loadTaxonomyTypes = () => {
         setLoading(true);
-        getTaxonomyTypes({ r_taxonomy: true })
+        getTaxonomyTypes({ taxonomy: true })
             .then((data) => {
-                setData(data);
+                setData(data.map(d => prettyTaxonomy(d)));
             })
             .catch((error) => {
                 message.error(error?.message || "sth wrong");
@@ -32,7 +38,8 @@ function TaxonomyArchive({ selected, setSelected, freshData }) {
     }, []);
     useEffect(() => {
         if (freshData) {
-            setData(makeFresh({ old: data, fresh: freshData }))
+            console.log(freshData)
+            setData(makeFresh({ old: data, fresh: prettyTaxonomy(freshData) }))
         }
     }, [freshData])
     const handleDelete = (id) => {
@@ -44,7 +51,7 @@ function TaxonomyArchive({ selected, setSelected, freshData }) {
         })
             .then((data) => {
                 message.success("Deleted")
-                setT_content(data => data.filter((c => c.id !== id)));
+                setData(data => data.filter((c => c.id !== id)));
             })
             .catch((error) => {
                 message.error(error?.message || "sth wrong");

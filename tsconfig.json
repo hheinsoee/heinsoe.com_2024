@@ -20,10 +20,13 @@
     "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
-      "@constant": ["./src/constant.js"],
-      "@adminService/*": ["./src/app/(admin)/admin/_private/service/*"]    
+      "@constant": ["./src/constant.tsx"],
+      "@service": ["./src/service/index.ts"],
+      "@config":["./app.config.json"],
+      "@schema":["./schema/index.ts"],
+      "@admin/*":["./src/app/(admin)/admin/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(web)/blog/page.jsx", "src/components/ActionBar.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(web)/blog/page.tsx", "src/components/ActionBar.tsx", "src/app/(web)/github/page.jsx"],
   "exclude": ["node_modules"]
 }

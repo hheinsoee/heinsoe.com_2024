@@ -10,8 +10,8 @@ import myLink from "@/link";
 
 
 export default function ProjectTable({ data }) {
-    const { ls_content_type, ls_taxonomy_type } = useRepo()
-    const content_type = ls_content_type.find(t => t.name == 'project')
+    const { contentTypes, taxonomyTypes } = useRepo().repo
+    const content_type = contentTypes.find(t => t.name == 'project')
 
     return <div className="px-8 max-w-6xl mx-auto" >
         {/* <JSONTree data={data} /> */}
@@ -49,7 +49,7 @@ export default function ProjectTable({ data }) {
                         key: t_t.id,
                         dataIndex: t_t.name,
                         title: t_t.name,
-                        render: (_, a) => <div className="flex gap-2">{ls_taxonomy_type.find((t_l) => t_l.name == t_t.name).r_taxonomy.filter(taxo => a.t_taxonomy[t_t.name].includes(taxo.id))?.map(taxonomy => (
+                        render: (_, a) => <div className="flex gap-2">{taxonomyTypes.find((t_l) => t_l.name == t_t.name).r_taxonomy.filter(taxo => a.t_taxonomy[t_t.name].includes(taxo.id))?.map(taxonomy => (
                             <Cell key={a.id} type={t_t.name} value={taxonomy.name} />
                         ))}</div>
                     }

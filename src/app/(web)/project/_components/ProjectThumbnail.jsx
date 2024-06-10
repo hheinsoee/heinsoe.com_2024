@@ -7,8 +7,8 @@ import React from 'react';
 
 function ProjectThumbnail(props) {
 
-    const { ls_content_type, ls_taxonomy_type } = useRepo()
-    const content_type = ls_content_type.find(t => t.name == 'project')
+    const { contentTypes, taxonomyTypes } = useRepo().repo
+    const content_type = contentTypes.find(t => t.name == 'project')
     return (
         <div className='my-10 flex gap-4'>
             {props?.fields?.featured_image && <Image src={props?.fields?.featured_image} width={100} height={100} />}
@@ -24,7 +24,7 @@ function ProjectThumbnail(props) {
                     ))} */}
                     {content_type?.t_taxonomy?.map((f) => (
                         <div className="flex gap-2" key={f.name}>{
-                            ls_taxonomy_type
+                            taxonomyTypes
                                 .find((t_l) => t_l.name == f.name).r_taxonomy
                                 .filter(taxo => props.t_taxonomy[f.name].includes(taxo.id))
                                 ?.map(taxonomy => (

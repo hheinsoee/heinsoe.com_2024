@@ -16,7 +16,7 @@ const AdminMenu: React.FC = () => {
   const onClick: MenuProps["onClick"] = (e) => {
     console.log("click ", e);
   };
-  const { ls_content_type } = useRepo();
+  const { repo } = useRepo();
   return (
     <Menu
       onClick={onClick}
@@ -28,7 +28,7 @@ const AdminMenu: React.FC = () => {
       items={[
         {
           key: "content",
-          children: ls_content_type.map((t: any) => ({
+          children: repo.contentTypes.map((t: any) => ({
             key: t.id,
             icon: <FaDotCircle />,
             label: <Link href={adminLink.content(t.name)}>{t.name}</Link>,
@@ -54,9 +54,7 @@ const AdminMenu: React.FC = () => {
               key: "taxonomy_type",
               icon: <FaDotCircle />,
               label: (
-                <Link href={adminLink.setup("taxonomy")}>
-                  Taxonomy Manager
-                </Link>
+                <Link href={adminLink.setup("taxonomy")}>Taxonomy Manager</Link>
               ),
             },
           ],

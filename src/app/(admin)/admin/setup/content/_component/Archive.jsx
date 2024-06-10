@@ -1,23 +1,25 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { deleteContentType, getContentStructure } from '@adminService/t_content'
+import { deleteContentType, getContentTypes } from '@service'
 import { Button, Col, Flex, List, Popconfirm, Row, Space, Tag, message } from 'antd';
 import { JSONTree } from 'react-json-tree';
-import { Loading } from '@/components/loading';
+import { Loading } from '@components/loading';
 import { makeFresh } from "@hheinsoee/utility";
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { prettyType } from './../../../_private/prittier'
+import { useRepo } from '../../../_private/context/repo';
 
-function ContentTypeArchive({ selected, setSelected, freshData }) {
+export const ContentTypeArchive = ({ selected, setSelected, freshData }) => {
     const [t_content, setT_content] = useState([])
     const [loading, setLoading] = useState(false);
     const [deletingId, setDeletingId] = useState(null);
-
-
+    const { setRepo } = useRepo()
     const loadContentTypeList = () => {
         setLoading(true);
-        getContentStructure()
+        getContentTypes()
             .then((data) => {
-                setT_content(data);
+                const d = data.map((d) => prettyType(d));
+                setT_content(d);
             })
             .catch((error) => {
                 message.error(error?.message || "sth wrong");
@@ -31,8 +33,11 @@ function ContentTypeArchive({ selected, setSelected, freshData }) {
         loadContentTypeList();
     }, []);
     useEffect(() => {
+        if (t_content.length > 0) { setRepo(r => ({ ...r, contentTypes: t_content })) }
+    }, [t_content])
+    useEffect(() => {
         if (freshData) {
-            setT_content(makeFresh({ old: t_content, fresh: freshData }))
+            setT_content(makeFresh({ old: t_content, fresh: prettyType(freshData) }))
         }
     }, [freshData])
     const handleDelete = (id) => {
@@ -81,7 +86,7 @@ function ContentTypeArchive({ selected, setSelected, freshData }) {
                                     <td>taxonomy</td>
                                     <td>
                                         {
-                                            tc.t_taxonomy.map((t) => (
+                                            tc.taxonomyTypes?.map((t) => (
                                                 <Tag key={t.id} color="cyan" bordered={false}>{t.name}</Tag>
                                             ))
                                         }
@@ -91,9 +96,9 @@ function ContentTypeArchive({ selected, setSelected, freshData }) {
                                     <td>fields</td>
                                     <td>
                                         {
-                                            tc.t_field.map((field) => (
-                                                <Tag key={field.id}>
-                                                    {field.name} [{field.data_type}]
+                                            tc.fieldTypes?.map((field) => (
+                                                <Tag key={field.id} bordered={false}>
+                                                    {field.name} [{field.dataType}]
                                                 </Tag>
                                             ))
                                         }
@@ -109,5 +114,3 @@ function ContentTypeArchive({ selected, setSelected, freshData }) {
 
     );
 }
-
-export default ContentTypeArchive;

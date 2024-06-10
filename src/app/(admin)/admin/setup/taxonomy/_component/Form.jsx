@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { JSONTree } from 'react-json-tree';
 
-import { updateTaxonomy, createTaxonomy } from '@adminService/t_taxonomy';
+import { updateTaxonomy, createTaxonomy } from '@service';
 import { Button, Col, Divider, Flex, Form, Input, Row, Select, Space, Tag, message } from 'antd';
 
 function TaxonomyForm({ selected, setSelected, setFreshData }) {
@@ -57,6 +57,7 @@ function TaxonomyForm({ selected, setSelected, setFreshData }) {
             }).then((result) => {
                 message.success('created');
                 setFreshData(result)
+                handleClear()
             }).catch((error) => {
                 message.error(error?.message || "sth wrong");
             }).finally(() => {
@@ -69,7 +70,7 @@ function TaxonomyForm({ selected, setSelected, setFreshData }) {
     return (
         <div>
             <div className='flex items-center gap-4'>
-                <h2 className='flex-1'>{selected?.id ? "Update" : "Create"} Content Type</h2>
+                <h2 className='flex-1'>{selected?.id ? "Update" : "Create"} Taxonomy Type</h2>
                 <Button disabled={loading} onClick={handleClear}>Clear</Button>
                 <Button disabled={loading} onClick={handleReset}>Reset</Button>
                 <Button loading={loading} type='primary' onClick={form.submit}>{selected?.id ? "Update" : "Create"}</Button>
@@ -118,7 +119,7 @@ function TaxonomyForm({ selected, setSelected, setFreshData }) {
                 </Form.Item>
                 <Form.Item
                     label="Words"
-                    name="r_taxonomy"
+                    name="taxonomies"
                     help="type word and press Enter"
                     rules={[
                         { required: true, message: 'Please input words and Enter' }
