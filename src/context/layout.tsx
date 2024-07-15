@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useMemo } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Script from "next/script";
 import { BiArrowBack } from "react-icons/bi";
@@ -20,6 +20,7 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
 
   const menuSize: "l" | "m" = useMemo(() => (isHome ? "l" : "m"), [isHome]);
 
+  const router = useRouter();
   return (
     <LayoutContext.Provider value={{ menuSize }}>
       <canvas className="banner_canvas" id="canvas_banner"></canvas>
@@ -30,11 +31,16 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
         <div className="flex-1">
-          <div className="py-24">
+          <div className="py-8 md:py-24">
             {!isHome && (
-              <Link href={"/"} className="mx-4 md:hidden">
-                <BiArrowBack />
-              </Link>
+              // <Link href={"/"} className="mx-4 md:hidden">
+              <Button
+                className="mx-4 md:hidden"
+                icon={<BiArrowBack />}
+                onClick={(e) => router.push("/", { scroll: false })}
+                type="text"
+              />
+              // </Link>
             )}
             {children}
           </div>

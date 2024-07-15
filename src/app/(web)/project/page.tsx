@@ -1,26 +1,26 @@
 import { notFound } from "next/navigation";
-import { getContent, getContentType, getContentTypes } from "@service";
 import ProjectTable from "./_components/ProjectTable";
+import { getProject } from "@/service/project.service";
 export default async function Page() {
-  const [content_type] = await getContentTypes({
-    where: {
-      name: "project",
-    },
-  });
-  if (content_type) {
-    return await getContent({
-      where: {
-        contentTypeId: content_type?.id,
+  return await getProject({
+    include: {
+      tags: {
+        include: {
+          Tag: true,
+        },
       },
+      techs: {
+        include: {
+          Tech: true,
+        },
+      },
+    },
+  })
+    .then(({ data }) => {
+      return <ProjectTable data={data} />;
     })
-      .then((data) => {
-        return <ProjectTable data={data} />;
-      })
-      .catch((error) => {
-        console.log(error);
-        notFound();
-      });
-  } else {
-    notFound;
-  }
+    .catch((error) => {
+      console.log(error);
+      notFound();
+    });
 }

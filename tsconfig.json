@@ -21,10 +21,11 @@
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
       "@constant": ["./src/constant.tsx"],
-      "@service": ["./src/service/index.ts"],
-      "@config":["./app.config.json"],
+      "@service/*": ["./src/service/*"],
+      "@config":["./app.config.ts"],
       "@schema":["./schema/index.ts"],
-      "@admin/*":["./src/app/(admin)/admin/*"]
+      "@admin/*":["./src/app/(admin)/*"],
+      "@interface":["./prisma/interfaces.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(web)/blog/page.tsx", "src/components/ActionBar.tsx", "src/app/(web)/github/page.jsx"],

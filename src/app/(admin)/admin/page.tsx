@@ -1,11 +1,12 @@
 import React from 'react';
+import conf from '@config';
 
-function AdminPage() {
+function Page() {
     return (
         <div>
-            AdminPage
+            {conf.title}
         </div>
     );
 }
 
-export default AdminPage;
+export default Page;

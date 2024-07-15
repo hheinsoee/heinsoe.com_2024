@@ -24,7 +24,7 @@ export const technology: Record<string, Technology> = {
     Icon: (props: { className?: string }) => (
       <FaNodeJs
         className={`${props?.className}`}
-       // style={{ translate: "0px 2px", marginBottom: "2px" }}
+        // style={{ translate: "0px 2px", marginBottom: "2px" }}
       />
     ),
   },
@@ -33,7 +33,7 @@ export const technology: Record<string, Technology> = {
     Icon: (props: { className?: string }) => (
       <TbBrandNextjs
         className={`${props?.className}`}
-       // style={{ translate: "0px 2px", marginBottom: "2px" }}
+        // style={{ translate: "0px 2px", marginBottom: "2px" }}
       />
     ),
   },
@@ -42,7 +42,7 @@ export const technology: Record<string, Technology> = {
     Icon: (props: { className?: string }) => (
       <FaReact
         className={`${props?.className}`}
-       // style={{ translate: "0px 2px", marginBottom: "2px" }}
+        // style={{ translate: "0px 2px", marginBottom: "2px" }}
       />
     ),
   },
@@ -51,7 +51,7 @@ export const technology: Record<string, Technology> = {
     Icon: (props: { className?: string }) => (
       <FaReact
         className={`${props?.className}`}
-       // style={{ translate: "0px 2px", marginBottom: "2px" }}
+        // style={{ translate: "0px 2px", marginBottom: "2px" }}
       />
     ),
   },
@@ -60,7 +60,7 @@ export const technology: Record<string, Technology> = {
     Icon: (props: { className?: string }) => (
       <FaJs
         className={`${props?.className}`}
-       // style={{ translate: "0px 2px", marginBottom: "2px" }}
+        // style={{ translate: "0px 2px", marginBottom: "2px" }}
       />
     ),
   },
@@ -69,7 +69,7 @@ export const technology: Record<string, Technology> = {
     Icon: (props: { className?: string }) => (
       <SiTypescript
         className={`${props?.className}`}
-       // style={{ translate: "0px 2px", marginBottom: "2px" }}
+        // style={{ translate: "0px 2px", marginBottom: "2px" }}
       />
     ),
   },
@@ -78,7 +78,7 @@ export const technology: Record<string, Technology> = {
     Icon: (props: { className?: string }) => (
       <GrGraphQl
         className={`${props?.className}`}
-       // style={{ translate: "0px 2px", marginBottom: "2px" }}
+        // style={{ translate: "0px 2px", marginBottom: "2px" }}
       />
     ),
   },
@@ -87,7 +87,7 @@ export const technology: Record<string, Technology> = {
     Icon: (props: { className?: string }) => (
       <FaPhp
         className={`${props?.className}`}
-       // style={{ translate: "0px 2px", marginBottom: "2px" }}
+        // style={{ translate: "0px 2px", marginBottom: "2px" }}
       />
     ),
   },
@@ -96,7 +96,7 @@ export const technology: Record<string, Technology> = {
     Icon: (props: { className?: string }) => (
       <FaDatabase
         className={`${props?.className}`}
-       // style={{ translate: "0px 2px", marginBottom: "2px" }}
+        // style={{ translate: "0px 2px", marginBottom: "2px" }}
       />
     ),
   },
@@ -105,7 +105,7 @@ export const technology: Record<string, Technology> = {
     Icon: (props: { className?: string }) => (
       <FaHtml5
         className={`${props?.className}`}
-       // style={{ translate: "0px 2px", marginBottom: "2px" }}
+        // style={{ translate: "0px 2px", marginBottom: "2px" }}
       />
     ),
   },
@@ -114,20 +114,10 @@ export const technology: Record<string, Technology> = {
     Icon: (props: { className?: string }) => (
       <FaCss3
         className={`${props?.className}`}
-       // style={{ translate: "0px 2px", marginBottom: "2px" }}
+        // style={{ translate: "0px 2px", marginBottom: "2px" }}
       />
     ),
   },
-};
-
-export const me = {
-  githubUsername: "hheinsoee",
-  githubUrl: "https://github.com/hheinsoee",
-  whatsappUrl: "https://wa.me/+959252152447",
-  linkedinUrl: "https://www.linkedin.com/in/hheinsoee",
-  npmUrl: "https://www.npmjs.com/~hheinsoee",
-  about:
-    "as a web developer and designer committed to creating visually appealing and highly functional websites. With a focus on the latest trends and technologies, I strive to deliver exceptional web solutions that help businesses succeed online.",
 };
 
 export const setting = {

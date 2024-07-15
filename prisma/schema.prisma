@@ -1,6 +1,10 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["relationJoins"]
+  provider     = "prisma-client-js"
+  previewTechs = ["relationJoins"]
+}
+
+generator typescriptInterfaces {
+  provider = "prisma-generator-typescript-interfaces"
 }
 
 datasource db {
@@ -8,92 +12,135 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model content {
-  id                 Int                  @id @default(autoincrement())
-  title              String               @db.VarChar(200)
-  description        String?              @db.Text
-  body               String?              @db.Text
-  contentTypeId      Int?
-  createTime         DateTime?            @default(now()) @db.DateTime(0)
-  contentType        contentType?         @relation(fields: [contentTypeId], references: [id], onUpdate: NoAction, map: "Content_ibfk_1")
-  field              field[]
-  mapContentTaxonomy mapContentTaxonomy[]
+model Experience {
+  id           Int       @id @default(autoincrement())
+  position     String    @db.VarChar(200)
+  startDate    DateTime
+  endDate      DateTime?
+  organization String?
+  description  String
+  createdDt    DateTime? @default(now())
+  updatedDt    DateTime? @default(now()) @updatedAt
+  isDeleted    Boolean   @default(false)
 
-  @@index([contentTypeId], map: "type_id")
+  techs TechOnExperience[]
+  tags  TagOnExperience[]
 }
 
-model contentType {
-  id                         Int                          @id @default(autoincrement())
-  name                       String                       @db.VarChar(200)
-  description                String?                      @db.Text
-  createTime                 DateTime?                    @default(now()) @db.DateTime(0)
-  content                    content[]
-  fieldType                  fieldType[]
-  mapContentTypeTaxonomyType mapContentTypeTaxonomyType[]
-}
-
-model field {
-  id         Int       @id @default(autoincrement())
-  createTime DateTime? @default(now()) @db.DateTime(0)
-  name       String?   @db.VarChar(255)
-  value      String?   @db.Text
-  contentId  Int?
-  content    content?  @relation(fields: [contentId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "Field_ibfk_1")
-
-  @@index([contentId], map: "contentId")
-}
-
-model fieldType {
-  id            Int          @id @default(autoincrement())
-  name          String       @db.VarChar(200)
-  contentTypeId Int?
-  dataType     String?      @db.VarChar(20)
-  createTime    DateTime?    @default(now()) @db.DateTime(0)
-  contentType   contentType? @relation(fields: [contentTypeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FieldType_ibfk_1")
-
-  @@index([contentTypeId], map: "type_id")
-}
-
-model mapContentTaxonomy {
+model Project {
   id          Int       @id @default(autoincrement())
-  contentId   Int
-  taxonomyId Int
-  createTime  DateTime? @default(now()) @db.DateTime(0)
-  content     content   @relation(fields: [contentId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "map_Content_Taxonomy_ibfk_1")
-  taxonomy    taxonomy  @relation(fields: [taxonomyId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "map_Content_Taxonomy_ibfk_2")
+  title       String    @db.VarChar(200)
+  date        DateTime
+  description String
+  body        String    @db.Text
+  url         String?
+  createdDt   DateTime? @default(now())
+  updatedDt   DateTime? @default(now()) @updatedAt
+  isDeleted   Boolean   @default(false)
+  imageId     Int?
+  image       Image?    @relation(fields: [imageId], references: [id])
 
-  @@index([contentId], map: "contentId")
-  @@index([taxonomyId], map: "taxonomy_id")
+  techs TechOnProject[]
+  tags  TagOnProject[]
 }
 
-model mapContentTypeTaxonomyType {
-  id             Int          @id @default(autoincrement())
-  taxonomyTypeId Int
-  contentTypeId  Int
-  createTime     DateTime?    @default(now()) @db.DateTime(0)
-  taxonomyType   taxonomyType @relation(fields: [taxonomyTypeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "map_ContentType_TaxonomyType_ibfk_1")
-  contentType    contentType  @relation(fields: [contentTypeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "map_ContentType_TaxonomyType_ibfk_2")
+model Blog {
+  id          Int       @id @default(autoincrement())
+  title       String    @db.VarChar(200)
+  description String    @db.Text
+  body        String    @db.Text
+  imageId     Int?
+  image       Image?    @relation(fields: [imageId], references: [id])
+  isDeleted   Boolean   @default(false)
+  createdDt   DateTime? @default(now())
+  updatedDt   DateTime? @default(now()) @updatedAt
 
-  @@index([taxonomyTypeId], map: "taxonomy_id")
-  @@index([contentTypeId], map: "type_id")
+  techs TechOnBlog[]
+  tags  TagOnBlog[]
 }
 
-model taxonomy {
-  id                 Int                  @id @default(autoincrement())
-  taxonomyTypeId     Int?
-  name               String               @db.VarChar(200)
-  createTime         DateTime?            @default(now()) @db.DateTime(0)
-  mapContentTaxonomy mapContentTaxonomy[]
-  taxonomyType       taxonomyType?        @relation(fields: [taxonomyTypeId], references: [id], onUpdate: NoAction, map: "Taxonomy_ibfk_1")
+model Image {
+  id        Int       @id @default(autoincrement())
+  caption   String?
+  fileName  String
+  createdDt DateTime? @default(now())
 
-  @@index([taxonomyTypeId], map: "taxonomy_id")
+  Project    Project[]
+  Blog       Blog[]
 }
 
-model taxonomyType {
-  id                         Int                          @id @default(autoincrement())
-  name                       String                       @db.VarChar(200)
-  description                String?                      @db.Text
-  createTime                 DateTime?                    @default(now()) @db.DateTime(0)
-  mapContentTypeTaxonomyType mapContentTypeTaxonomyType[]
-  taxonomy                   taxonomy[]
+model Tech {
+  id               Int                @id @default(autoincrement())
+  name             String
+  TechOnExperience TechOnExperience[]
+  TechOnProject    TechOnProject[]
+  TechOnBlog       TechOnBlog[]
+}
+
+model TechOnExperience {
+  id           Int        @id @default(autoincrement())
+  Experience   Experience @relation(fields: [ExperienceId], references: [id])
+  Tech         Tech       @relation(fields: [TechId], references: [id])
+  ExperienceId Int
+  TechId       Int
+
+  @@map("mapTechExperience") // Specify the name of the intermediate table
+}
+
+model TechOnProject {
+  id        Int     @id @default(autoincrement())
+  Project   Project @relation(fields: [ProjectId], references: [id])
+  Tech      Tech    @relation(fields: [TechId], references: [id])
+  ProjectId Int
+  TechId    Int
+
+  @@map("mapTechProject") // Specify the name of the intermediate table
+}
+
+model TechOnBlog {
+  id     Int  @id @default(autoincrement())
+  Blog   Blog @relation(fields: [BlogId], references: [id])
+  Tech   Tech @relation(fields: [TechId], references: [id])
+  BlogId Int
+  TechId Int
+
+  @@map("mapTechBlog") // Specify the name of the intermediate table
+}
+
+model Tag {
+  id              Int               @id @default(autoincrement())
+  name            String
+  TagOnExperience TagOnExperience[]
+  TagOnProject    TagOnProject[]
+  TagOnBlog       TagOnBlog[]
+}
+
+model TagOnExperience {
+  id           Int        @id @default(autoincrement())
+  Experience   Experience @relation(fields: [ExperienceId], references: [id])
+  Tag          Tag        @relation(fields: [TagId], references: [id])
+  ExperienceId Int
+  TagId        Int
+
+  @@map("mapTagExperience") // Specify the name of the intermediate table
+}
+
+model TagOnProject {
+  id        Int     @id @default(autoincrement())
+  Project   Project @relation(fields: [ProjectId], references: [id])
+  Tag       Tag     @relation(fields: [TagId], references: [id])
+  ProjectId Int
+  TagId     Int
+
+  @@map("mapTagProject") // Specify the name of the intermediate table
+}
+
+model TagOnBlog {
+  id     Int  @id @default(autoincrement())
+  Blog   Blog @relation(fields: [BlogId], references: [id])
+  Tag    Tag  @relation(fields: [TagId], references: [id])
+  BlogId Int
+  TagId  Int
+
+  @@map("mapTagBlog") // Specify the name of the intermediate table
 }

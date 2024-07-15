@@ -1,17 +1,19 @@
 import "./../globals.css";
 import "./../bg.css";
-import { Loading } from "@components/loading";
+import { Loading } from "@/components/Loading";
 import { Suspense } from "react";
 import StyledComponentsRegistry from "@/components/AntdRegistry";
 import { ThemeProvider } from "@/context/theme";
 import { LayoutProvider } from "@/context/layout";
 
-import app from "@config";
+import conf from "@config";
+import { seo } from "@/utility/seo";
 
-export const metadata = {
-  title: app.name,
-  description: app.title,
-};
+export const metadata = seo({
+  title: conf.title,
+  description: conf.about,
+  url: "/",
+});
 
 export default async function RootLayout({
   children,
@@ -21,9 +23,9 @@ export default async function RootLayout({
   return (
     <StyledComponentsRegistry>
       <Suspense fallback={<Loading className="h-screen" />}>
-          <ThemeProvider>
-            <LayoutProvider>{children}</LayoutProvider>
-          </ThemeProvider>
+        <ThemeProvider>
+          <LayoutProvider>{children}</LayoutProvider>
+        </ThemeProvider>
       </Suspense>
     </StyledComponentsRegistry>
   );

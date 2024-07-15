@@ -1,68 +1,42 @@
 import { notFound } from "next/navigation";
-import {
-  getContent,
-  getContentTypes,
-  getContents,
-  prettyContent,
-} from "@service";
+import { getBlog } from "@service/blog.service";
 import ExperienceTimeLine from "@components/ExperienceTimeLine";
 import { BlogList } from "./blog/_components/blog";
 import ProjectThumbnail from "./project/_components/ProjectThumbnail";
 import Link from "next/link";
 import myLink from "@/link";
 import { Button, Divider, List } from "antd";
-import { me, technology } from "@constant";
-import { MarkDownView } from "../(admin)/admin/_private/components/Inputs";
+import { technology } from "@constant";
+import { MarkDownView } from "../(admin)/_components/Inputs";
 import { CgArrowRight } from "react-icons/cg";
-import { Content } from "@schema";
+import { getProject } from "@/service/project.service";
+import { getExperience } from "@/service/experience.service";
+import conf from "@config";
 
 export default async function Page() {
-  const ls_content_type = await getContentTypes();
-  const _project = ls_content_type.find((t) => t.name == "project");
-  const _experience = ls_content_type.find((t) => t.name == "experience");
-  const _blog = ls_content_type.find((t) => t.name == "blog");
-  const projects = _project
-    ? await getContents({
-        where: {
-          contentTypeId: _project.id,
-        },
-      })
-    : [];
-  const experience = _experience
-    ? await getContents({
-        where: {
-          contentTypeId: _experience.id,
-        },
-      })
-    : [];
-  const blog = _blog
-    ? await getContents({
-        where: {
-          contentTypeId: _blog.id,
-        },
-      })
-    : [];
+  const projects = await getProject({ take: 4 });
+  const experience = await getExperience({ take: 4 });
+  const blog = await getBlog({ take: 4 });
 
   return (
     <div className="px-8 max-w-xl mx-auto box-border">
-      <MarkDownView text={me.about} />
+      <MarkDownView text={conf.about} />
       <Divider />
       <section id="experience" className="py-16">
-        <h2>Exparence</h2>
-        <ExperienceTimeLine experience={experience.map(e=>prettyContent(e))} />
+        <h2 className="sticky md:relative top-0 z-10 backdrop-blur-md md:backdrop-blur-0 p-2 px-8 -mx-8">
+          Experience
+        </h2>
+        <ExperienceTimeLine experience={experience.data} />
         {/* <Button type='primary' ghost>My Resume</Button> */}
       </section>
 
       <Divider />
       <section id="projects" className="py-16">
-        <h2>Projects</h2>
-        {projects?.map((project) => {
-          const p: Content = prettyContent(project);
-          return (
-            <Link href={myLink.project(p.id)} key={p.id}>
-              <ProjectThumbnail {...p} />
-            </Link>
-          );
+        <h2 className="sticky md:relative top-0 z-10 backdrop-blur-md md:backdrop-blur-0 p-2 px-8 -mx-8">
+          <Link href={myLink.project()} title="Projects">Projects <CgArrowRight /></Link>
+        </h2>
+        {projects.data?.map((p) => {
+          return <ProjectThumbnail project={p} key={p.id} />;
         })}
         <div className="text-right">
           <Link href={myLink.project()}>
@@ -87,10 +61,12 @@ export default async function Page() {
 
       <Divider />
       <section id="blog" className="py-16">
-        <h2>Blog</h2>
-        <BlogList blogs={blog} />
+        <h2 className="sticky md:relative top-0 z-10 backdrop-blur-md md:backdrop-blur-0 p-2 px-8 -mx-8">
+          <Link href={myLink.blog()} title="Blog">Blog <CgArrowRight /></Link>
+        </h2>
+        <BlogList blogs={blog.data} />
         <div className="text-right">
-          <Link href={myLink.project()}>
+          <Link href={myLink.blog()}>
             More Articles
             <CgArrowRight />{" "}
           </Link>

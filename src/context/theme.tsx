@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { App, ConfigProvider, Switch, theme } from "antd";
 import { useCookies } from "react-cookie";
-import { Loading } from "@/components/loading";
+import { Loading } from "@/components/Loading";
 import Script from "next/script";
 interface ThemeContextType {
   isDark: boolean | null;
@@ -43,7 +43,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   // const hue = 210;
   // const hue = 235;
   // const [hue, setHue]=useState(180)
-  const different = 10;
+  const different = 5;
   const antTheme = {
     token: {
       colorPrimary: `hsl(${hue}, ${isDark ? "50%,60%" : "90%,45%"})`,
@@ -91,6 +91,21 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
       // theme.compactAlgorithm,
     ],
   };
+  const updateThemeColor = (color: string) => {
+    const metaTag = document.querySelector('meta[name="theme-color"]');
+    if (metaTag) {
+      metaTag.setAttribute("content", color);
+    } else {
+      const newMetaTag = document.createElement("meta");
+      newMetaTag.name = "theme-color";
+      newMetaTag.content = color;
+      document.head.appendChild(newMetaTag);
+    }
+  };
+  useEffect(() => {
+    updateThemeColor(isDark ? antTheme.token.colorBgContainer : "#FFF");
+  }, [isDark]);
+
   if (isDark == null) {
     return <Loading className="h-screen" />;
   } else {
@@ -115,7 +130,9 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
             />
             <App
               style={{
-                background: isDark ? `hsla(${hue}, 40%, 10%, 50%)` : "transparent",
+                background: isDark
+                  ? `hsla(${hue}, 40%, 10%, 50%)`
+                  : "transparent",
                 minHeight: "100vh",
                 padding: 0,
                 margin: 0,

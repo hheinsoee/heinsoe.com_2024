@@ -2,10 +2,9 @@ import dayjs from "dayjs";
 import React from "react";
 import { CalendarOutlined } from "@ant-design/icons";
 import { technology } from "@constant";
-import { Tag } from "antd";
+import { Image, Tag } from "antd";
 import { useTheme } from "@/context/theme";
-import Image from "next/image";
-import app from "@config";
+import conf from "@config";
 
 interface InlineDateProps {
   date: string;
@@ -15,7 +14,7 @@ interface InlineDateProps {
 export const InlineDate: React.FC<InlineDateProps> = ({ date, className }) => {
   return (
     <div className={`inline-flex items-center gap-1 ${className}`}>
-      <CalendarOutlined /> {dayjs(date).format(app.dateFormat)}
+      <CalendarOutlined /> {dayjs(date).format(conf.dateFormat)}
     </div>
   );
 };
@@ -33,16 +32,16 @@ const Cell: React.FC<CellProps> = ({ type, value, className = "" }) => {
     date: <InlineDate date={value} className={className} />,
     technology: (
       <div
-        className={`inline-flex gap-2 px-2 rounded-md items-baseline ${className}`}
+        className={`inline-flex gap-[0.2rem] px-[0.25rem] rounded-md items-center ${className}`}
         style={{
           background: theme.theme.token.colorPrimary_(50, 10),
           color: theme.theme.token.colorPrimary_(50, 100),
         }}
       >
-        {technology?.[String(value)?.toLowerCase()]?.Icon} {value}
+        {technology?.[String(value)?.toLowerCase()]?.Icon({})} 
+        {String(value)?.toLowerCase()}
       </div>
     ),
-    featured_image: <Image src={value} width={100} height={100} alt="" />,
   };
 
   return components[type] || <span>{value}</span>;

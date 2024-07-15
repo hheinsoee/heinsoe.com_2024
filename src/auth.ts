@@ -1,31 +1,20 @@
 "use server";
-import { SignJWT, jwtVerify } from "jose";
+import { JWTPayload, SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
+import prisma from "@/service/db";
 
-import myLink from "./link";
-import { redirect } from "next/navigation";
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
+import { redirect } from "next/navigation";
+import dayjs from "dayjs";
 
-const tomorrow = new Date();
-tomorrow.setDate(tomorrow.getDate() + 1);
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
 
-export async function encryptPassword(word: string) {
-  if (!word) return "";
-  try {
-    return crypto
-      .createHmac("sha256", "helloHeinSoe")
-      .update(word)
-      .digest("hex");
-  } catch (err) {
-    return "";
-  }
-}
+const tomorrow = () => dayjs().add(1, "days").toDate(); // Convert Day.js object to JavaScript Date object
 
 // Function to create and sign a JWT
-export async function encrypt(payload: any) {
+async function encrypt(payload: JWTPayload) {
   const token = await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" }) // Specify the signing algorithm
     .setIssuedAt() // Set the issued at time (current time)
@@ -35,7 +24,7 @@ export async function encrypt(payload: any) {
 }
 
 // Function to verify a JWT
-export async function decrypt(token: string) {
+async function decrypt(token: string) {
   try {
     const { payload } = await jwtVerify(token, key, {
       algorithms: ["HS256"],
@@ -53,32 +42,54 @@ export async function login({
   username: string;
   password: string;
 }) {
-  console.log(await encryptPassword(password));
   // Verify credentials && get the user
-  try {
-    const user = {
-      id: 1,
-      username: "heinsoe",
-      password:
-        "a8bfd0947ca0cc7f43f48e74755cd64ec19ed8c4a59aa28169a1401edc63109c",
-      name: "Hein Soe",
-      avatar: "",
-    };
-    if (
-      username == user.username &&
-      user?.password == (await encryptPassword(password))
-    ) {
-      const { id, username, name, avatar } = user;
-      const expires: Date = tomorrow;
-      const session: string = await encrypt({
-        user: { id, username, name, avatar },
-        expires,
-      });
 
-      cookies().set("session", session, { expires: expires, httpOnly: true });
+  try {
+    const _username = "heinsoe";
+    const _password =
+      "4f5b269a2d14d3c7ca89a2861689743b2624cb6b7a396d18d555b8cf49a02d71";
+    const pass = await encryptPassword(password);
+    console.log(_password);
+    const user = {
+      name: "Hein Soe",
+    };
+    if (username == _username && pass == _password) {
+      const session = await encrypt({
+        user,
+        expires: tomorrow(),
+      });
+      cookies().set("session", session, {
+        expires: tomorrow(),
+        httpOnly: true,
+      });
+      return true;
     } else {
-      throw new Error("wrong username or password!");
+      throw new Error("username or password is wrong.");
     }
+    // await prisma.user
+    //   .findFirstOrThrow({ where: { username }, include: { role: true } })
+    //   .then(async (user) => {
+    //     const pass = await encryptPassword(password);
+    //     // console.log(pass)
+    //     if (user.password == pass) {
+    //       const { id, username, fullName, avatarUrl, role } = user;
+    // const session = await encrypt({
+    //   user,
+    //   expires: tomorrow(),
+    // });
+
+    // cookies().set("session", session, {
+    //   expires: tomorrow(),
+    //   httpOnly: true,
+    // });
+    //     } else {
+    //       throw new Error("username or password is wrong.");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     throw new Error("username or password is wrong.");
+    //   });
   } catch (error) {
     throw error;
   }
@@ -86,9 +97,8 @@ export async function login({
 
 export async function logout() {
   console.log("log Out");
-  // Destroy the session
   cookies().set("session", "", { expires: new Date(0) });
-  redirect(myLink.signin());
+  redirect("/");
 }
 
 export async function getSession() {
@@ -99,20 +109,35 @@ export async function getSession() {
 }
 
 export async function updateSession(request: NextRequest) {
-  console.log("check session");
-  const session = request.cookies.get("session")?.value;
+  // console.log("check session");
+  const session = await request.cookies.get("session")?.value;
   if (!session) throw new Error("no session");
 
   // Refresh the session so it doesn't expire
-  var parsed = (await decrypt(session)) as { expires: Date };
-  parsed.expires = tomorrow;
+  var parsed = await decrypt(session);
+  if (!parsed) throw new Error("no session");
+  //expire tomorrow
+
   // console.log(parsed);
-  const res = NextResponse.next();
+  parsed.expires = tomorrow();
+  var res = NextResponse.next();
   res.cookies.set({
     name: "session",
     value: await encrypt(parsed),
     httpOnly: true,
-    expires: parsed.expires,
+    expires: parsed.expires as Date, // Explicitly type parsed.expires as Date
   });
   return res;
 }
+
+export const encryptPassword = async (word: string) => {
+  if (!word) return "";
+  try {
+    return crypto
+      .createHmac("sha256", "BDATAMITTKey123321")
+      .update(word)
+      .digest("hex");
+  } catch (err) {
+    return "";
+  }
+};

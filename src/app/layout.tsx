@@ -2,20 +2,17 @@ import "./globals.css";
 import "./bg.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import info from "@config";
+import conf from "@config";
 import { Suspense } from "react";
-import { Loading } from "@/components/loading";
+import { Loading } from "@/components/Loading";
 const inter = Inter({ subsets: ["latin"] });
-import RepoProvider from "./(admin)/admin/_private/context/repo";
-import {
-  getContentTypes,
-  getTaxonomyTypes,
-  prettyTaxonomy,
-  prettyType,
-} from "@/service";
+import RepoProvider from "../context/repo";
+import {} from "@/service";
+import { getTag } from "@/service/tag.service";
+import { getTech } from "@/service/tech.service";
 export const metadata: Metadata = {
-  title: info.name,
-  description: info.title,
+  title: conf.name,
+  description: conf.title,
 };
 export const revalidate = 3600;
 export default async function RootLayout({
@@ -23,8 +20,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const contentTypes = await getContentTypes();
-  const taxonomyTypes = await getTaxonomyTypes({ taxonomy: true });
+  const tags = await getTag();
+  const techs = await getTech();
   return (
     <html lang="en">
       <head>
@@ -38,12 +35,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.className}`}>
-        <RepoProvider
-          init={{
-            contentTypes: contentTypes.map((d) => prettyType(d)),
-            taxonomyTypes: taxonomyTypes.map((d) => prettyTaxonomy(d)),
-          }}
-        >
+        <RepoProvider init={{ tags, techs }}>
           <Suspense fallback={<Loading className="h-screen" />}>
             {children}
           </Suspense>

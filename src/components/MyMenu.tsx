@@ -2,9 +2,17 @@ import myLink from "@/link";
 import { Anchor, List, Switch } from "antd";
 import Link from "next/link";
 import React from "react";
-import { FaGithub, FaLinkedin, FaNpm, FaWhatsapp } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaGithub,
+  FaLinkedin,
+  FaMailBulk,
+  FaMailchimp,
+  FaNpm,
+  FaWhatsapp,
+} from "react-icons/fa";
 
-import info from "@config";
+import conf from "@config";
 import {
   ImGithub,
   ImLinkedin,
@@ -27,14 +35,17 @@ function MyMenu() {
   return (
     <nav
       className={
-        "h-[100vmin] p-8 py-24 box-border flex flex-col  max-w-xl mx-auto"
+        "max-h-screen overflow-hidden px-8 py-24 box-border flex flex-col  max-w-xl mx-auto"
       }
     >
       <div>
-        <Link href="/" className="title">
-          {info.name}
-        </Link>
-        <div className="opacity-50">{info.title}</div>
+        <h1>
+          <Link href="/" className="title" title={conf.title}>
+            {conf.title}
+          </Link>
+        </h1>
+        <div className="text-lg">{conf.description}</div>
+        <div className="opacity-50">{conf.moto}</div>
       </div>
       <div className="flex-1 my-16">
         <Anchor
@@ -58,7 +69,7 @@ function MyMenu() {
             },
             {
               key: "blog",
-              href: myLink.blog(),
+              href: isHome ? "/#blog" : myLink.blog(),
               title: "Blog",
             },
             {
@@ -77,7 +88,13 @@ function MyMenu() {
         >
           <FaGithub />
         </Link>
-        {/* <Link href={myLink.npm} target='_blank' className='opacity-50 hover:opacity-100'><SiNpm style={{ fontSize: '16pt' }} /></Link> */}
+        {/* <Link
+          href={myLink.npm}
+          target="_blank"
+          className="opacity-50 hover:opacity-100"
+        >
+          <SiNpm style={{ fontSize: "16pt" }} />
+        </Link> */}
         <Link
           href={myLink.linkedin}
           target="_blank"
@@ -91,6 +108,13 @@ function MyMenu() {
           className="opacity-50 hover:opacity-100"
         >
           <FaWhatsapp />
+        </Link>
+        <Link
+          href={myLink.email}
+          target="_blank"
+          className="opacity-50 hover:opacity-100"
+        >
+          <FaEnvelope />
         </Link>
       </div>
     </nav>

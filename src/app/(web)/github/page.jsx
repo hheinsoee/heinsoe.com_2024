@@ -4,12 +4,13 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import GitHubCalendar from 'react-github-calendar';
 import { FaGithub, FaLink, FaLock } from 'react-icons/fa';
-import { me, technology } from '@constant'
+import { technology } from '@constant'
 import { JSONTree } from 'react-json-tree';
 import { getGitProfile, getGitProjects } from './action';
 import InfiniteScrollable from "react-infinite-scrollable";
 import { List, Spin, Tag, Tooltip, message } from 'antd';
 import { MdInstallDesktop } from 'react-icons/md';
+import conf from '@config';
 
 function Page(props) {
     const isDark = useTheme()?.isDark
@@ -54,9 +55,9 @@ function Page(props) {
 
     return (
         <div className='max-w-4xl mx-auto px-8'>
-            <Link href={`https://github.com/${me.githubUsername}`} className='flex items-baseline'><h2><FaGithub /> GitHub</h2>.com/<b>{me.githubUsername}</b></Link>
+            <Link href={`https://github.com/${conf.githubUsername}`} className='flex items-baseline'><h2><FaGithub /> GitHub</h2>.com/<b>{conf.githubUsername}</b></Link>
             <GitHubCalendar
-                username={me.githubUsername}
+                username={conf.githubUsername}
                 blockSize={12}
                 colorScheme={isDark ? 'dark' : 'light'}
             />
