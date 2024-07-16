@@ -4,6 +4,7 @@ import {
   AppstoreOutlined,
   CodeFilled,
   CommentOutlined,
+  DotChartOutlined,
   HomeOutlined,
   MailOutlined,
   SettingOutlined,
@@ -38,6 +39,16 @@ const items: MenuItem[] = [
     icon: <BiPen />,
     key: adminLink.blog(),
     label: "blog",
+  },
+  {
+    icon: <DotChartOutlined />,
+    key: adminLink.tag(),
+    label: "tag",
+  },
+  {
+    icon: <CodeFilled />,
+    key: adminLink.tech(),
+    label: "tech",
   },
 ];
 

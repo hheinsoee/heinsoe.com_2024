@@ -1,6 +1,8 @@
 "use server";
+import { revalidatePath } from "next/cache";
 import prisma from "./db";
 import { Prisma } from "@prisma/client";
+import myLink from "@/link";
 
 export const getBlog = async (props?: Prisma.BlogFindManyArgs) => {
   props = props || {};
@@ -54,6 +56,7 @@ export const updateBlog = async (props: Prisma.BlogUpdateArgs) => {
   return await prisma.blog
     .update(props)
     .then((res) => {
+      revalidatePath(myLink.blog(res.id))
       return getBlog({
         where: {
           id: res.id,

@@ -1,4 +1,5 @@
 "use server";
+import { revalidatePath } from "next/cache";
 import prisma from "./db";
 import { Prisma } from "@prisma/client";
 
@@ -33,6 +34,7 @@ export const createTag = async (props: Prisma.TagCreateInput) => {
   return await prisma.tag
     .create({ data: props })
     .then((res) => {
+      revalidatePath("/", 'layout');
       return getTag({
         where: {
           id: res.id,
@@ -50,6 +52,7 @@ export const updateTag = async (props: Prisma.TagUpdateArgs) => {
   return await prisma.tag
     .update(props)
     .then((res) => {
+      revalidatePath("/", 'layout');
       return getTag({
         where: {
           id: res.id,

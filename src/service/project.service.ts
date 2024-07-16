@@ -1,6 +1,9 @@
 "use server";
+import myLink from "@/link";
 import prisma from "./db";
 import { Prisma } from "@prisma/client";
+
+import { revalidatePath } from 'next/cache'
 
 export const getProject = async (props?: Prisma.ProjectFindManyArgs) => {
   props = props || {};
@@ -39,6 +42,7 @@ export const createProject = async (props: Prisma.ProjectCreateInput) => {
   return await prisma.project
     .create({ data: props })
     .then((res) => {
+      revalidatePath(myLink.project())
       return getProject({
         where: {
           id: res.id,
@@ -56,6 +60,8 @@ export const updateProject = async (props: Prisma.ProjectUpdateArgs) => {
   return await prisma.project
     .update(props)
     .then((res) => {
+      revalidatePath(myLink.project())
+      revalidatePath(myLink.project(res.id))
       return getProject({
         where: {
           id: res.id,

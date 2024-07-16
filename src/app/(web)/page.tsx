@@ -15,11 +15,16 @@ import conf from "@config";
 
 export default async function Page() {
   const projects = await getProject({ take: 4 });
-  const experience = await getExperience({ take: 4 });
+  const experience = await getExperience({
+    take: 4,
+    orderBy: {
+      startDate: "desc",
+    },
+  });
   const blog = await getBlog({ take: 4 });
 
   return (
-    <div className="px-8 max-w-xl mx-auto box-border">
+    <div className="px-8 max-w-xl mx-auto box-border py-24">
       <MarkDownView text={conf.about} />
       <Divider />
       <section id="experience" className="py-16">
@@ -33,7 +38,9 @@ export default async function Page() {
       <Divider />
       <section id="projects" className="py-16">
         <h2 className="sticky md:relative top-0 z-10 backdrop-blur-md md:backdrop-blur-0 p-2 px-8 -mx-8">
-          <Link href={myLink.project()} title="Projects">Projects <CgArrowRight /></Link>
+          <Link href={myLink.project()} title="Projects">
+            Projects <CgArrowRight />
+          </Link>
         </h2>
         {projects.data?.map((p) => {
           return <ProjectThumbnail project={p} key={p.id} />;
@@ -62,7 +69,9 @@ export default async function Page() {
       <Divider />
       <section id="blog" className="py-16">
         <h2 className="sticky md:relative top-0 z-10 backdrop-blur-md md:backdrop-blur-0 p-2 px-8 -mx-8">
-          <Link href={myLink.blog()} title="Blog">Blog <CgArrowRight /></Link>
+          <Link href={myLink.blog()} title="Blog">
+            Blog <CgArrowRight />
+          </Link>
         </h2>
         <BlogList blogs={blog.data} />
         <div className="text-right">

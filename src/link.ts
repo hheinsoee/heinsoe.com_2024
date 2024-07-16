@@ -1,6 +1,7 @@
 import conf from "@config";
 
 const myLink = {
+  home: () => "/",
   signin: () => "/signin",
   admin: () => "/admin",
   blog: (slug?: string | number) => `/blog${slug ? `/${slug}` : ""}`,

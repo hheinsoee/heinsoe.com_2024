@@ -1,4 +1,5 @@
 "use server";
+import { revalidatePath } from "next/cache";
 import prisma from "./db";
 import { Prisma } from "@prisma/client";
 
@@ -38,6 +39,7 @@ export const createExperience = async (props: Prisma.ExperienceCreateInput) => {
   return await prisma.experience
     .create({ data: props })
     .then((res) => {
+      revalidatePath('/')
       return getExperience({
         where: {
           id: res.id,
@@ -55,6 +57,7 @@ export const updateExperience = async (props: Prisma.ExperienceUpdateArgs) => {
   return await prisma.experience
     .update(props)
     .then((res) => {
+      revalidatePath('/')
       return getExperience({
         where: {
           id: res.id,

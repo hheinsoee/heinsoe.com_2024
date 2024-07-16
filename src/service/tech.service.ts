@@ -1,4 +1,5 @@
 "use server";
+import { revalidatePath } from "next/cache";
 import prisma from "./db";
 import { Prisma } from "@prisma/client";
 
@@ -33,6 +34,7 @@ export const createTech = async (props: Prisma.TechCreateInput) => {
   return await prisma.tech
     .create({ data: props })
     .then((res) => {
+      revalidatePath("/", 'layout');
       return getTech({
         where: {
           id: res.id,
@@ -50,6 +52,7 @@ export const updateTech = async (props: Prisma.TechUpdateArgs) => {
   return await prisma.tech
     .update(props)
     .then((res) => {
+      revalidatePath("/", 'layout');
       return getTech({
         where: {
           id: res.id,

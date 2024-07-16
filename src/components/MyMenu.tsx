@@ -23,6 +23,7 @@ import {
 import { SiNpm } from "react-icons/si";
 import { useLayout } from "@/context/layout";
 import { usePathname, useRouter } from "next/navigation";
+import { MarkDownView } from "@/app/(admin)/_components/Inputs";
 
 function MyMenu() {
   const router = useRouter();
@@ -45,7 +46,11 @@ function MyMenu() {
           </Link>
         </h1>
         <div className="text-lg">{conf.description}</div>
-        <div className="opacity-50">{conf.moto}</div>
+        {/* <div className="opacity-50">{conf.moto}</div> */}
+        <img
+          alt={conf.description}
+          src={`https://readme-typing-svg.herokuapp.com/?lines=${conf.moto.split(',').join(';')}&size=14`}
+        />
       </div>
       <div className="flex-1 my-16">
         <Anchor

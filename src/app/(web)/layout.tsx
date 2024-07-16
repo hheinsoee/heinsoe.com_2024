@@ -21,12 +21,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <StyledComponentsRegistry>
       <Suspense fallback={<Loading className="h-screen" />}>
         <ThemeProvider>
           <LayoutProvider>{children}</LayoutProvider>
         </ThemeProvider>
       </Suspense>
-    </StyledComponentsRegistry>
   );
 }

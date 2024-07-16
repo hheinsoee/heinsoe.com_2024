@@ -30,14 +30,14 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
             <MyMenu />
           </div>
         </div>
-        <div className="flex-1">
-          <div className="py-8 md:py-24">
+        <div className="flex-1 ">
+          <div className="my-4">
             {!isHome && (
               // <Link href={"/"} className="mx-4 md:hidden">
               <Button
                 className="mx-4 md:hidden"
                 icon={<BiArrowBack />}
-                onClick={(e) => router.push("/", { scroll: false })}
+                onClick={(e) => router.back()}
                 type="text"
               />
               // </Link>

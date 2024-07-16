@@ -15,7 +15,7 @@ function ExperienceTimeLine({ experience }: { experience: Experience[] }) {
   return (
     <Timeline
       items={orderedExperience.map((e, i) => {
-        const end_date = dayjs(e.endDate);
+        const end_date = e.endDate ? dayjs(e.endDate) || null : null;
         const start_date = dayjs(e.startDate);
         const organization = e.organization;
         const techIds = e?.techs?.map((t) => t.TechId);

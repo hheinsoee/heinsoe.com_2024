@@ -8,7 +8,8 @@ import RepoProvider from "../context/repo";
 import {} from "@/service";
 import { getTag } from "@/service/tag.service";
 import { getTech } from "@/service/tech.service";
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics } from "@next/third-parties/google";
+import StyledComponentsRegistry from "@/components/AntdRegistry";
 
 export const metadata: Metadata = {
   title: conf.name,
@@ -33,14 +34,19 @@ export default async function RootLayout({
               `,
           }}
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
       </head>
       <body>
-        <RepoProvider init={{ tags, techs }}>
-          <Suspense fallback={<Loading className="h-screen" />}>
-            {children}
-          </Suspense>
-        </RepoProvider>
+        <StyledComponentsRegistry>
+          <RepoProvider init={{ tags, techs }}>
+            <Suspense fallback={<Loading className="h-screen" />}>
+              {children}
+            </Suspense>
+          </RepoProvider>
+        </StyledComponentsRegistry>
       </body>
       <GoogleAnalytics gaId={conf.gaId} />
     </html>
