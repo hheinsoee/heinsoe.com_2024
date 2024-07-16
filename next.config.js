@@ -1,5 +1,5 @@
 // /** @type {import('next').NextConfig} */
-const withMDX = require('@next/mdx')()
+const withMDX = require("@next/mdx")();
 const nextConfig = {
   reactStrictMode: false,
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
@@ -14,6 +14,12 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
+        port: process.env.PORT,
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "103.195.7.43",
         port: process.env.PORT,
         pathname: "/**",
       },
@@ -47,4 +53,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withMDX(nextConfig)
+module.exports = withMDX(nextConfig);
