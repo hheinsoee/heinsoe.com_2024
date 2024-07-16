@@ -2,13 +2,13 @@
 import conf from "@config";
 
 export async function getGitProjects(params) {
-  const { page } = params;
+  const { skip, take } = params;
   const response = await fetch(
-    `https://api.github.com/search/repositories?q=user:${conf.githubUsername}+fork:false&sort=stars&per_page=10&type=Repositories&page=${page}`
-    // `https://www.shwekhitonlinetv.com/?rest_route=/wp/v2/posts&page=${page}&_fields=id,title,date,_links,excerpt,categories&_embed=wp:featuredmedia&categories=55`,
-    // {
-    //   next: { tags: ["blog", "content"] },
-    // }
+    `https://api.github.com/search/repositories?q=user:${
+      conf.githubUsername
+    }+fork:false&sort=stars&per_page=${take}&type=Repositories&page=${Math.floor(
+      skip / take
+    )}`
   );
   if (response.status == 200) {
     return await response.json();

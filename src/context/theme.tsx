@@ -43,7 +43,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   // const hue = 210;
   // const hue = 235;
   // const [hue, setHue]=useState(180)
-  const different = 5;
+  const different = 0;
   const antTheme = {
     token: {
       colorPrimary: `hsl(${hue}, ${isDark ? "50%,60%" : "90%,45%"})`,
@@ -54,8 +54,11 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
       secondColor: `hsl(${hue + different}, ${isDark ? "50%,75%" : "50%,20%"})`,
       // colorLink: `hsl(${hue}, ${isDark ? "90%,60%" : "80%,50%"})`,
       colorBgContainer: `hsl(${hue + different}, ${
-        isDark ? "10%,12%" : "10%,100%"
+        isDark ? "40%,10%" : "10%,100%"
       })`,
+      colorBgContainer_: `hsla(${hue + different}, ${
+        isDark ? "50%,12%" : "10%,100%"
+      },40%)`,
       glassBg: `hsla(${hue}, ${isDark ? "12%,16%,40%" : "10%,100%, 70%"} )`,
       bodyBgColor: `hsl(${hue}, ${isDark ? "12%,10%" : "20%,95%"})`,
 
@@ -103,7 +106,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
   useEffect(() => {
-    updateThemeColor(isDark ? antTheme.token.colorBgContainer : "#FFF");
+    updateThemeColor(antTheme.token.colorBgContainer);
   }, [isDark]);
 
   if (isDark == null) {
@@ -118,7 +121,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
           <div data-mode={isDark ? "dark" : "light"} data-color-mode="dark">
             <div
               style={{
-                background: isDark ? `hsl(${hue}, 40%, 10%)` : "#FFF",
+                background: antTheme.token.colorBgContainer,
                 position: "fixed",
                 zIndex: -2,
                 top: 0,
@@ -130,9 +133,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
             />
             <App
               style={{
-                background: isDark
-                  ? `hsla(${hue}, 40%, 10%, 50%)`
-                  : "transparent",
+                background: antTheme.token.colorBgContainer_,
                 minHeight: "100vh",
                 padding: 0,
                 margin: 0,

@@ -35,10 +35,10 @@ const Cell: React.FC<CellProps> = ({ type, value, className = "" }) => {
         className={`inline-flex gap-[0.2rem] px-[0.25rem] rounded-md items-center ${className}`}
         style={{
           background: theme.theme.token.colorPrimary_(50, 10),
-          color: theme.theme.token.colorPrimary_(50, 100),
+          color: theme.theme.token.colorPrimary_(theme.isDark ? 50 : 30, 100),
         }}
       >
-        {technology?.[String(value)?.toLowerCase()]?.Icon({})} 
+        {technology?.[String(value)?.toLowerCase()]?.Icon({})}
         {String(value)?.toLowerCase()}
       </div>
     ),

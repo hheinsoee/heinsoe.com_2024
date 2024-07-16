@@ -12,7 +12,7 @@ export default function ScrollBlogs() {
   const [loading, setLoading] = useState(false);
   const [article, setArticle] = useState<Blog[]>([]);
   const [total, setTotal] = useState<number>(0);
-  const limit = 3;
+  const limit = 10;
   const hasMore = article.length < total;
   const fetchPost = async () => {
     setLoading(true);

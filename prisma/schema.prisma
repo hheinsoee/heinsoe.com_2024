@@ -18,7 +18,7 @@ model Experience {
   startDate    DateTime
   endDate      DateTime?
   organization String?
-  description  String
+  description  String    @db.Text
   createdDt    DateTime? @default(now())
   updatedDt    DateTime? @default(now()) @updatedAt
   isDeleted    Boolean   @default(false)
@@ -31,7 +31,7 @@ model Project {
   id          Int       @id @default(autoincrement())
   title       String    @db.VarChar(200)
   date        DateTime
-  description String
+  description String    @db.Text
   body        String    @db.Text
   url         String?
   createdDt   DateTime? @default(now())
@@ -65,8 +65,8 @@ model Image {
   fileName  String
   createdDt DateTime? @default(now())
 
-  Project    Project[]
-  Blog       Blog[]
+  Project Project[]
+  Blog    Blog[]
 }
 
 model Tech {
