@@ -11,7 +11,7 @@ const conf = {
   dateTimeFormat: "DD-MMM YYYY HH:mm",
   pageSize: 10,
   logo: {
-    main:'/heinsoe.png'
+    main: "/heinsoe.png",
   },
   phone: "+66993057502",
   email: "mail@mail.ocm",
@@ -20,6 +20,7 @@ const conf = {
   whatsappUrl: "https://wa.me/+959252152447",
   linkedinUrl: "https://www.linkedin.com/in/hheinsoee",
   npmUrl: "https://www.npmjs.com/~hheinsoee",
+  gaId: "G-7J6W175XF7",
 };
 
 export default conf;

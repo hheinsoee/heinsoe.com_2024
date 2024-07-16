@@ -41,6 +41,7 @@ export const BlogThumbnail = ({ blog }: { blog: Blog }) => {
         <div className="opacity-30 hover:opacity-80 saturate-0 hover:saturate-100 brightness-30 contrast-60 hover:contrast-100 hover:brightness-100  mix-blend-luminosity hover:mix-blend-normal">
           <Image
             src={myLink.image(blog.image.fileName, "m")}
+            style={{ objectFit: "cover" }}
             width={100}
             height={100}
             alt={blog.title}

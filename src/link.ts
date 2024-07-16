@@ -1,6 +1,5 @@
 import conf from "@config";
 
-
 const myLink = {
   signin: () => "/signin",
   admin: () => "/admin",
@@ -13,7 +12,9 @@ const myLink = {
   npm: conf.npmUrl,
   email: conf.email,
   image: (file: string, size?: "s" | "m" | "l" | "xl", isFullUrl?: boolean) => {
-    const route = isFullUrl ? file : `${process.env.IMAGE_HOST}/images/${file}`;
+    const route = isFullUrl
+      ? file
+      : `${process.env.NEXT_PUBLIC_IMAGE_URL_PATH}/${file}`;
     if (size) {
       switch (size) {
         case "s":

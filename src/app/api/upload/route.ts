@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       // Save the resized image to file system
       const timestamp = Date.now();
       const filename = `${timestamp}-${formatFilename(file.name)}`;
-      await fs.writeFile(`${process.env.IMAGE_DIR}/${filename}`, resizedBuffer);
+      await fs.writeFile(`${process.env.NEXT_PUBLIC_IMAGE_DIR}/${filename}`, resizedBuffer);
 
       // Create image record in database
       const res = await createImage({

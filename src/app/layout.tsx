@@ -1,15 +1,15 @@
 import "./globals.css";
 import "./bg.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import conf from "@config";
 import { Suspense } from "react";
 import { Loading } from "@/components/Loading";
-const inter = Inter({ subsets: ["latin"] });
 import RepoProvider from "../context/repo";
 import {} from "@/service";
 import { getTag } from "@/service/tag.service";
 import { getTech } from "@/service/tech.service";
+import { GoogleAnalytics } from '@next/third-parties/google'
+
 export const metadata: Metadata = {
   title: conf.name,
   description: conf.title,
@@ -34,13 +34,14 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className}`}>
+      <body>
         <RepoProvider init={{ tags, techs }}>
           <Suspense fallback={<Loading className="h-screen" />}>
             {children}
           </Suspense>
         </RepoProvider>
       </body>
+      <GoogleAnalytics gaId={conf.gaId} />
     </html>
   );
 }

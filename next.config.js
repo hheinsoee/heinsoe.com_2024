@@ -14,8 +14,8 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
-        port: "3001",
-        pathname: "/images/**",
+        port: process.env.PORT,
+        pathname: "/**",
       },
     ],
     // limit of 25 deviceSizes values
@@ -44,10 +44,6 @@ const nextConfig = {
     contentDispositionType: "inline",
     // when true, every image will be unoptimized
     unoptimized: false,
-  },
-  env: {
-    IMAGE_HOST: "http://localhost:3001",
-    IMAGE_DIR: "./cdn/images/",
   },
 };
 
