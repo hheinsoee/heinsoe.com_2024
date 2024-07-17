@@ -12,8 +12,16 @@ export const getExperience = async (props?: Prisma.ExperienceFindManyArgs) => {
       id: "desc",
     },
     include: {
-      tags: true,
-      techs: true,
+      tags: {
+        include: {
+          Tag: true,
+        },
+      },
+      techs: {
+        include: {
+          Tech: true,
+        },
+      },
     },
     ...props,
   };
@@ -39,7 +47,7 @@ export const createExperience = async (props: Prisma.ExperienceCreateInput) => {
   return await prisma.experience
     .create({ data: props })
     .then((res) => {
-      revalidatePath('/')
+      revalidatePath("/");
       return getExperience({
         where: {
           id: res.id,
@@ -57,7 +65,7 @@ export const updateExperience = async (props: Prisma.ExperienceUpdateArgs) => {
   return await prisma.experience
     .update(props)
     .then((res) => {
-      revalidatePath('/')
+      revalidatePath("/");
       return getExperience({
         where: {
           id: res.id,

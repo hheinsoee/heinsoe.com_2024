@@ -5,9 +5,9 @@ import React from "react";
 import { MarkDownView } from "@/app/(admin)/_components/Inputs";
 import Cell from "@/components/Cell";
 import dayjs from "dayjs";
-import { setting } from "@constant";
 import { Experience, Tech } from "@interface";
 import { useRepo } from "@/context/repo";
+import conf from "@config";
 
 function ExperienceTimeLine({ experience }: { experience: Experience[] }) {
   const orderedExperience = experience;
@@ -29,7 +29,7 @@ function ExperienceTimeLine({ experience }: { experience: Experience[] }) {
               <div className="opacity-50">
                 {dayjs(start_date).format("YYYY MMM")} -{" "}
                 {end_date
-                  ? dayjs(end_date).format(setting.dateFormat)
+                  ? dayjs(end_date).format(conf.dateFormat)
                   : "Current"}
               </div>
               <div>

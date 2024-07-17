@@ -39,6 +39,7 @@ export const createBlog = async (props: Prisma.BlogCreateInput) => {
   return await prisma.blog
     .create({ data: props })
     .then((res) => {
+      revalidatePath("/");
       return getBlog({
         where: {
           id: res.id,
@@ -56,7 +57,8 @@ export const updateBlog = async (props: Prisma.BlogUpdateArgs) => {
   return await prisma.blog
     .update(props)
     .then((res) => {
-      revalidatePath(myLink.blog(res.id))
+      revalidatePath(myLink.blog(res.id));
+      revalidatePath("/");
       return getBlog({
         where: {
           id: res.id,

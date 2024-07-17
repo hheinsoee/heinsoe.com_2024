@@ -79,19 +79,6 @@ function Page() {
     setLoading(true);
     await getProject({
       ...params,
-      include: {
-        image: true,
-        tags: {
-          include: {
-            Tag: true,
-          },
-        },
-        techs: {
-          include: {
-            Tech: true,
-          },
-        },
-      },
     })
       .then(({ data, pagination }) => {
         setTotal(pagination.total);
@@ -123,21 +110,25 @@ function Page() {
           deleteMany: {
             ProjectId: selected.id,
           },
-          createMany: {
-            data: values.tagIds?.map((ids: number) => {
-              return { TagId: ids };
-            }),
-          },
+          ...(values.tagIds?.length > 0 && {
+            createMany: {
+              data: values.tagIds?.map((ids: number) => {
+                return { TagId: ids };
+              }),
+            },
+          }),
         },
         techs: {
           deleteMany: {
             ProjectId: selected.id,
           },
-          createMany: {
-            data: values.techIds?.map((ids: number) => {
-              return { TechId: ids };
-            }),
-          },
+          ...(values.techIds?.length > 0 && {
+            createMany: {
+              data: values.techIds?.map((ids: number) => {
+                return { TechId: ids };
+              }),
+            },
+          }),
         },
       };
       await updateProject({
@@ -164,20 +155,26 @@ function Page() {
         ...values,
         tagIds: undefined,
         techIds: undefined,
-        tags: {
-          createMany: {
-            data: values.tagIds?.map((ids: number) => {
-              return { TagId: ids };
-            }),
+
+        ...(values.tagIds?.length > 0 && {
+          tags: {
+            createMany: {
+              data: values.tagIds?.map((ids: number) => {
+                return { TagId: ids };
+              }),
+            },
           },
-        },
-        techs: {
-          createMany: {
-            data: values.techIds?.map((ids: number) => {
-              return { TechId: ids };
-            }),
+        }),
+
+        ...(values.techIds?.length > 0 && {
+          techs: {
+            createMany: {
+              data: values.techIds?.map((ids: number) => {
+                return { TechId: ids };
+              }),
+            },
           },
-        },
+        }),
       };
       await createProject(data)
         .then(({ data }) => {

@@ -24,6 +24,7 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <LayoutContext.Provider value={{ menuSize }}>
       <canvas className="banner_canvas" id="canvas_banner"></canvas>
+
       <div className={`layout ${menuSize} mx-auto`}>
         <div className="menu flex-1">
           <div className="sticky " style={{ top: 0 }}>
@@ -46,6 +47,7 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
       </div>
+
       <Script src="/bg.js" />
     </LayoutContext.Provider>
   );

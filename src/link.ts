@@ -11,7 +11,8 @@ const myLink = {
   linkedin: conf.linkedinUrl,
   whatsapp: conf.whatsappUrl,
   npm: conf.npmUrl,
-  email: conf.email,
+  email: `mailto:${conf.email}`,
+  phone: `tel:${conf.phone}`,
   image: (file: string, size?: "s" | "m" | "l" | "xl", isFullUrl?: boolean) => {
     const route = isFullUrl
       ? file

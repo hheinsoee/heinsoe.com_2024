@@ -24,6 +24,7 @@ import { SiNpm } from "react-icons/si";
 import { useLayout } from "@/context/layout";
 import { usePathname, useRouter } from "next/navigation";
 import { MarkDownView } from "@/app/(admin)/_components/Inputs";
+import { PhoneFilled } from "@ant-design/icons";
 
 function MyMenu() {
   const router = useRouter();
@@ -89,7 +90,7 @@ function MyMenu() {
         <Link
           href={myLink.github}
           target="_blank"
-          className="opacity-50 hover:opacity-100"
+          className="opacity-50 hover:opacity-100 flex items-center"
         >
           <FaGithub />
         </Link>
@@ -103,23 +104,30 @@ function MyMenu() {
         <Link
           href={myLink.linkedin}
           target="_blank"
-          className="opacity-50 hover:opacity-100"
+          className="opacity-50 hover:opacity-100 flex items-center"
         >
           <FaLinkedin />
         </Link>
         <Link
           href={myLink.whatsapp}
           target="_blank"
-          className="opacity-50 hover:opacity-100"
+          className="opacity-50 hover:opacity-100  flex items-center"
         >
           <FaWhatsapp />
         </Link>
         <Link
           href={myLink.email}
           target="_blank"
-          className="opacity-50 hover:opacity-100"
+          className="opacity-50 hover:opacity-100  flex items-center"
         >
           <FaEnvelope />
+        </Link>
+        <Link
+          href={myLink.phone}
+          target="_blank"
+          className="opacity-50 hover:opacity-100 flex items-center"
+        >
+          <PhoneFilled />
         </Link>
       </div>
     </nav>

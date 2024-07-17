@@ -99,25 +99,32 @@ function Page() {
         startDate: values.startDate,
         endDate: values.endDate,
         description: values.description,
+
         tags: {
           deleteMany: {
             ExperienceId: selected.id,
           },
-          createMany: {
-            data: values.tagIds?.map((ids: number) => {
-              return { TagId: ids };
-            }),
-          },
+          ...(values.tagIds?.length > 0 && {
+            createMany: {
+              data: values.tagIds?.map((ids: number) => {
+                return { TagId: ids };
+              }),
+            },
+          }),
         },
+
         techs: {
           deleteMany: {
             ExperienceId: selected.id,
           },
-          createMany: {
-            data: values.techIds?.map((ids: number) => {
-              return { TechId: ids };
-            }),
-          },
+
+          ...(values.techIds?.length > 0 && {
+            createMany: {
+              data: values.techIds?.map((ids: number) => {
+                return { TechId: ids };
+              }),
+            },
+          }),
         },
       };
       await updateExperience({
@@ -146,20 +153,26 @@ function Page() {
         startDate: values.startDate,
         endDate: values.endDate,
         description: values.description,
-        tags: {
-          createMany: {
-            data: values.tagIds?.map((ids: number) => {
-              return { TagId: ids };
-            }),
+
+        ...(values.tagIds?.length > 0 && {
+          tags: {
+            createMany: {
+              data: values.tagIds?.map((ids: number) => {
+                return { TagId: ids };
+              }),
+            },
           },
-        },
-        techs: {
-          createMany: {
-            data: values.techIds?.map((ids: number) => {
-              return { TechId: ids };
-            }),
+        }),
+
+        ...(values.techIds?.length > 0 && {
+          techs: {
+            createMany: {
+              data: values.techIds?.map((ids: number) => {
+                return { TechId: ids };
+              }),
+            },
           },
-        },
+        }),
       };
       await createExperience(data)
         .then(({ data }) => {

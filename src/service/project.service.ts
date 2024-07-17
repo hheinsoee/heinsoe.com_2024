@@ -3,7 +3,7 @@ import myLink from "@/link";
 import prisma from "./db";
 import { Prisma } from "@prisma/client";
 
-import { revalidatePath } from 'next/cache'
+import { revalidatePath } from "next/cache";
 
 export const getProject = async (props?: Prisma.ProjectFindManyArgs) => {
   props = props || {};
@@ -15,8 +15,16 @@ export const getProject = async (props?: Prisma.ProjectFindManyArgs) => {
     },
     include: {
       image: true,
-      tags: true,
-      techs: true,
+      tags: {
+        include: {
+          Tag: true,
+        },
+      },
+      techs: {
+        include: {
+          Tech: true,
+        },
+      },
     },
     ...props,
   };
@@ -42,7 +50,8 @@ export const createProject = async (props: Prisma.ProjectCreateInput) => {
   return await prisma.project
     .create({ data: props })
     .then((res) => {
-      revalidatePath(myLink.project())
+      revalidatePath(myLink.project());
+      revalidatePath("/");
       return getProject({
         where: {
           id: res.id,
@@ -60,8 +69,9 @@ export const updateProject = async (props: Prisma.ProjectUpdateArgs) => {
   return await prisma.project
     .update(props)
     .then((res) => {
-      revalidatePath(myLink.project())
-      revalidatePath(myLink.project(res.id))
+      revalidatePath(myLink.project());
+      revalidatePath(myLink.project(res.id));
+      revalidatePath("/");
       return getProject({
         where: {
           id: res.id,

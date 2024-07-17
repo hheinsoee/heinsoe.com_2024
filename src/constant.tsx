@@ -1,3 +1,4 @@
+import { JavaScriptOutlined } from "@ant-design/icons";
 import React from "react";
 import {
   FaCss3,
@@ -37,6 +38,14 @@ export const technology: Record<string, Technology> = {
       />
     ),
   },
+  expressjs: {
+    label: "Express.js",
+    Icon: (props: { className?: string }) => (
+      <div
+        className={`inline-block ${props?.className} flex justify-center items-center`} style={{marginTop:'-4px'}}
+      >ex</div>
+    ),
+  },
   reactjs: {
     label: "ReactJs",
     Icon: (props: { className?: string }) => (
@@ -74,7 +83,7 @@ export const technology: Record<string, Technology> = {
     ),
   },
   graphql: {
-    label: "ReactJs",
+    label: "GraphQL",
     Icon: (props: { className?: string }) => (
       <GrGraphQl
         className={`${props?.className}`}
@@ -118,11 +127,4 @@ export const technology: Record<string, Technology> = {
       />
     ),
   },
-};
-
-export const setting = {
-  title: "Hein Soe",
-  dateFormat: "DD-MMM YYYY",
-  logo_url: "/public/heinsoe.svg",
-  moto: "Finish what you doing.",
 };

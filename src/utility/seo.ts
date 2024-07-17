@@ -1,4 +1,5 @@
 import conf from "@config";
+import { noMarkdown } from "@hheinsoee/utility";
 
 interface Seo {
   title: string;
@@ -13,12 +14,13 @@ interface Image {
 }
 // :{ url: data?.url, width: 1200, height: 630 }
 export const seo = ({ title, description, url, images }: Seo) => {
+  const description_ = noMarkdown(description);
   return {
     title,
-    description,
+    description:description_,
     openGraph: {
       title,
-      description,
+      description:description_,
       url,
       siteName: conf.title,
       images, //make sure its a valid image url
@@ -26,12 +28,12 @@ export const seo = ({ title, description, url, images }: Seo) => {
     twitter: {
       card: "summary",
       title,
-      description,
+      description:description_,
       images,
     },
     whatsApp: {
       title,
-      description: description
+      description:description_
         ?.replace(/<[^>]*>/g, "")
         ?.replace(/&nbsp;/gi, " "),
       ...(images?.[0]
