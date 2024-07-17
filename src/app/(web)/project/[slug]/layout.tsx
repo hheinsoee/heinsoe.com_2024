@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: resMetadata.title,
     description: resMetadata.description,
     images: resMetadata.image
-      ? [{ url: myLink.image(resMetadata.image?.fileName, "xl") }]
+      ? [{ url: myLink.image(resMetadata.image?.fileName) }]
       : [],
     url: myLink.project(params.slug),
   });
