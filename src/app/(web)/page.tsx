@@ -15,12 +15,7 @@ import conf from "@config";
 
 export default async function Page() {
   const projects = await getProject({ take: 4 });
-  const experience = await getExperience({
-    take: 4,
-    orderBy: {
-      startDate: "desc",
-    },
-  });
+  const experience = await getExperience();
   const blog = await getBlog({ take: 4 });
 
   return (

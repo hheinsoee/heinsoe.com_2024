@@ -9,7 +9,7 @@ export const getExperience = async (props?: Prisma.ExperienceFindManyArgs) => {
   props.where.isDeleted = false;
   const query: Prisma.ExperienceFindManyArgs = {
     orderBy: {
-      id: "desc",
+      startDate: "desc",
     },
     include: {
       tags: {

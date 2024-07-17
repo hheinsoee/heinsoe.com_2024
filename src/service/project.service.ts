@@ -11,7 +11,7 @@ export const getProject = async (props?: Prisma.ProjectFindManyArgs) => {
   props.where.isDeleted = false;
   const query: Prisma.ProjectFindManyArgs = {
     orderBy: {
-      id: "desc",
+      date: "desc",
     },
     include: {
       image: true,
