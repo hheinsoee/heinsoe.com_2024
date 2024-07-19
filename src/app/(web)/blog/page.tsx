@@ -72,7 +72,6 @@ export default function ScrollBlogs() {
       {hasMore ? (
         <EndDetect onEnd={() => loadMore()} />
       ) : (
-        article.length > 0 &&
         !loading && <div className="text-center p-4 opacity-50">no more</div>
       )}
     </div>
