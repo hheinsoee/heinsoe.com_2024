@@ -13,8 +13,8 @@ const conf = {
   logo: {
     main: "/heinsoe.png",
   },
-  phone: "+66993057502",
-  email: "mail@mail.ocm",
+  phone: "+959252152447",
+  email: "hi@heinsoe.com",
   githubUsername: "hheinsoee",
   githubUrl: "https://github.com/hheinsoee",
   whatsappUrl: "https://wa.me/+959252152447",
