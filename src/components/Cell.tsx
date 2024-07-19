@@ -32,7 +32,7 @@ const Cell: React.FC<CellProps> = ({ type, value, className = "" }) => {
     date: <InlineDate date={value} className={className} />,
     technology: (
       <div
-        className={`inline-flex gap-[0.2rem] px-[0.25rem] rounded-md items-center ${className}`}
+        className={`h-[1.3rem] inline-flex gap-[0.2rem] px-[0.25rem] rounded-md items-center ${className}`}
         style={{
           background: theme.theme.token.colorPrimary_(50, 10),
           color: theme.theme.token.colorPrimary_(theme.isDark ? 50 : 30, 100),

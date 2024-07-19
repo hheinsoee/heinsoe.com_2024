@@ -20,10 +20,10 @@ function ProjectThumbnail({ project }: { project: Project }) {
     tagIds?.includes(t.id)
   );
   return (
-    <div className="my-10 flex gap-4">
+    <div className="my-10 flex gap-4 imgHover">
       {project.image && (
         // myLink.image(project.image.fileName, "m")
-        <div className="opacity-30 hover:opacity-80 saturate-0 hover:saturate-100 brightness-30 contrast-60 hover:contrast-100 hover:brightness-100  mix-blend-luminosity hover:mix-blend-normal">
+        <div >
           <Image
             src={myLink.image(project.image.fileName, "m")}
             width={100}

@@ -8,11 +8,11 @@ import myLink from "@/link";
 import { Button, Divider, List } from "antd";
 import { technology } from "@constant";
 import { MarkDownView } from "../(admin)/_components/Inputs";
-import { CgArrowRight } from "react-icons/cg";
 import { getProject } from "@/service/project.service";
 import { getExperience } from "@/service/experience.service";
 import conf from "@config";
 import Footer from "@/components/Footer";
+import { RightOutlined } from "@ant-design/icons";
 
 export default async function Page() {
   const projects = await getProject({ take: 4 });
@@ -35,7 +35,7 @@ export default async function Page() {
       <section id="projects" className="py-16">
         <h2 className="sticky md:relative top-0 z-10 backdrop-blur-md md:backdrop-blur-0 p-2 px-8 -mx-8">
           <Link href={myLink.project()} title="Projects">
-            Projects <CgArrowRight />
+            Projects <RightOutlined />
           </Link>
         </h2>
         {projects.data?.map((p) => {
@@ -44,7 +44,7 @@ export default async function Page() {
         <div className="text-right">
           <Link href={myLink.project()}>
             More Projects
-            <CgArrowRight />{" "}
+            <RightOutlined />{" "}
           </Link>
         </div>
       </section>
@@ -66,19 +66,19 @@ export default async function Page() {
       <section id="blog" className="py-16">
         <h2 className="sticky md:relative top-0 z-10 backdrop-blur-md md:backdrop-blur-0 p-2 px-8 -mx-8">
           <Link href={myLink.blog()} title="Blog">
-            Blog <CgArrowRight />
+            Blog <RightOutlined />
           </Link>
         </h2>
         <BlogList blogs={blog.data} />
         <div className="text-right">
           <Link href={myLink.blog()}>
             More Articles
-            <CgArrowRight />{" "}
+            <RightOutlined />{" "}
           </Link>
         </div>
       </section>
       <Divider />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

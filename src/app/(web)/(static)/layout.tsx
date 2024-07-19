@@ -9,8 +9,10 @@ export default function RootLayout({
 }) {
   return (
     <Suspense fallback={<Loading className="h-screen" />}>
-      <div className=" max-w-4xl mx-auto p-4 md:p-8 ">{children}</div>
-      <Footer />
+      <div className=" max-w-4xl mx-auto p-4 md:p-8 ">
+        {children}
+        <Footer />
+      </div>
     </Suspense>
   );
 }

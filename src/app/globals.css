@@ -17,11 +17,11 @@ body {
 	overflow-x: hidden;
 	max-width: 100vw;
 }
-a{
+a {
 	color: inherit;
 }
-a:hover{
-	color:rgb(0, 183, 255)
+a:hover {
+	color: rgb(0, 183, 255);
 }
 p a {
 	font-weight: 600;
@@ -38,7 +38,18 @@ html {
 		background 1s,
 		border 1s; */
 }
+.imgHover img {
+	opacity: 0.5;
+	filter: saturate(0%) brightness(0.4) contrast(0.8);
+	mix-blend-mode: luminosity;
+	transition: opacity 0.3s ease;
+}
 
+.imgHover:hover img {
+	opacity: 0.8;
+	filter: saturate(100%) brightness(1) contrast(1);
+	mix-blend-mode: normal;
+}
 .ant-table,
 [class^="ant-table"] {
 	background-color: transparent !important;
@@ -144,10 +155,11 @@ html {
 .thumbnail:hover .action {
 	@apply opacity-100;
 }
+
 .ant-table-cell {
 	vertical-align: top;
 }
 
-.ant-table-cell .md-editor{
+.ant-table-cell .md-editor {
 	margin-top: -12px;
 }

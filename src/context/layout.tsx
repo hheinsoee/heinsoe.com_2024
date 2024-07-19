@@ -7,6 +7,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { Button, Switch } from "antd";
 import MyMenu from "@components/MyMenu";
+import { LeftCircleOutlined, LeftOutlined } from "@ant-design/icons";
 
 interface ThemeContextType {
   menuSize: "l" | "m" | "s" | null;
@@ -37,7 +38,7 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
               // <Link href={"/"} className="mx-4 md:hidden">
               <Button
                 className="mx-4 md:hidden"
-                icon={<BiArrowBack />}
+                icon={<LeftOutlined />}
                 onClick={(e) => router.back()}
                 type="text"
               />

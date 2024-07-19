@@ -28,6 +28,6 @@
       "@interface":["./prisma/interfaces.ts"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(web)/blog/page.tsx", "src/components/ActionBar.tsx", "src/app/(web)/github/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(web)/blog/page.tsx", "src/components/ActionBar.tsx", "src/app/(web)/github/page.jsx", "src/app/(web)/(static)/privacy/page.mdx"],
   "exclude": ["node_modules"]
 }

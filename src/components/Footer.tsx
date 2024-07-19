@@ -1,3 +1,5 @@
+import myLink from "@/link";
+import { Divider, Flex } from "antd";
 import Link from "next/link";
 import React from "react";
 
@@ -26,7 +28,11 @@ function Footer() {
           website layout, I utilized similar concepts as a reference for this
           design.
         </p>
-        &copy; {new Date().getFullYear()}
+        <Divider className="my-2"/>
+        <Flex justify="space-between">
+          <span>&copy; {new Date().getFullYear()}</span>
+          <Link href={myLink.privacyPolicy()}>Privacy Policy</Link>
+        </Flex>
       </div>
     </div>
   );

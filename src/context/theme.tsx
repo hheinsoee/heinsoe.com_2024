@@ -38,7 +38,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     setCookie("themeMode", value ? "dark" : "light", { path: "/" });
   };
 
-  const [hue, setHue] = useState(190);
+  const [hue, setHue] = useState(200);
   // const hue = 180;
   // const hue = 210;
   // const hue = 235;

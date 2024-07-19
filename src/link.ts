@@ -4,6 +4,7 @@ const myLink = {
   home: () => "/",
   signin: () => "/signin",
   admin: () => "/admin",
+  privacyPolicy: () => "/privacy-policy",
   blog: (slug?: string | number) => `/blog${slug ? `/${slug}` : ""}`,
   project: (slug?: string | number) => `/project${slug ? `/${slug}` : ""}`,
   repo: (slug?: string | number) => `/github${slug ? `/${slug}` : ""}`,

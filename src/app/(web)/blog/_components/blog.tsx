@@ -12,44 +12,42 @@ import { Blog } from "@interface";
 
 export const BlogThumbnail = ({ blog }: { blog: Blog }) => {
   return (
-    <div className="flex justify-between flex-1 gap-4">
-      <div className="flex-1">
-        <div className="opacity-70 dark:opacity-50 text-xs">
-          <CalendarOutlined /> {dayjs(blog.createdDt).format("DD MMM YYYY")}
-        </div>
-        <h3>
-          <Link
-            className="text-lg"
-            href={myLink.blog(blog.id)}
-            title={blog.title}
-          >
-            {blog.title}
-          </Link>
-        </h3>
-        <MarkDownView
-          text={`${blog.description.substring(0, 200)} ${
-            blog.description.length > 200 ? " ..." : ""
-          }`}
-        />
-        <ActionBar
-          title={blog.title}
-          text={noMarkdown(blog.description)}
-          url={myLink.blog(blog.id)}
-        />
-      </div>
+    <div className="flex-1 imgHover">
       {blog.image && (
-        <div className="opacity-30 hover:opacity-80 saturate-0 hover:saturate-100 brightness-30 contrast-60 hover:contrast-100 hover:brightness-100  mix-blend-luminosity hover:mix-blend-normal">
+        <div className=" float-end">
           <Image
             src={myLink.image(blog.image.fileName, "m")}
             style={{ objectFit: "cover" }}
-            width={100}
-            height={100}
+            width={60}
+            height={60}
             alt={blog.title}
             title={blog.title}
-            preview={{ src: myLink.image(blog.image.fileName, "xl") }}
+            preview={false} //{ src: myLink.image(blog.image.fileName, "xl") }}
           />
         </div>
       )}
+      <div className="opacity-70 dark:opacity-50 text-xs">
+        <CalendarOutlined /> {dayjs(blog.createdDt).format("DD MMM YYYY")}
+      </div>
+      <h3 className="mb-0">
+        <Link
+          className="text-lg"
+          href={myLink.blog(blog.id)}
+          title={blog.title}
+        >
+          {blog.title}
+        </Link>
+      </h3>
+      <MarkDownView
+        text={`${blog.description.substring(0, 200)} ${
+          blog.description.length > 200 ? " ..." : ""
+        }`}
+      />
+      <ActionBar
+        title={blog.title}
+        text={noMarkdown(blog.description)}
+        url={myLink.blog(blog.id)}
+      />
     </div>
   );
 };
