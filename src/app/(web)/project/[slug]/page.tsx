@@ -1,6 +1,10 @@
 import { notFound } from "next/navigation";
 import ProjectDetails from "../_components/ProjectDetail";
 import { getProject } from "@/service/project.service";
+import Header from "@/components/Header";
+import ActionBar from "@/components/ActionBar";
+import { noMarkdown } from "@hheinsoee/utility";
+import myLink from "@/link";
 
 export default async function Details({
   params,

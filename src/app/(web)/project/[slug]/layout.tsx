@@ -8,7 +8,6 @@ import { Project } from "@interface";
 import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import { BiArrowBack } from "react-icons/bi";
 
 type Props = {
   params: { slug: string };

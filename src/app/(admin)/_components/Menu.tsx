@@ -37,8 +37,8 @@ const items: MenuItem[] = [
   },
   {
     icon: <BiPen />,
-    key: adminLink.blog(),
-    label: "blog",
+    key: adminLink.note(),
+    label: "note",
   },
   {
     icon: <DotChartOutlined />,

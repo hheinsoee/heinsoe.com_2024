@@ -1,6 +1,6 @@
 "use client";
-import { createBlog, getBlog, updateBlog } from "@/service";
-import { Blog } from "@interface";
+import { createNote, getNote, updateNote } from "@/service";
+import { Note } from "@interface";
 import {
   Button,
   Col,
@@ -23,12 +23,12 @@ import conf from "@config";
 import myLink from "@/link";
 
 function Page() {
-  const [selected, setSelected] = useState<Blog | null>(null);
-  const [blog, setBlog] = useState<Blog[]>([]);
+  const [selected, setSelected] = useState<Note | null>(null);
+  const [note, setNote] = useState<Note[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [open, setOpen] = useState<boolean>(false);
-  const [loadingRow, setLoadingRow] = useState<Blog | null>(null);
+  const [loadingRow, setLoadingRow] = useState<Note | null>(null);
   const [total, setTotal] = useState(0);
   const [form] = Form.useForm();
   useEffect(() => {
@@ -44,9 +44,9 @@ function Page() {
       form.resetFields();
     }
   }, [form, selected]);
-  const handleDelete = async (rec: Blog) => {
+  const handleDelete = async (rec: Note) => {
     setLoadingRow(rec);
-    await updateBlog({
+    await updateNote({
       where: {
         id: rec.id,
       },
@@ -55,7 +55,7 @@ function Page() {
       },
     })
       .then((res) => {
-        setBlog((pre) => pre.filter((old) => old.id !== rec.id));
+        setNote((pre) => pre.filter((old) => old.id !== rec.id));
       })
       .catch((err) => {
         message.error("not Deleted");
@@ -66,10 +66,10 @@ function Page() {
   };
   const fetchData = async (params?: any | null) => {
     setLoading(true);
-    await getBlog(params)
+    await getNote(params)
       .then(({ data, pagination }) => {
         setTotal(pagination.total);
-        setBlog(data);
+        setNote(data);
       })
       .catch((err) => {
         message.error("not loaded");
@@ -89,7 +89,7 @@ function Page() {
     setLoadingSubmit(true);
     setLoadingRow(selected);
     if (selected?.id) {
-      await updateBlog({
+      await updateNote({
         where: {
           id: selected?.id,
         },
@@ -98,7 +98,7 @@ function Page() {
         .then(({ data }) => {
           message.success("updated");
           setSelected(null);
-          setBlog((old) => makeFresh({ old, fresh: data }));
+          setNote((old) => makeFresh({ old, fresh: data }));
           form.resetFields();
         })
         .catch((err) => {
@@ -109,12 +109,12 @@ function Page() {
           setLoadingRow(null);
         });
     } else {
-      await createBlog(values)
+      await createNote(values)
         .then(({ data }) => {
           // console.log(fresh);
           message.success("created");
           setOpen(false);
-          setBlog((old) => makeFresh({ old, fresh: data }));
+          setNote((old) => makeFresh({ old, fresh: data }));
           form.resetFields();
         })
         .catch((error) => message.error("not created"))
@@ -128,8 +128,8 @@ function Page() {
     <div className="grid grid-cols-2 gap-8 px-8">
       <div className="">
         <MasterTable
-          title="blog"
-          dataSource={blog}
+          title="note"
+          dataSource={note}
           onEdit={setSelected}
           onDelete={handleDelete}
           newLoad={fetchData}
@@ -194,7 +194,7 @@ function Page() {
         }
       > */}
         <Form
-          name="blog"
+          name="note"
           key={selected?.id}
           layout="vertical"
           // labelCol={{ span: 8 }}

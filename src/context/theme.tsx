@@ -49,7 +49,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
       colorPrimary: `hsl(${hue}, ${isDark ? "50%,60%" : "90%,45%"})`,
       // // borderRadius: borderRadius,
       fontFamily: "Arial",
-      colorText: `hsl(${hue}, ${isDark ? "10%,70%" : "0%,0%"})`,
+      colorText: isDark ? "#ffffff" : "#000000", //`hsl(${hue}, ${isDark ? "10%,100%" : "0%,0%"})`,
       colorPrimaryBg: `hsl(${hue}, ${isDark ? "35%,15%" : "70%,95%"})`,
       secondColor: `hsl(${hue + different}, ${isDark ? "50%,75%" : "50%,20%"})`,
       // colorLink: `hsl(${hue}, ${isDark ? "90%,60%" : "80%,50%"})`,

@@ -30,7 +30,7 @@ export interface Project {
   tags?: TagOnProject[];
 }
 
-export interface Blog {
+export interface Note {
   id: number;
   title: string;
   description: string;
@@ -40,8 +40,8 @@ export interface Blog {
   isDeleted: boolean;
   createdDt: Date | null;
   updatedDt: Date | null;
-  techs?: TechOnBlog[];
-  tags?: TagOnBlog[];
+  techs?: TechOnNote[];
+  tags?: TagOnNote[];
 }
 
 export interface Image {
@@ -50,15 +50,19 @@ export interface Image {
   fileName: string;
   createdDt: Date | null;
   Project?: Project[];
-  Blog?: Blog[];
+  Note?: Note[];
+  Tech?: Tech[];
 }
 
 export interface Tech {
   id: number;
   name: string;
+  order: number;
+  imageId: number | null;
+  image?: Image | null;
   TechOnExperience?: TechOnExperience[];
   TechOnProject?: TechOnProject[];
-  TechOnBlog?: TechOnBlog[];
+  TechOnNote?: TechOnNote[];
 }
 
 export interface TechOnExperience {
@@ -77,11 +81,11 @@ export interface TechOnProject {
   TechId: number;
 }
 
-export interface TechOnBlog {
+export interface TechOnNote {
   id: number;
-  Blog?: Blog;
+  Note?: Note;
   Tech?: Tech;
-  BlogId: number;
+  NoteId: number;
   TechId: number;
 }
 
@@ -90,7 +94,7 @@ export interface Tag {
   name: string;
   TagOnExperience?: TagOnExperience[];
   TagOnProject?: TagOnProject[];
-  TagOnBlog?: TagOnBlog[];
+  TagOnNote?: TagOnNote[];
 }
 
 export interface TagOnExperience {
@@ -109,10 +113,10 @@ export interface TagOnProject {
   TagId: number;
 }
 
-export interface TagOnBlog {
+export interface TagOnNote {
   id: number;
-  Blog?: Blog;
+  Note?: Note;
   Tag?: Tag;
-  BlogId: number;
+  NoteId: number;
   TagId: number;
 }

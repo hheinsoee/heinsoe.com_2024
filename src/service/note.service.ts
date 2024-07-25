@@ -4,11 +4,11 @@ import prisma from "./db";
 import { Prisma } from "@prisma/client";
 import myLink from "@/link";
 
-export const getBlog = async (props?: Prisma.BlogFindManyArgs) => {
+export const getNote = async (props?: Prisma.NoteFindManyArgs) => {
   props = props || {};
   props.where = props.where || {};
   props.where.isDeleted = false;
-  const query: Prisma.BlogFindManyArgs = {
+  const query: Prisma.NoteFindManyArgs = {
     orderBy: {
       id: "desc",
     },
@@ -20,8 +20,8 @@ export const getBlog = async (props?: Prisma.BlogFindManyArgs) => {
   try {
     // Perform both queries concurrently using Promise.all
     const [data, count] = await prisma.$transaction([
-      prisma.blog.findMany(query),
-      prisma.blog.count({ where: query.where }),
+      prisma.note.findMany(query),
+      prisma.note.count({ where: query.where }),
     ]);
     return {
       pagination: {
@@ -35,12 +35,12 @@ export const getBlog = async (props?: Prisma.BlogFindManyArgs) => {
     await prisma.$disconnect();
   }
 };
-export const createBlog = async (props: Prisma.BlogCreateInput) => {
-  return await prisma.blog
+export const createNote = async (props: Prisma.NoteCreateInput) => {
+  return await prisma.note
     .create({ data: props })
     .then((res) => {
       revalidatePath("/");
-      return getBlog({
+      return getNote({
         where: {
           id: res.id,
         },
@@ -53,13 +53,13 @@ export const createBlog = async (props: Prisma.BlogCreateInput) => {
       await prisma.$disconnect();
     });
 };
-export const updateBlog = async (props: Prisma.BlogUpdateArgs) => {
-  return await prisma.blog
+export const updateNote = async (props: Prisma.NoteUpdateArgs) => {
+  return await prisma.note
     .update(props)
     .then((res) => {
-      revalidatePath(myLink.blog(res.id));
+      revalidatePath(myLink.note(res.id));
       revalidatePath("/");
-      return getBlog({
+      return getNote({
         where: {
           id: res.id,
         },

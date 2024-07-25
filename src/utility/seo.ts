@@ -1,7 +1,8 @@
 import conf from "@config";
 import { noMarkdown } from "@hheinsoee/utility";
+import { Metadata } from "next";
 
-interface Seo {
+export interface Seo {
   title: string;
   description: string;
   url: string;
@@ -15,12 +16,16 @@ interface Image {
 // :{ url: data?.url, width: 1200, height: 630 }
 export const seo = ({ title, description, url, images }: Seo) => {
   const description_ = noMarkdown(description);
-  return {
-    title,
-    description:description_,
+  const og: Metadata = {
+    title: {
+      absolute: title,
+      default: conf.title,
+      template: `%s | ${conf.title}`,
+    },
+    description: description_,
     openGraph: {
       title,
-      description:description_,
+      description: description_,
       url,
       siteName: conf.title,
       images, //make sure its a valid image url
@@ -28,21 +33,9 @@ export const seo = ({ title, description, url, images }: Seo) => {
     twitter: {
       card: "summary",
       title,
-      description:description_,
+      description: description_,
       images,
     },
-    whatsApp: {
-      title,
-      description:description_
-        ?.replace(/<[^>]*>/g, "")
-        ?.replace(/&nbsp;/gi, " "),
-      ...(images?.[0]
-        ? {
-            thumbnailUrl: images[0].url,
-            thumbnailWidth: 800,
-            thumbnailHeight: 800,
-          }
-        : {}),
-    },
   };
+  return og;
 };

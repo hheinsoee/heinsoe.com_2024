@@ -21,7 +21,6 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
 
   const menuSize: "l" | "m" = useMemo(() => (isHome ? "l" : "m"), [isHome]);
 
-  const router = useRouter();
   return (
     <LayoutContext.Provider value={{ menuSize }}>
       <canvas className="banner_canvas" id="canvas_banner"></canvas>
@@ -34,16 +33,11 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
         </div>
         <div className="flex-1 ">
           <div className="my-4">
-            {!isHome && (
+            {/* {!isHome && (
               // <Link href={"/"} className="mx-4 md:hidden">
-              <Button
-                className="mx-4 md:hidden"
-                icon={<LeftOutlined />}
-                onClick={(e) => router.back()}
-                type="text"
-              />
+              
               // </Link>
-            )}
+            )} */}
             {children}
           </div>
         </div>

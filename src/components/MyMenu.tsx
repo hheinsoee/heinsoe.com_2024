@@ -42,15 +42,18 @@ function MyMenu() {
     >
       <div>
         <h1>
+          <div className=" font-light">Hi, I am</div>
           <Link href="/" className="title" title={conf.title}>
             {conf.title}
           </Link>
         </h1>
-        <div className="text-lg">{conf.description}</div>
+        <div className=" font-thin">a {conf.description}</div>
         {/* <div className="opacity-50">{conf.moto}</div> */}
         <img
           alt={conf.description}
-          src={`https://readme-typing-svg.herokuapp.com/?lines=${conf.moto.split(',').join(';')}&size=14`}
+          src={`https://readme-typing-svg.herokuapp.com/?lines=${conf.moto
+            .split(",")
+            .join(";")}&size=14`}
         />
       </div>
       <div className="flex-1 my-16">
@@ -69,14 +72,14 @@ function MyMenu() {
               title: "Projects",
             },
             {
-              key: "Skills",
-              href: "/#skills",
-              title: "Skills",
+              key: "Stacks",
+              href: "/#stacks",
+              title: "Stacks",
             },
             {
-              key: "blog",
-              href: isHome ? "/#blog" : myLink.blog(),
-              title: "Blog",
+              key: "note",
+              href: isHome ? "/#note" : myLink.note(),
+              title: "Note",
             },
             {
               key: "gitHubrepo",

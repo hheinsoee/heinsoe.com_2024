@@ -73,7 +73,7 @@ const ImageUpload = ({
               return {
                 id: img.response?.id,
                 caption: img.response?.caption || "",
-                fileName: img.response?.fileName || "",
+                fileName: myLink.image(img.response?.fileName, "m") || "",
               };
             } else {
               return img;
@@ -83,7 +83,7 @@ const ImageUpload = ({
     }
   };
 
-  const uploadButton = (
+  const UploadButton = () => (
     <div>
       <MdPhoto className="text-2xl" />
       <div style={{ marginTop: 8 }}>Upload</div>
@@ -97,17 +97,18 @@ const ImageUpload = ({
   }, [fileList]);
   return (
     <>
-      <div className="min-h-32">
+      <div className="min-h-36 min-w-36">
         <Upload
-          accept="image/png, image/jpeg"
+          accept="image/png, image/jpeg, image/webp"
           action={adminLink.api.upload()}
           listType="picture-card"
           fileList={fileList}
           onPreview={handlePreview}
           onChange={handleChange}
           multiple
+          className="py-4"
         >
-          {fileList.length < limit && uploadButton}
+          {fileList.length < limit && <UploadButton />}
         </Upload>
       </div>
       {previewImage && (
@@ -118,7 +119,7 @@ const ImageUpload = ({
             onVisibleChange: (visible) => setPreviewOpen(visible),
             afterOpenChange: (visible) => !visible && setPreviewImage(""),
           }}
-          style={{ height: 20 }}
+          // style={{ height: 10 }}
           src={previewImage}
           alt=""
         />

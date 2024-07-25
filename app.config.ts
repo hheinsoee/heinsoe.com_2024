@@ -6,7 +6,7 @@ const conf = {
     "as a web developer and designer committed to creating visually appealing and highly functional websites. With a focus on the latest trends and technologies, I strive to deliver exceptional web solutions that help businesses succeed online.",
 
   moto: "Crafting Code, Building Dreams",
-  description: "a web Developer",
+  description: "Full Stack Developer",
   dateFormat: "DD-MMM YYYY",
   dateTimeFormat: "DD-MMM YYYY HH:mm",
   pageSize: 10,

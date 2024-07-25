@@ -23,7 +23,7 @@ export async function getGitProfile() {
   const response = await fetch(url, {
     next: {
       revalidate: 60,
-      tags: ["blog", "content"],
+      tags: ["note", "content"],
     },
   });
   if (response.status < 300) {

@@ -4,13 +4,16 @@ import { Tech } from "@interface";
 import {
   Button,
   Col,
+  Divider,
   Drawer,
   Form,
+  Image,
   Input,
   List,
   message,
   Modal,
   Row,
+  Skeleton,
   Space,
 } from "antd";
 import React, { useEffect, useState } from "react";
@@ -25,14 +28,13 @@ import myLink from "@/link";
 import { Loading } from "@/components/Loading";
 import { BiRefresh } from "react-icons/bi";
 import { useRepo } from "@/context/repo";
+import { ImImage } from "react-icons/im";
+import { CloseOutlined } from "@ant-design/icons";
 
 function Page() {
   const [selected, setSelected] = useState<Tech | null>(null);
   const [tech, setTech] = useState<Tech[]>([]);
   const [loading, setLoading] = useState(false);
-  const [loadingSubmit, setLoadingSubmit] = useState(false);
-  const [open, setOpen] = useState<boolean>(false);
-  const [loadingRow, setLoadingRow] = useState<Tech | null>(null);
   const [total, setTotal] = useState(0);
   const { repo, setRepo } = useRepo();
   const fetchData = async (params?: any | null) => {
@@ -57,35 +59,79 @@ function Page() {
     setRepo((o: any) => ({ ...o, techs: { data: tech } }));
   }, [tech]);
   return (
-    <List loading={loading}>
-      {tech.map((t) => (
-        <List.Item key={t.id}>
-          <TheForm
-            selected={t}
-            onFresh={(freshTech) => {
-              setTech((tech) =>
-                makeFresh({
-                  old: tech,
-                  fresh: freshTech,
-                })
-              );
-            }}
-          />
-        </List.Item>
-      ))}
-      <List.Item>
-        <TheForm
-          onFresh={(freshTech) => {
-            setTech((tech) =>
-              makeFresh({
-                old: tech,
-                fresh: freshTech,
-              })
-            );
-          }}
-        />
-      </List.Item>
-    </List>
+    <div>
+      <TheForm
+        selected={selected || undefined}
+        setSelected={setSelected}
+        onFresh={(freshTech) => {
+          setTech((tech) =>
+            makeFresh({
+              old: tech,
+              fresh: freshTech,
+            })
+          );
+        }}
+      />
+      <Divider />
+      <div className="flex flex-wrap gap-4">
+        {loading && (
+          <React.Fragment>
+            {Array.from({ length: 10 }).map((_, index) => (
+              <Skeleton.Image key={index} />
+            ))}
+          </React.Fragment>
+        )}
+        {tech.map((t) => (
+          <div
+            onClick={() => setSelected(t)}
+            key={t.id}
+            className="flex flex-col items-center text-center "
+          >
+            {t.image ? (
+              <img
+                className="h-24"
+                src={myLink.image(t.image?.fileName, "m")}
+                alt=""
+              />
+            ) : (
+              <div className="flex justify-center items-center">
+                <Skeleton.Image />
+              </div>
+            )}
+            {t.name}
+          </div>
+        ))}
+      </div>
+    </div>
+    // <List loading={loading}>
+    //   {tech.map((t) => (
+    //     <List.Item key={t.id}>
+    //       <TheForm
+    //         selected={t}
+    //         onFresh={(freshTech) => {
+    //           setTech((tech) =>
+    //             makeFresh({
+    //               old: tech,
+    //               fresh: freshTech,
+    //             })
+    //           );
+    //         }}
+    //       />
+    //     </List.Item>
+    //   ))}
+    //   <List.Item>
+    //     <TheForm
+    //       onFresh={(freshTech) => {
+    //         setTech((tech) =>
+    //           makeFresh({
+    //             old: tech,
+    //             fresh: freshTech,
+    //           })
+    //         );
+    //       }}
+    //     />
+    //   </List.Item>
+    // </List>
   );
 }
 
@@ -94,27 +140,29 @@ export default Page;
 const TheForm = ({
   selected,
   onFresh,
+  setSelected,
 }: {
   selected?: Tech;
   onFresh: (data: Tech) => void;
+  setSelected: React.Dispatch<React.SetStateAction<Tech | null>>;
 }) => {
   const [form] = Form.useForm();
-  const [current, setCurrent] = useState<string | null>(null);
-  const change = selected?.name !== current;
 
-  useEffect(() => {
-    reset();
-  }, [form, selected]);
-  const reset = () => {
-    if (selected) {
-      setCurrent(selected.name);
-      form.setFieldsValue(selected);
-    } else {
-      setCurrent(null);
-      form.resetFields();
+  const reset = (d?: Tech) => {
+    form.resetFields();
+    if (d) {
+      form.setFieldsValue({ ...d, images: d.image ? [d.image] : [] });
     }
   };
+  useEffect(() => {
+    reset(selected);
+  }, [form, selected]);
+
   const onFinish = async (values: any) => {
+    if (values.images?.length > 0) {
+      values.imageId = values.images[0].id;
+    }
+    values.images = undefined;
     if (selected?.id) {
       await updateTech({
         where: {
@@ -123,7 +171,6 @@ const TheForm = ({
         data: values,
       })
         .then(({ data }) => {
-          console.log(data);
           onFresh(data[0]);
           message.success("updated");
         })
@@ -142,6 +189,7 @@ const TheForm = ({
         .finally(() => {});
     }
   };
+  const [lockSubmit, setLockSubmit] = useState(false);
   return (
     <Form
       name="tech"
@@ -153,20 +201,47 @@ const TheForm = ({
       autoComplete="off"
       form={form}
     >
-      <Space.Compact style={{ width: "100%" }}>
-        <Form.Item className="m-0" name={"name"} rules={[{ required: true }]}>
-          <Input
-            variant={change ? undefined : "borderless"}
-            onChange={(e) => setCurrent(e.target.value)}
-          />
+      <div className="flex">
+        <Form.Item
+          className="m-0"
+          name={"images"}
+          rules={[{ required: !lockSubmit && true }]}
+        >
+          <ImageUpload limit={1} onUploading={setLockSubmit} />
         </Form.Item>
-        {change && [
-          <Button key={"reset"} onClick={reset} icon={<BiRefresh />} />,
-          <Button key={"save"} htmlType="submit">
-            Save
-          </Button>,
-        ]}
-      </Space.Compact>
+        <div className="py-4">
+          <Form.Item name={"name"} rules={[{ required: true }]}>
+            <Input placeholder="Name" />
+          </Form.Item>
+
+          <Form.Item>
+            <Space.Compact style={{ width: "100%" }}>
+              <Button
+                key={"clear"}
+                onClick={() => setSelected(null)}
+                icon={<CloseOutlined />}
+              >
+                Reset
+              </Button>
+              <Button
+                key={"reset"}
+                onClick={() => reset(selected)}
+                icon={<BiRefresh />}
+              >
+                Restore
+              </Button>
+              <Button
+                type="primary"
+                key={"save"}
+                htmlType="submit"
+                disabled={lockSubmit}
+              >
+                {selected ? "Update" : "Create"}
+              </Button>
+            </Space.Compact>
+          </Form.Item>
+        </div>
+      </div>
     </Form>
   );
 };

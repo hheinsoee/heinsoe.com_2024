@@ -14,7 +14,7 @@ export const safeData = async (table: string, data: any): Promise<Object> => {
   );
 };
 
-export * from "./blog.service";
+export * from "./note.service";
 export * from "./project.service";
 export * from "./experience.service";
 export * from "./tag.service";

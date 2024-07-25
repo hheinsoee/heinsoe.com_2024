@@ -30,7 +30,7 @@ import conf from "@config";
 import { JSONTree } from "react-json-tree";
 import { Prisma } from "@prisma/client";
 import myLink from "@/link";
-import Cell from "@/components/Cell";
+import Cell, { TechTag } from "@/components/Cell";
 
 function Page() {
   const [selected, setSelected] = useState<Project | null>(null);
@@ -230,15 +230,10 @@ function Page() {
               key: "title",
               sorter: true,
               render: (_, rec) => (
-                <div>
+                <div className="flex flex-wrap items-center">
                   {_}
                   {rec.techs.map((t: any) => (
-                    <Cell
-                      key={t?.TechId}
-                      type="technology"
-                      value={t?.Tech?.name}
-                      className="mr-2 my-1"
-                    />
+                    <TechTag key={t.id} id={t.id} />
                   ))}
                 </div>
               ),

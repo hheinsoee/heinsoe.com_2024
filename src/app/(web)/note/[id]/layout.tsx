@@ -1,10 +1,10 @@
 import { Loading } from "@/components/Loading";
 import myLink from "@/link";
-import { getBlog, getProject } from "@/service";
+import { getNote, getProject } from "@/service";
 import { seo } from "@/utility/seo";
 import conf from "@config";
 import { noMarkdown } from "@hheinsoee/utility";
-import { Blog, Project } from "@interface";
+import { Note, Project } from "@interface";
 import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -18,12 +18,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
 
   // fetch data
-  const { data } = await getBlog({
+  const { data } = await getNote({
     where: {
       id: parseInt(params.id),
     },
   });
-  const resMetadata: Blog = data[0];
+  const resMetadata: Note = data[0];
 
   return seo({
     title: resMetadata.title,

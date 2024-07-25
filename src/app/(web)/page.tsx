@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import { getBlog } from "@service/blog.service";
+import { getNote } from "@service/note.service";
 import ExperienceTimeLine from "@components/ExperienceTimeLine";
-import { BlogList } from "./blog/_components/blog";
+import { NoteList } from "./note/_components/note";
 import ProjectThumbnail from "./project/_components/ProjectThumbnail";
 import Link from "next/link";
 import myLink from "@/link";
@@ -13,11 +13,12 @@ import { getExperience } from "@/service/experience.service";
 import conf from "@config";
 import Footer from "@/components/Footer";
 import { RightOutlined } from "@ant-design/icons";
+import Stacks from "@/components/Stacks";
 
 export default async function Page() {
   const projects = await getProject({ take: 4 });
   const experience = await getExperience();
-  const blog = await getBlog({ take: 4 });
+  const note = await getNote({ take: 3 });
 
   return (
     <div className="px-8 max-w-xl mx-auto box-border py-24">
@@ -50,29 +51,30 @@ export default async function Page() {
       </section>
 
       <Divider />
-      <section id="skills" className="p-8 -ml-8 -mr-8 py-16 dotBg">
-        <h2>Skills</h2>
-        <div className="flex flex-wrap gap-4">
+      <section id="stacks" className="p-8 -ml-8 -mr-8 py-16 dotBg">
+        <h2>Stacks</h2>
+        <Stacks />
+        {/* <div className="flex flex-wrap gap-4">
           {Object.entries(technology)?.map(([key, { label, Icon }]) => (
             <div key={key} className="flex items-center gap-2 px-2 rounded-md ">
               <Icon className="text-2xl" />
               {label}
             </div>
           ))}
-        </div>
+        </div> */}
       </section>
 
       <Divider />
-      <section id="blog" className="py-16">
+      <section id="note" className="py-16">
         <h2 className="sticky md:relative top-0 z-10 backdrop-blur-md md:backdrop-blur-0 p-2 px-8 -mx-8">
-          <Link href={myLink.blog()} title="Blog">
-            Blog <RightOutlined />
+          <Link href={myLink.note()} title="Note">
+            Note <RightOutlined />
           </Link>
         </h2>
-        <BlogList blogs={blog.data} />
+        <NoteList notes={note.data} />
         <div className="text-right">
-          <Link href={myLink.blog()}>
-            More Articles
+          <Link href={myLink.note()}>
+            More Notes
             <RightOutlined />{" "}
           </Link>
         </div>

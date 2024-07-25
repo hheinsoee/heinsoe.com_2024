@@ -12,6 +12,21 @@ const config: Config = {
   },
   theme: {
     extend: {
+      fontFamily: {
+        roboto: ["Roboto", "sans-serif"],
+        "black": ["Roboto Black", "sans-serif"],
+        "blackitalic": ["Roboto Black Italic", "sans-serif"],
+        "bold": ["Roboto Bold", "sans-serif"],
+        "bolditalic": ["Roboto Bold Italic", "sans-serif"],
+        "italic": ["Roboto Italic", "sans-serif"],
+        "light": ["Roboto Light", "sans-serif"],
+        "lightitalic": ["Roboto Light Italic", "sans-serif"],
+        "medium": ["Roboto Medium", "sans-serif"],
+        "mediumitalic": ["Roboto Medium Italic", "sans-serif"],
+        "regular": ["Roboto Regular", "sans-serif"],
+        "thin": ["Roboto Thin", "sans-serif"],
+        "thinitalic": ["Roboto Thin Italic", "sans-serif"],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

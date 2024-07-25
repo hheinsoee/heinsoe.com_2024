@@ -22,7 +22,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const tags = await getTag();
-  const techs = await getTech();
+  const techs = await getTech({orderBy:{order:'desc'}});
   return (
     <html lang="en">
       <head>

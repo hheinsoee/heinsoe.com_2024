@@ -36,8 +36,8 @@ export const contentType = [
     icon: <AiOutlineUser />,
   },
   {
-    name: "blog",
-    label: "Blogs",
+    name: "note",
+    label: "Notes",
     field_list: [{ name: "author", label: "Author", data_type: "text" }],
     icon: <FaBlogger />,
   },

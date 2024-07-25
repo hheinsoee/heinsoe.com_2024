@@ -3,7 +3,7 @@ export const adminLink = {
   experience: (id?: string | number) =>
     `/admin/experience${id ? `/${id}` : ""}`,
   project: (id?: string | number) => `/admin/project${id ? `/${id}` : ""}`,
-  blog: () => "/admin/blog",
+  note: () => "/admin/note",
   tag: () => "/admin/tag",
   tech: () => "/admin/tech",
   api: {

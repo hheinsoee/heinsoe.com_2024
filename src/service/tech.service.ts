@@ -11,6 +11,9 @@ export const getTech = async (props?: Prisma.TechFindManyArgs) => {
       id: "desc",
     },
     ...props,
+    include: {
+      image: true,
+    },
   };
   try {
     // Perform both queries concurrently using Promise.all
@@ -34,7 +37,7 @@ export const createTech = async (props: Prisma.TechCreateInput) => {
   return await prisma.tech
     .create({ data: props })
     .then((res) => {
-      revalidatePath("/", 'layout');
+      revalidatePath("/", "layout");
       return getTech({
         where: {
           id: res.id,
@@ -52,7 +55,7 @@ export const updateTech = async (props: Prisma.TechUpdateArgs) => {
   return await prisma.tech
     .update(props)
     .then((res) => {
-      revalidatePath("/", 'layout');
+      revalidatePath("/", "layout");
       return getTech({
         where: {
           id: res.id,

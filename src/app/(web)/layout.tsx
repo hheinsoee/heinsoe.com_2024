@@ -8,11 +8,13 @@ import { LayoutProvider } from "@/context/layout";
 
 import conf from "@config";
 import { seo } from "@/utility/seo";
+import { Metadata } from "next";
 
-export const metadata = seo({
+export const metadata:Metadata = seo({
   title: conf.title,
   description: conf.about,
   url: "/",
+  images: [{ url: "/heinsoe.com.png" }],
 });
 
 export default async function RootLayout({
@@ -21,10 +23,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-      <Suspense fallback={<Loading className="h-screen" />}>
-        <ThemeProvider>
-          <LayoutProvider>{children}</LayoutProvider>
-        </ThemeProvider>
-      </Suspense>
+    <Suspense fallback={<Loading className="h-screen" />}>
+      <ThemeProvider>
+        <LayoutProvider>{children}</LayoutProvider>
+      </ThemeProvider>
+    </Suspense>
   );
 }

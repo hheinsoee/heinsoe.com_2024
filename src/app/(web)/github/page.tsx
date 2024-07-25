@@ -89,7 +89,7 @@ function Page() {
           {/* <JSONTree data={article}/> */}
           {projects.map((p) => (
             <List.Item key={p.id} className="mt-16">
-              {/* <Link style={{ marginBottom: 16 }} href={myLink.blog(article.id)}> */}
+              {/* <Link style={{ marginBottom: 16 }} href={myLink.note(article.id)}> */}
 
               {/* </Link> */}
               <div>

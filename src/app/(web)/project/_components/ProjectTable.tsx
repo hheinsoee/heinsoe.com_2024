@@ -1,17 +1,19 @@
 "use client";
 import React from "react";
 import { Table, Tag } from "antd";
-import Cell from "@components/Cell";
+import Cell, { TechTag } from "@components/Cell";
 import { MarkDownView } from "@/app/(admin)/_components/Inputs";
 import { BsViewList } from "react-icons/bs";
 import Link from "next/link";
 import myLink from "@/link";
-import { Blog, Tech } from "@interface";
+import { Note, Project, Tech } from "@interface";
 import { JSONTree } from "react-json-tree";
 import dayjs from "dayjs";
 import { useWindowSize } from "@/hook/useWindowSize";
+import Header from "@/components/Header";
+import ActionBar from "@/components/ActionBar";
 
-export default function ProjectTable({ data }: { data: Blog[] }) {
+export default function ProjectTable({ data }: { data: Project[] }) {
   const { width } = useWindowSize();
   return (
     <div className="md:px-8 max-w-6xl mx-auto mt-8">
@@ -59,15 +61,17 @@ export default function ProjectTable({ data }: { data: Blog[] }) {
                   title: "Techs",
                   // ellipsis: true,
                   width: "500px",
-                  render: (_: any) =>
-                    _.map((t: any) => (
-                      <Cell
-                        key={t?.TechId}
-                        type="technology"
-                        value={t?.Tech?.name}
-                        className="mr-2 my-1"
-                      />
-                    )),
+                  render: (_: any) => (
+                    <div className="flex flex-wrap items-center gap-2">
+                      {_.map((t: any) => (
+                        <TechTag
+                          key={t.id}
+                          id={t.TechId}
+                          className="mr-2 my-1"
+                        />
+                      ))}
+                    </div>
+                  ),
                 },
               ]
             : []),

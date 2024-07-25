@@ -44,7 +44,7 @@ model Project {
   tags  TagOnProject[]
 }
 
-model Blog {
+model Note {
   id          Int       @id @default(autoincrement())
   title       String    @db.VarChar(200)
   description String    @db.Text
@@ -55,8 +55,8 @@ model Blog {
   createdDt   DateTime? @default(now())
   updatedDt   DateTime? @default(now()) @updatedAt
 
-  techs TechOnBlog[]
-  tags  TagOnBlog[]
+  techs TechOnNote[]
+  tags  TagOnNote[]
 }
 
 model Image {
@@ -66,15 +66,19 @@ model Image {
   createdDt DateTime? @default(now())
 
   Project Project[]
-  Blog    Blog[]
+  Note    Note[]
+  Tech    Tech[]
 }
 
 model Tech {
   id               Int                @id @default(autoincrement())
   name             String
+  order             Int                @default(0)
+  imageId          Int?
+  image            Image?             @relation(fields: [imageId], references: [id])
   TechOnExperience TechOnExperience[]
   TechOnProject    TechOnProject[]
-  TechOnBlog       TechOnBlog[]
+  TechOnNote       TechOnNote[]
 }
 
 model TechOnExperience {
@@ -97,14 +101,14 @@ model TechOnProject {
   @@map("mapTechProject") // Specify the name of the intermediate table
 }
 
-model TechOnBlog {
+model TechOnNote {
   id     Int  @id @default(autoincrement())
-  Blog   Blog @relation(fields: [BlogId], references: [id])
+  Note   Note @relation(fields: [NoteId], references: [id])
   Tech   Tech @relation(fields: [TechId], references: [id])
-  BlogId Int
+  NoteId Int
   TechId Int
 
-  @@map("mapTechBlog") // Specify the name of the intermediate table
+  @@map("mapTechNote") // Specify the name of the intermediate table
 }
 
 model Tag {
@@ -112,7 +116,7 @@ model Tag {
   name            String
   TagOnExperience TagOnExperience[]
   TagOnProject    TagOnProject[]
-  TagOnBlog       TagOnBlog[]
+  TagOnNote       TagOnNote[]
 }
 
 model TagOnExperience {
@@ -135,12 +139,12 @@ model TagOnProject {
   @@map("mapTagProject") // Specify the name of the intermediate table
 }
 
-model TagOnBlog {
+model TagOnNote {
   id     Int  @id @default(autoincrement())
-  Blog   Blog @relation(fields: [BlogId], references: [id])
+  Note   Note @relation(fields: [NoteId], references: [id])
   Tag    Tag  @relation(fields: [TagId], references: [id])
-  BlogId Int
+  NoteId Int
   TagId  Int
 
-  @@map("mapTagBlog") // Specify the name of the intermediate table
+  @@map("mapTagNote") // Specify the name of the intermediate table
 }

@@ -1,10 +1,10 @@
 {
   "name": "heinsoe.com",
-  "version": "0.1.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "node server.js",
-    "build": "node --heap-prof node_modules/next/dist/bin/next build",
+    "build": "next build",
     "start": "cross-env NODE_ENV=production node server.js",
     "lint": "next lint",
     "db-update": "npx prisma migrate dev --name init",

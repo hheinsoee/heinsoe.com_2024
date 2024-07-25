@@ -92,7 +92,7 @@ CREATE TABLE `Project` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Blog` (
+CREATE TABLE `Note` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(200) NOT NULL,
     `body` TEXT NOT NULL,
@@ -141,9 +141,9 @@ CREATE TABLE `mapTechsProject` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `mapTechsBlog` (
+CREATE TABLE `mapTechsNote` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `BlogId` INTEGER NOT NULL,
+    `NoteId` INTEGER NOT NULL,
     `TechsId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -176,9 +176,9 @@ CREATE TABLE `mapTagsProject` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `mapTagsBlog` (
+CREATE TABLE `mapTagsNote` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `BlogId` INTEGER NOT NULL,
+    `NoteId` INTEGER NOT NULL,
     `TagsId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -191,7 +191,7 @@ ALTER TABLE `Experance` ADD CONSTRAINT `Experance_imageId_fkey` FOREIGN KEY (`im
 ALTER TABLE `Project` ADD CONSTRAINT `Project_imageId_fkey` FOREIGN KEY (`imageId`) REFERENCES `Image`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Blog` ADD CONSTRAINT `Blog_imageId_fkey` FOREIGN KEY (`imageId`) REFERENCES `Image`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Note` ADD CONSTRAINT `Note_imageId_fkey` FOREIGN KEY (`imageId`) REFERENCES `Image`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `mapTechsExperance` ADD CONSTRAINT `mapTechsExperance_ExperanceId_fkey` FOREIGN KEY (`ExperanceId`) REFERENCES `Experance`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -206,10 +206,10 @@ ALTER TABLE `mapTechsProject` ADD CONSTRAINT `mapTechsProject_ProjectId_fkey` FO
 ALTER TABLE `mapTechsProject` ADD CONSTRAINT `mapTechsProject_TechsId_fkey` FOREIGN KEY (`TechsId`) REFERENCES `Techs`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `mapTechsBlog` ADD CONSTRAINT `mapTechsBlog_BlogId_fkey` FOREIGN KEY (`BlogId`) REFERENCES `Blog`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `mapTechsNote` ADD CONSTRAINT `mapTechsNote_NoteId_fkey` FOREIGN KEY (`NoteId`) REFERENCES `Note`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `mapTechsBlog` ADD CONSTRAINT `mapTechsBlog_TechsId_fkey` FOREIGN KEY (`TechsId`) REFERENCES `Techs`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `mapTechsNote` ADD CONSTRAINT `mapTechsNote_TechsId_fkey` FOREIGN KEY (`TechsId`) REFERENCES `Techs`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `mapTagsExperance` ADD CONSTRAINT `mapTagsExperance_ExperanceId_fkey` FOREIGN KEY (`ExperanceId`) REFERENCES `Experance`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -224,7 +224,7 @@ ALTER TABLE `mapTagsProject` ADD CONSTRAINT `mapTagsProject_ProjectId_fkey` FORE
 ALTER TABLE `mapTagsProject` ADD CONSTRAINT `mapTagsProject_TagsId_fkey` FOREIGN KEY (`TagsId`) REFERENCES `Tags`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `mapTagsBlog` ADD CONSTRAINT `mapTagsBlog_BlogId_fkey` FOREIGN KEY (`BlogId`) REFERENCES `Blog`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `mapTagsNote` ADD CONSTRAINT `mapTagsNote_NoteId_fkey` FOREIGN KEY (`NoteId`) REFERENCES `Note`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `mapTagsBlog` ADD CONSTRAINT `mapTagsBlog_TagsId_fkey` FOREIGN KEY (`TagsId`) REFERENCES `Tags`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `mapTagsNote` ADD CONSTRAINT `mapTagsNote_TagsId_fkey` FOREIGN KEY (`TagsId`) REFERENCES `Tags`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
