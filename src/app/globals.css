@@ -38,6 +38,20 @@ html {
 		background 1s,
 		border 1s; */
 }
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+.blinking {
+	animation: blink 1s ease-in-out infinite;
+}
 .imgHover .img {
 	opacity: 0.5;
 	filter: saturate(0%) brightness(0.4) contrast(0.8);
@@ -168,4 +182,5 @@ html {
 .md-editor-dark,
 .md-editor-modal-container[data-theme="dark"] {
 	--md-color: #ffffffbb !important
+;
 }

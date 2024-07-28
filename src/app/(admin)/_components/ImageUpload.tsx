@@ -25,7 +25,7 @@ const ImageUpload = ({
   onUploading,
 }: {
   value?: ImageProps[];
-  onChange?: (imgs: ImageProps[]) => void;
+  onChange?: (img: ImageProps[]) => void;
   limit?: number;
   onUploading?: (isUploading: boolean) => void;
 }) => {
@@ -33,7 +33,7 @@ const ImageUpload = ({
   const [previewImage, setPreviewImage] = useState("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  const imagess: UploadFile[] = useMemo(
+  const images: UploadFile[] = useMemo(
     () =>
       (value
         ? value?.map((img, i) => ({
@@ -48,10 +48,10 @@ const ImageUpload = ({
   );
 
   useEffect(() => {
-    if (fileList.length === 0 && imagess.length > 0) {
-      setFileList(imagess);
+    if (fileList.length === 0 && images.length > 0) {
+      setFileList(images);
     }
-  }, [imagess, fileList.length]);
+  }, [images, fileList.length]);
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -124,7 +124,7 @@ const ImageUpload = ({
           alt=""
         />
       )}
-      {/* <JsonView data={imagess} /> */}
+      {/* <JsonView data={images} /> */}
     </>
   );
 };

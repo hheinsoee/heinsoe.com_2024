@@ -12,10 +12,10 @@ import { Metadata } from "next";
 import Script from "next/script";
 
 export const metadata: Metadata = seo({
-  title: conf.title,
-  description: conf.about,
-  url: "/",
-  images: [{ url: "/heinsoe.com.png" }],
+  title: 'Junior Hein is Coming soon',
+  description: '',
+  url: "/junior",
+  images: [{ url: "https://wallpapers.com/images/hd/black-and-white-pregnant-woman-photograph-xpwndlrxq2k822xv.jpg" }],
 });
 
 export default async function RootLayout({
@@ -25,9 +25,9 @@ export default async function RootLayout({
 }) {
   return (
     <Suspense fallback={<Loading className="h-screen" />}>
-      <ThemeProvider>
-        <LayoutProvider>{children}</LayoutProvider>
-      </ThemeProvider>
+      <canvas className="banner_canvas" id="canvas_banner"></canvas>
+      <ThemeProvider>{children}</ThemeProvider>
+      <Script src="/bg.js" />
     </Suspense>
   );
 }
