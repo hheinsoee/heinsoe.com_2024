@@ -15,7 +15,7 @@ export const metadata: Metadata = seo({
   title: 'Junior Hein is Coming soon',
   description: '',
   url: "/junior",
-  images: [{ url: "/free-pregnant-silhouette-clip-art-1.png" }],
+  images: [{ url: "/junior.png" }],
 });
 
 export default async function RootLayout({

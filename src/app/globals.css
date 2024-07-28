@@ -7,6 +7,92 @@
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
+/* Roboto Regular */
+@font-face {
+	font-family: "Roboto";
+	src: url("/fonts/Roboto-Regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+}
+
+/* Roboto Italic */
+@font-face {
+	font-family: "Roboto Italic";
+	src: url("/fonts/Roboto-Italic.ttf") format("truetype");
+	font-weight: 400;
+	font-style: italic;
+}
+
+/* Roboto Bold */
+@font-face {
+	font-family: "Roboto Bold";
+	src: url("/fonts/Roboto-Bold.ttf") format("truetype");
+	font-weight: 700;
+	font-style: normal;
+}
+
+/* Roboto Bold Italic */
+@font-face {
+	font-family: "Roboto Bold Italic";
+	src: url("/fonts/Roboto-BoldItalic.ttf") format("truetype");
+	font-weight: 700;
+	font-style: italic;
+}
+
+/* Roboto Light */
+@font-face {
+	font-family: "Roboto Light";
+	src: url("/fonts/Roboto-Light.ttf") format("truetype");
+	font-weight: 300;
+	font-style: normal;
+}
+
+/* Roboto Light Italic */
+@font-face {
+	font-family: "Roboto Light Italic";
+	src: url("/fonts/Roboto-LightItalic.ttf") format("truetype");
+	font-weight: 300;
+	font-style: italic;
+}
+
+/* Roboto Medium */
+@font-face {
+	font-family: "Roboto Medium";
+	src: url("/fonts/Roboto-Medium.ttf") format("truetype");
+	font-weight: 500;
+	font-style: normal;
+}
+
+/* Roboto Medium Italic */
+@font-face {
+	font-family: "Roboto Medium Italic";
+	src: url("/fonts/Roboto-MediumItalic.ttf") format("truetype");
+	font-weight: 500;
+	font-style: italic;
+}
+
+/* Roboto Thin */
+@font-face {
+	font-family: "Roboto Thin";
+	src: url("/fonts/Roboto-Thin.ttf") format("truetype");
+	font-weight: 100;
+	font-style: normal;
+}
+
+/* Roboto Thin Italic */
+@font-face {
+	font-family: "Roboto Thin Italic";
+	src: url("/fonts/Roboto-ThinItalic.ttf") format("truetype");
+	font-weight: 100;
+	font-style: italic;
+}
+@font-face {
+	font-family: "digit";
+	src: url("/fonts/digit.ttf") format("truetype");
+	font-weight: 700;
+	font-style: italic;
+}
+
 :root {
 	--ck-image-style-spacing: 1.5em;
 	--ck-inline-image-style-spacing: calc(var(--ck-image-style-spacing) / 2);
@@ -48,6 +134,10 @@ html {
 	100% {
 		opacity: 1;
 	}
+}
+.digit-font {
+	font-family: "Courier New", Courier, monospace; /* Replace with your preferred font */
+	font-size: 2rem; /* Adjust size as needed */
 }
 .blinking {
 	animation: blink 1s ease-in-out infinite;

@@ -23,9 +23,10 @@ const config: Config = {
         "lightitalic": ["Roboto Light Italic", "sans-serif"],
         "medium": ["Roboto Medium", "sans-serif"],
         "mediumitalic": ["Roboto Medium Italic", "sans-serif"],
-        "regular": ["Roboto Regular", "sans-serif"],
+        "regular": ["Robglobaloto Regular", "sans-serif"],
         "thin": ["Roboto Thin", "sans-serif"],
         "thinitalic": ["Roboto Thin Italic", "sans-serif"],
+        "digit":['digit']
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
