@@ -60,7 +60,7 @@ function Page() {
 
   return (
     <div className="flex h-screen items-center justify-center">
-      <div className="h-screen absolute right-0 left-0 top-0 bottom-0 opacity-20 bg-cover bg-center" style={{backgroundImage:"url(https://wallpapers.com/images/hd/black-and-white-pregnant-woman-photograph-xpwndlrxq2k822xv.jpg)"}}/>
+      <div className="h-screen absolute right-0 left-0 top-0 bottom-0 opacity-20 bg-cover bg-center" style={{backgroundImage:"url(/free-pregnant-silhouette-clip-art-1.png)"}}/>
       <div>
         Junior Hein is Coming soon
         <div className=" font-mono blinking text-2xl">

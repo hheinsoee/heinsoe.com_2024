@@ -15,7 +15,7 @@ export const metadata: Metadata = seo({
   title: 'Junior Hein is Coming soon',
   description: '',
   url: "/junior",
-  images: [{ url: "https://wallpapers.com/images/hd/black-and-white-pregnant-woman-photograph-xpwndlrxq2k822xv.jpg" }],
+  images: [{ url: "/free-pregnant-silhouette-clip-art-1.png" }],
 });
 
 export default async function RootLayout({
