@@ -14,8 +14,8 @@ import Script from "next/script";
 export const metadata: Metadata = seo({
   title: conf.title,
   description: conf.about,
-  url: "/",
-  images: [{ url: "/heinsoe.com.png" }],
+  url: conf.baseUrl || "/",
+  images: [{ url: `${conf.baseUrl}/heinsoe.com.png` }],
 });
 
 export default async function RootLayout({

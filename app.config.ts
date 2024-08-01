@@ -2,6 +2,7 @@ import packageJson from "./package.json";
 const conf = {
   ...packageJson,
   title: "Hein Soe",
+  baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
   about:
     "as a web developer and designer committed to creating visually appealing and highly functional websites. With a focus on the latest trends and technologies, I strive to deliver exceptional web solutions that help businesses succeed online.",
 

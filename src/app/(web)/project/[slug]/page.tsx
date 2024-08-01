@@ -11,21 +11,30 @@ export default async function Details({
 }: {
   params: { slug: string };
 }) {
-  return await getProject({
-    where: {
-      id: parseInt(params.slug),
-    },
-  })
-    .then(({ data }) => {
-      return (
-        <>
-          <h2 className="hidden">Project</h2>
-          <ProjectDetails data={data[0]} />
-        </>
-      );
+  if (isNaN(parseInt(params.slug))) {
+    return notFound();
+  } else {
+    return await getProject({
+      where: {
+        id: parseInt(params.slug),
+      },
     })
-    .catch((error) => {
-      console.log(error);
-      notFound();
-    });
+      .then(({ data }) => {
+        if (data.length > 0) {
+          return (
+            <>
+              <h2 className="hidden">Project</h2>
+              <ProjectDetails data={data[0]} />
+            </>
+          );
+        } else {
+          notFound();
+          // throw new Error("not Found");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        notFound();
+      });
+  }
 }

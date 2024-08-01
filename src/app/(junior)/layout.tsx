@@ -15,7 +15,7 @@ export const metadata: Metadata = seo({
   title: 'Junior Hein is Coming soon',
   description: '',
   url: "/junior",
-  images: [{ url: "/junior.png" }],
+  images: [{ url: `${conf.baseUrl}/junior.png` }],
 });
 
 export default async function RootLayout({

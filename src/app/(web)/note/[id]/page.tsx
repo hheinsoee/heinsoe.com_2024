@@ -12,11 +12,10 @@ import { Note } from "@interface";
 import conf from "@config";
 import Header from "@/components/Header";
 
-export default async function NoteDetails({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function NoteDetails({ params }: { params: { id: any } }) {
+  if (isNaN(params.id)) {
+    return notFound();
+  }
   return await getNote({
     where: {
       id: parseInt(params.id),

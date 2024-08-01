@@ -10,7 +10,7 @@ import conf from "@config";
 function NotFoundPage() {
   const pathname = usePathname();
   return (
-    <div className="flex justify-center h-screen items-center bg-gray-700 text-white">
+    <div className="flex justify-center h-screen items-center bg-gray-700 text-white font-mono">
       <div>
         <Link href={myLink.home()} title={conf.title}>
           <Image

@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 
 function Page() {
   const start: Dayjs = dayjs("2024-03-11T00:00:00");
-  const targetDate: Dayjs = start.add(36, "week");
-
+  const targetDate: Dayjs = start.add(40, "week");
+  const now: Dayjs = dayjs();
+  const ageWeek: number = dayjs().diff(start, "week");
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft(targetDate));
 
   useEffect(() => {
@@ -89,8 +90,7 @@ function Page() {
           {formatNumber(timeLeft.seconds, 2)}:
           {formatNumber(timeLeft.milliseconds, 3)}
         </div>
-        
-        :)
+        <div className=" opacity-40">{ageWeek} weeks</div>
       </div>
     </div>
   );
