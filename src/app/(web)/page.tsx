@@ -19,9 +19,37 @@ export default async function Page() {
   const projects = await getProject({ take: 4 });
   const experience = await getExperience();
   const note = await getNote({ take: 3 });
-
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: conf.title,
+    jobTitle: conf.jobTitle,
+    affiliation: {
+      "@type": "Organization",
+      name: "Brainwave Data Co., Ltd",
+    },
+    url: "https://www.heinsoe.com",
+    sameAs: [conf.linkedinUrl, conf.githubUrl],
+    image: "https://www.heinsoe.com/heinsoe.jpg",
+    description: conf.description,
+    // address: {
+    //   "@type": "PostalAddress",
+    //   addressLocality: "San Francisco",
+    //   addressRegion: "CA",
+    //   postalCode: "94105",
+    //   addressCountry: "US",
+    // },
+    email: conf.email,
+    telephone: conf.phone,
+  };
   return (
     <div className="px-8 max-w-xl mx-auto box-border py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
       <MarkDownView text={conf.about} />
       <Divider />
       <section id="experience" className="py-16">
