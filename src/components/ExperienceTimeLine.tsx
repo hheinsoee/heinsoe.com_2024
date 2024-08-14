@@ -12,7 +12,6 @@ import myLink from "@/link";
 
 function ExperienceTimeLine({ experience }: { experience: Experience[] }) {
   const orderedExperience = experience;
-  const { repo } = useRepo();
   return (
     <Timeline
       items={orderedExperience.map((e, i) => {

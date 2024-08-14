@@ -15,7 +15,7 @@ export const metadata: Metadata = seo({
   title: conf.title,
   description: conf.about,
   url: conf.baseUrl || "/",
-  images: [{ url: `${conf.baseUrl}/heinsoe.com.png` }],
+  images: [{ url: `${conf.baseUrl}/heinsoe.jpg` }],
 });
 
 export default async function RootLayout({

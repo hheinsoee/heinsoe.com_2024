@@ -27,30 +27,30 @@ export default async function Page() {
     },
   })
     .then(({ data }) => {
-      const structuredData = {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        name: "My Projects",
-        itemListElement: data.map((p, i) => ({
-          "@type": "ListItem",
-          position: i + 1,
-          item: {
-            "@type": "SoftwareApplication",
-            name: p.title,
-            description: p.description,
-            url: `${conf.baseUrl}${myLink.project(p.id)}`,
-          },
-        })),
-      };
+      // const structuredData = {
+      //   "@context": "http://schema.org",
+      //   "@type": "WebPage",
+      //   name: `Creative Works by ${conf.title}`,
+      //   url: myLink.project(),
+      //   mainEntity: {
+      //     "@type": "ItemList",
+      //     itemListElement: data.map((p, i) => ({
+      //       "@type": "CreativeWork",
+      //       name: p.title,
+      //       description: p.description,
+      //       url: p.url,
+      //     })),
+      //   },
+      // };
       return (
         <>
           {/* <Head> */}
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{
-                __html: JSON.stringify(structuredData),
-              }}
-            />
+          {/* <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(structuredData),
+            }}
+          /> */}
           {/* </Head> */}
           <Header
             title={og.title}
