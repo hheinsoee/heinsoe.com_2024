@@ -25,7 +25,7 @@ export default async function NoteDetails({ params }: { params: { id: any } }) {
       return <NoteDetailsView note={data[0]} />;
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       notFound();
     });
 }

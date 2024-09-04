@@ -1,0 +1,5 @@
+DATABASE_URL="mysql://user:*^*B8Vky7^&@localhost:3306/heinsoe"
+NEXT_PUBLIC_IMAGE_URL_PATH=http://103.195.7.43:3100/images
+NEXT_PUBLIC_IMAGE_DIR=./cdn/images
+NEXT_PUBLIC_BASE_URL=https://www.heinsoe.com
+PORT=3100

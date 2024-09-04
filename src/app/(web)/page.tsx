@@ -15,104 +15,78 @@ import Footer from "@/components/Footer";
 import { RightOutlined } from "@ant-design/icons";
 import Stacks from "@/components/Stacks";
 import { Experience } from "@interface";
+import { getTech } from "@/service";
 
 export default async function Page() {
   const projects = await getProject({ take: 4 });
   const experience = await getExperience();
+  const techs = await getTech();
   const note = await getNote({ take: 3 });
   const e: Experience = experience.data[0];
   const structuredData = {
     "@context": "http://schema.org",
-    "@type": "ProfilePage",
-    mainEntity: {
-      "@type": "Person",
-      name: conf.title,
-      url: conf.baseUrl,
-      alternateName: "ဟိန်းစိုး",
-      // identifier: "123475623",
-      // interactionStatistic: [
-      //   {
-      //     "@type": "InteractionCounter",
-      //     interactionType: "https://schema.org/FollowAction",
-      //     userInteractionCount: 1,
-      //   },
-      //   {
-      //     "@type": "InteractionCounter",
-      //     interactionType: "https://schema.org/LikeAction",
-      //     userInteractionCount: 5,
-      //   },
-      // ],
-      // agentInteractionStatistic: {
-      //   "@type": "InteractionCounter",
-      //   interactionType: "https://schema.org/WriteAction",
-      //   userInteractionCount: 2346,
-      // },
-      jobTitle: "App/Web App Developer",
-      description: conf.about,
+
+    "@type": "Person",
+    name: conf.title,
+    url: conf.baseUrl,
+    sameAs: [conf.linkedinUrl, conf.githubUrl],
+    alternateName: "ဟိန်းစိုး",
+    jobTitle: "Application Developer",
+    worksFor: {
+      "@type": "Organization",
+      name: "Brainwave Data Co., Ltd",
+    },
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "Dagon University",
+    },
+    image: `${conf.baseUrl}/heinsoe.jpg`,
+    description: conf.about,
+
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": conf.baseUrl,
+    },
+    knowsAbout: techs.data.map((t) => t.name),
+    hasOccupation: {
+      "@type": "Occupation",
+      name: e.position,
+      skills: e.techs?.map((e) => e.Tech?.name),
+      description: e.description,
       mainEntityOfPage: {
         "@type": "WebPage",
         "@id": conf.baseUrl,
+        lastReviewed: new Date(),
       },
-      worksFor: {
-        "@type": "Organization",
-        name: "Brainwave Data Co., Ltd",
-      },
-      alumniOf: {
-        "@type": "CollegeOrUniversity",
-        name: "Dagon University",
-      },
-      sameAs: [conf.linkedinUrl, conf.githubUrl],
-      knowsAbout: [
-        "React.js",
-        "Next.js",
-        "GraphQL Apollo",
-        "MySQL",
-        "Express.js",
-        "PHP",
-        "Material UI",
-        "Ant Design",
-      ],
-      hasOccupation: {
-        "@type": "Occupation",
-        name: e.position,
-        skills: e.techs?.map((e) => e.Tech?.name),
-        description: e.description,
-        mainEntityOfPage: {
-          "@type": "WebPage",
-          "@id": conf.baseUrl,
-          lastReviewed: new Date(),
+      estimatedSalary: [
+        {
+          "@type": "MonetaryAmountDistribution",
+          name: "base",
+          currency: "USD",
+          duration: "P1Y",
+          percentile10: "6667.03",
+          percentile25: "7670.5",
+          median: "8000",
+          percentile75: "8667.1",
+          percentile90: "10000.5",
         },
-        estimatedSalary: [
-          {
-            "@type": "MonetaryAmountDistribution",
-            name: "base",
-            currency: "USD",
-            duration: "P1Y",
-            percentile10: "6667.03",
-            percentile25: "7670.5",
-            median: "8000",
-            percentile75: "8667.1",
-            percentile90: "10000.5",
-          },
-        ],
-        occupationLocation: [
-          {
-            "@type": "State",
-            name: "Yangon",
-          },
-        ],
-      },
-      worksOn: projects.data.map((p) => ({
-        "@type": "CreativeWork",
-        name: p.title,
-        description: p.description,
-        url: p.url,
-      })),
-      image: "https://www.heinsoe.com/heinsoe.jpg",
-      email: conf.email,
-      telephone: conf.phone,
-      industry: "Technology",
+      ],
+      occupationLocation: [
+        {
+          "@type": "State",
+          name: "Yangon",
+        },
+      ],
     },
+    worksOn: projects.data.map((p) => ({
+      "@type": "CreativeWork",
+      name: p.title,
+      description: p.description,
+      url: myLink.project(p.id),
+    })),
+    email: conf.email,
+    telephone: conf.phone,
+    industry: "Technology",
   };
   return (
     <div className="px-8 max-w-xl mx-auto box-border py-24">
