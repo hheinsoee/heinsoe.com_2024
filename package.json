@@ -10,7 +10,7 @@
     "db-update": "npx prisma migrate dev --name init",
     "prisma-update": "npx prisma db pull && npx prisma generate",
     "prisma-client-update": "npx prisma generate",
-    "pm2:start:prod": "cross-env NODE_ENV=production pm2 start server.js --name heinsoe.com"
+    "deploy": "pm2 deploy ecosystem.config.js production"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
